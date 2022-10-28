@@ -1,10 +1,10 @@
-import { useState, useEffect, Fragment } from 'react'
-import { Transition } from '@headlessui/react'
+import { useState, useEffect, Fragment, useRef } from 'react'
+import { Transition, Dialog  } from '@headlessui/react'
 
 import {
     CheckCircleIcon,
     InformationCircleIcon,
-    ExclamationCircleIcon
+    ExclamationCircleIcon,
 } from '@heroicons/react/24/outline'
 
 import { XMarkIcon } from '@heroicons/react/24/solid'
@@ -237,5 +237,58 @@ export const Notification = ({ type, title, message }) => {
                 </div>
             </div>
         </>
+    )
+}
+
+export const Modal = ({ open, setOpen, ui, title, modalStyle }) => {
+
+    const cancelButtonRef = useRef(null)
+
+    return (
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        >
+                            <Dialog.Panel className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-xl md:max-w-2xl ${modalStyle}`}>
+                                <div className="flex justify-between p-5">
+                                    <div className="font-semibold text-gray-600 text-xl">
+                                        {title}
+                                    </div>
+                                    <div>
+                                        <XMarkIcon className="w-6 h-6 text-gray-500 cursor-pointer hover:text-black transition-all" onClick={() => { setOpen(false) }} />
+                                    </div>
+                                </div>
+                                <div className="-mt-5 bg-white px-4 pb-4 sm:p-6 sm:pb-4">
+                                    {
+                                        ui
+                                    }
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition.Root>
     )
 }

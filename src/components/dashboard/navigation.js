@@ -1,5 +1,5 @@
 import {
-    Bars2Icon,
+    Bars3Icon,
     BellIcon
 } from '@heroicons/react/24/outline'
 
@@ -13,7 +13,7 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu }) => {
                     onClick={() => { setSidebarOpen(prevState => !prevState); setCollapsedMenu(prevState => !prevState) }}
                 >
                     <span className="sr-only">Open sidebar</span>
-                    <Bars2Icon className="h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
             </div>
             <div className='font-extrabold text-[#C4C4C4]'>

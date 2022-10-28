@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react'
-import { useLocation, Routes, Route } from 'react-router-dom'
+import { useLocation, Routes, Route, useNavigate } from 'react-router-dom'
 
 import { Sidebar } from '../../components/dashboard/sidebar'
 import { MiddleTopNav } from '../../components/dashboard/navigation'
 
 import Main from '../../components/dashboard'
-// import Companies from '../components/dashboard/pages/companies'
+import { Modal, Button } from '../../components/ui'
 
 const Dashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [collapsedMenu, setCollapsedMenu] = useState(false)
     const [refreshPage, setRefreshPage] = useState(true)
     const [currentRoute, setCurrentRoute] = useState()
+    const [profileComplete, setProfileComplete] = useState(true)
+
     const location = useLocation()
     const routePrefix = "/dashboard"
     //These useEffects are used to handle when the url changes without explicit refresh. 
     useEffect(() => {
         setRefreshPage(false)
+        setProfileComplete(false)
     }, [])
 
     useEffect(() => {
@@ -30,7 +33,7 @@ const Dashboard = () => {
         setCurrentRoute(location.pathname)
     }, [location])
     return (
-        <>
+        <div className='relative'>
             <div>
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} collapsedMenu={collapsedMenu} currentRoute={currentRoute} routePrefix={routePrefix} />
                 <div className={`md:pl-64 flex flex-col flex-1 ${collapsedMenu && "md:pl-16 ease-in-out duration-300"}`}>
@@ -46,8 +49,38 @@ const Dashboard = () => {
                     </main>
                 </div>
             </div>
-        </>
+            {
+                !profileComplete ?
+                    <div className='absolute top-0 w-full  h-full'>
+                        <div className='w-full h-full backdrop-blur-sm flex justify-center items-center z-40'>
+                            <Modal open={!profileComplete} setOpen={setProfileComplete} ui={<CompleteProfileModal />} />
+                        </div>
+                    </div>
+                    :
+                    <>
+
+                    </>
+            }
+        </div>
     )
 }
 
 export default Dashboard
+
+const CompleteProfileModal = () => {
+    const navigate = useNavigate()
+
+    return (
+        <div className='w-full flex flex-col items-center gap-y-4'>
+            <div className='text-3xl font-semibold text-center px-4'>
+                Complete your profile to access your clients
+            </div>
+            <div className='text-gray-500 trext-sm'>
+                Your profile is 25% complete
+            </div>
+            <div className='w-full md:w-1/2'>
+                <Button type="secondary" text="Complete" onClick={() => { navigate('/onboarding') }} />
+            </div>
+        </div>
+    )
+}
