@@ -55,10 +55,10 @@ const Dashboard = () => {
                 </div>
             </div>
             {
-                profileComplete ?
+                !profileComplete ?
                     <div className='absolute top-0 w-full  h-full'>
                         <div className='w-full h-full backdrop-blur-sm flex justify-center items-center z-40'>
-                            <Modal open={!profileComplete} setOpen={setProfileComplete} ui={<CompleteProfileModal />} />
+                            <Modal open={!profileComplete} setOpen={(prevState) => { setProfileComplete(prevState => !prevState) }} ui={<CompleteProfileModal />} />
                         </div>
                     </div>
                     :
