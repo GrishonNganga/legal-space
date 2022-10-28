@@ -40,7 +40,7 @@ const routes = [
         current: false,
         children: [
             { name: 'Profile', href: '/settings', current: false },
-            { name: 'Settings', href: '/settings/memebers', current: false },
+            { name: 'Payment', href: '/settings/payment', current: true },
         ],
     },
 ]

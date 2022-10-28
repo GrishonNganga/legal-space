@@ -36,12 +36,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path='/client-signup' element={<LawyerSignup />} />
+        <Route path='/lawyer-signup' element={<LawyerSignup />} />
         <Route path='/signin' element={<Signin />} />
         {
           <>
             <Route path='/onboarding' element={<Onboarding />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/dashboard/*' element={<Dashboard />} />
 
           </>
         }

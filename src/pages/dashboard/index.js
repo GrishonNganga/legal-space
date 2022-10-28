@@ -5,6 +5,8 @@ import { Sidebar } from '../../components/dashboard/sidebar'
 import { MiddleTopNav } from '../../components/dashboard/navigation'
 
 import Main from '../../components/dashboard'
+import Settings from '../../components/dashboard/settings'
+
 import { Modal, Button } from '../../components/ui'
 
 const Dashboard = () => {
@@ -41,16 +43,19 @@ const Dashboard = () => {
                     <main className="flex-1">
                         <div>
                             <Routes>
-                                {<Route path="/" exact element={<Main />} />
-                                /*<Route path="/companies/*" element={<Companies />} /> */}
-                                {/* <Route path="/settings" exact element={<Settings />} /> */}
+                                {
+                                    <>
+                                        <Route path="/" exact element={<Main />} />
+                                        <Route path="/settings/*" element={<Settings />} />
+                                    </>
+                                }
                             </Routes>
                         </div>
                     </main>
                 </div>
             </div>
             {
-                !profileComplete ?
+                profileComplete ?
                     <div className='absolute top-0 w-full  h-full'>
                         <div className='w-full h-full backdrop-blur-sm flex justify-center items-center z-40'>
                             <Modal open={!profileComplete} setOpen={setProfileComplete} ui={<CompleteProfileModal />} />

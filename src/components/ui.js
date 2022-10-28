@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment, useRef } from 'react'
-import { Transition, Dialog  } from '@headlessui/react'
+import { Transition, Dialog } from '@headlessui/react'
 
 import {
     CheckCircleIcon,
@@ -290,5 +290,63 @@ export const Modal = ({ open, setOpen, ui, title, modalStyle }) => {
                 </div>
             </Dialog>
         </Transition.Root>
+    )
+}
+
+export const ImageUpload = ({ id, name, required, className, label, onChange, value, step }) => {
+    return (
+        <>
+            {
+                label !== "" &&
+                <label htmlFor={name} className="block text-sm font-medium text-legalBlue pb-2"
+                >
+                    {label}
+                </label>
+            }
+            <input
+                id={id || ""}
+                name={name || ""}
+                type="file"
+                required={required || false}
+                className={`appearance-none block w-full px-3 py-2 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm ${className}`}
+                onChange={onChange}
+                value={value}
+            />
+        </>
+    )
+}
+
+export const TextArea = ({ id, name, placeholder, defaultValue, autoComplete, required, className, label, onChange, value, cols, rows, spellCheck, autoCorrect, autoCapitalize, wrap }) => {
+
+    return (
+        <>
+            {
+                label !== "" &&
+                <label htmlFor={name} className="block text-sm font-medium text-legalBlue"
+
+                >
+                    {label}
+                </label>
+            }
+            <textarea
+                id={id || ""}
+                name={name || ""}
+                type={"text"}
+                autoComplete={autoComplete}
+                spellCheck={spellCheck}
+                autoCorrect={autoCorrect}
+                autoCapitalize={autoCapitalize}
+                wrap={wrap}
+                required={required || false}
+                placeholder={placeholder}
+                defaultValue={defaultValue}
+                className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm ${className}`}
+                cols={cols}
+                onChange={onChange}
+                rows={rows || "6"}
+            >
+                {value}
+            </textarea>
+        </>
     )
 }
