@@ -6,10 +6,11 @@ import './App.css';
 import { userStore } from './stores';
 
 import Landing from './pages/landing';
-import ClientSignup from './pages/client/signup'
-import Signin from './pages/client/signin'
+import LawyerSignup from './pages/lawyer/signup'
+import Signin from './pages/lawyer/signin'
 import FourOhFour from './pages/404';
 import Dashboard from './pages/dashboard'
+import Onboarding from './pages//lawyer/onboarding'
 
 import { refresh } from './data/controller/auth'
 
@@ -35,12 +36,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path='/client-signup' element={<ClientSignup />} />
+        <Route path='/client-signup' element={<LawyerSignup />} />
         <Route path='/signin' element={<Signin />} />
         {
+          <>
+            <Route path='/onboarding' element={<Onboarding />} />
+            <Route path='/dashboard' element={<Dashboard />} />
 
-          <Route path='/dashboard' element={<Dashboard />} />
-
+          </>
         }
         <Route
           path="*"

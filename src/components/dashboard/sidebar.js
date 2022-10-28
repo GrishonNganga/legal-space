@@ -7,7 +7,6 @@ import {
     HomeIcon,
     XMarkIcon,
     UserGroupIcon,
-    IdentificationIcon,
     CogIcon
 } from '@heroicons/react/24/outline'
 
@@ -21,34 +20,24 @@ const routes = [
         icon: HomeIcon,
         current: false,
         href: '',
-        permission: "*"
     },
     {
         name: 'Appointments',
         icon: UserGroupIcon,
         current: false,
-        href: "/field-service",
-        permission: ["FieldService"]
+        href: "/appointments",
     },
     {
         name: 'Engagements',
         icon: FolderOpenIcon,
         current: false,
+        href: "/engagements",
         enableNavigation: true,
-        permission: ["Companies"],
-    },
-    {
-        name: 'Management',
-        icon: IdentificationIcon,
-        current: false,
-        href: "/management",
-        permission: ["Management"]
     },
     {
         name: 'Settings',
         icon: CogIcon,
         current: false,
-        permission: "*",
         children: [
             { name: 'Profile', href: '/settings', current: false },
             { name: 'Settings', href: '/settings/memebers', current: false },
@@ -154,26 +143,17 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                                         <div
                                                             className={classNames(
                                                                 item.current
-                                                                    ? 'bg-indigo-50'
-                                                                    : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                                                    ? 'bg-indigo-50 text-legalYellow border-legalYellow'
+                                                                    : `border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900`,
                                                                 'group flex items-center px-3 py-2 text-sm font-medium border-l-4'
                                                             )}
-                                                        // style={{
-                                                        //     borderColor: `${(((item.current) && PRIMARY_COLOR)) || "transparent"}`,
-                                                        //     color: `${((item.current) && LINK_COLOR) || ""}`
-
-                                                        // }}
                                                         >
                                                             <item.icon
                                                                 className={classNames(
-                                                                    item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                                                    item.current ? 'text-gray-500 text-legalYellow' : `text-gray-400 group-hover:text-gray-500`,
                                                                     'mr-3 flex-shrink-0 h-6 w-6'
                                                                 )}
                                                                 aria-hidden="true"
-                                                            // style={{
-                                                            //     color: `${((item.current) && LINK_COLOR) || ""}`
-
-                                                            // }}
                                                             />
                                                             {item.name}
                                                         </div>
@@ -185,14 +165,10 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                                                 <Disclosure.Button
                                                                     className={classNames(
                                                                         item.current
-                                                                            ? 'bg-indigo-100 '
+                                                                            ? 'bg-indigo-100 border-legalYellow text-legalYellow'
                                                                             : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                                                                        'group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4'
+                                                                        `group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4`
                                                                     )}
-                                                                // style={{
-                                                                //     borderColor: `${(item.current && PRIMARY_COLOR) || "transparent"}`,
-                                                                //     color: `${(item.current && LINK_COLOR) || ""}`
-                                                                // }}
                                                                 >
                                                                     <item.icon
                                                                         className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -218,7 +194,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                                                             className={
                                                                                 classNames(
                                                                                     subItem.current ?
-                                                                                        "text-gray-900 bg-gray-100" :
+                                                                                        "text-gray-900 bg-gray-100 " :
                                                                                         "hover:text-gray-900 hover:bg-gray-200",
                                                                                     "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-gray-600 rounded-md  cursor-pointer"
 
@@ -269,15 +245,10 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                                     <div
                                                         className={classNames(
                                                             item.current
-                                                                ? 'bg-indigo-50'
+                                                                ? 'bg-indigo-50 border-legalYellow text-legalYellow'
                                                                 : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                                                             'group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4 cursor-pointer'
                                                         )}
-                                                    // style={{
-                                                    //     borderColor: `${((item.current && PRIMARY_COLOR)) || "transparent"}`,
-                                                    //     color: `${(item.current && LINK_COLOR) || ""}`
-
-                                                    // }}
                                                     >
                                                         <item.icon
                                                             className={classNames(
@@ -296,15 +267,10 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                                             <Disclosure.Button
                                                                 className={classNames(
                                                                     item.current
-                                                                        ? 'bg-indigo-50'
+                                                                        ? 'bg-indigo-50 border-legalYellow text-legalYellow'
                                                                         : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                                                                     'group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4'
                                                                 )}
-                                                            // style={{
-                                                            //     borderColor: `${(item.current && PRIMARY_COLOR) || "transparent"}`,
-                                                            //     color: `${(item.current && LINK_COLOR) || ""}`
-
-                                                            // }}
                                                             >
                                                                 <item.icon
                                                                     className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -365,15 +331,10 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                                 <div
                                                     className={classNames(
                                                         item.current
-                                                            ? 'bg-indigo-50'
+                                                            ? 'bg-indigo-50 border-legalYellow text-legalYellow'
                                                             : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                                                         'group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4 cursor-pointer'
                                                     )}
-                                                // style={{
-                                                //     borderColor: `${((item.current && PRIMARY_COLOR)) || "transparent"}`,
-                                                //     color: `${(item.current && LINK_COLOR) || ""}`
-
-                                                // }}
                                                 >
                                                     <item.icon
                                                         className={classNames(
@@ -391,14 +352,10 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                                         <Disclosure.Button
                                                             className={classNames(
                                                                 item.current
-                                                                    ? 'bg-indigo-50'
+                                                                    ? 'bg-indigo-50 border-legalYellow text-legalYellow'
                                                                     : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                                                                 'group w-full flex items-center px-3 py-2 text-sm text-left font-medium border-l-4 relative'
                                                             )}
-                                                        // style={{
-                                                        //     borderColor: `${(item.current && PRIMARY_COLOR) || "transparent"}`,
-                                                        //     color: `${(item.current && LINK_COLOR) || ""}`
-                                                        // }}
                                                         >
                                                             <item.icon
                                                                 className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
