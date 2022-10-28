@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
+
 import './App.css';
 
+import { userStore } from './stores';
+
+import Landing from './pages/landing';
+import ClientSignup from './pages/client/signup'
+import Signin from './pages/client/signin'
+import FourOhFour from './pages/404';
+import Dashboard from './pages/dashboard'
+
+import { refresh } from './data/controller/auth'
+
 function App() {
+  const user = userStore(state => state.user)
+  const storeUser = userStore(state => state.storeUser)
+  const removeUser = userStore(state => state.removeUser)
+
+  useEffect(() => {
+    if (!user) {
+      refresh().then(response => {
+        if (response.status === "success") {
+          storeUser(response.data.user)
+        } else {
+          removeUser()
+        }
+      })
+    }
+    // eslint-disable-next-line
+  }, [user])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path='/client-signup' element={<ClientSignup />} />
+        <Route path='/signin' element={<Signin />} />
+        {
+
+          <Route path='/dashboard' element={<Dashboard />} />
+
+        }
+        <Route
+          path="*"
+          element={<FourOhFour />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
