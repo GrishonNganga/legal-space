@@ -145,7 +145,7 @@ const Signin = () => {
                                         <span className="text-sm text-legalBlue">
                                             Not a member?
                                         </span>
-                                        <span className="ml-2 font-bold text-sm hover:underline cursor-pointer" onClick={() => { navigate('/client-signup') }}>Sign up</span>
+                                        <span className="ml-2 font-bold text-sm hover:underline cursor-pointer" onClick={() => { navigate('/lawyer-signup') }}>Sign up</span>
                                     </div>
                                 </div>
                             </div>
