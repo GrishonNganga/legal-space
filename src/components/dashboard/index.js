@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 const Main = () => {
+    const navigate = useNavigate()
+
     return (
         <div className="py-4 px-4">
             <div className="max-w-7xl mx-auto px-4">
                 <h1 className="text-gray-900">Hello Bendon</h1>
-                <h1 className="mt-2 font-semibold text-[#183A33]">Your cases are waiting</h1>
-
+                <h1 className="mt-2 font-semibold text-[#183A33] text-xl">Your cases are waiting</h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 {/* Replace with your content */}
@@ -37,42 +40,42 @@ const Main = () => {
                         </div>
                     </div>
                     <div className="mt-4 grid grid-rows-2 grid-cols-2 gap-4">
-                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-5 py-4'>
-                            <div className='text-legalGreen'>
+                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-3 py-3'>
+                            <div className='text-legalGreen font-semibold'>
                                 Cases handled
                             </div>
-                            <div className='text-legalYellow'>
+                            <div className='text-legalYellow font-semibold text-xl'>
                                 0
                             </div>
                         </div>
-                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-5 py-4'>
-                            <div className='text-legslGreen'>
+                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-3 py-3 group cursor-pointer' onClick={() => { navigate('appointments') }}>
+                            <div className='text-legalGreen font-semibold group-hover:underline'>
                                 Pending appointments
                             </div>
-                            <div className='text-legalYellow'>
+                            <div className='text-legalYellow font-semibold text-xl'>
                                 3
                             </div>
                         </div>
-                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-5 py-4'>
-                            <div className='text-legslGreen'>
+                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-3 py-3'>
+                            <div className='text-legalGreen font-semibold'>
                                 Reviews
                             </div>
-                            <div className='text-legalYellow'>
+                            <div className='text-legalYellow font-semibold text-xl'>
                                 0
                             </div>
                         </div>
-                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-5 py-4'>
-                            <div className='text-legslGreen'>
+                        <div className=' bg-[#C8D0CE] rounded px-8 flex flex-col text-center gap-y-3 py-3'>
+                            <div className='text-legalGreen font-semibold'>
                                 Total cases
                             </div>
-                            <div className='text-legalYellow'>
+                            <div className='text-legalYellow font-semibold text-xl'>
                                 0
                             </div>
                         </div>
                     </div>
                     <div className='mt-4'>
                         <div className='flex justify-between'>
-                            <div className='font-semibold trxt-2xl'>
+                            <div className='font-semibold text-xl'>
                                 Appointment requests
                             </div>
                             <div className='text-[#D4D4D4] font-semibold'>
@@ -99,7 +102,7 @@ const Main = () => {
                                             East Dakota
                                         </div>
                                     </div>
-                                </div>      
+                                </div>
                             </div>
                             <div className='flex gap-x-2 items-center shadow-md p-3'>
                                 <div className='w-8 h-8 bg-gray-200 rounded-full'>
