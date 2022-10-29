@@ -7,7 +7,9 @@ module.exports = {
         legalGreen: "#183A33",
         legalYellow: "#C6A85C",
         legalGray: "#183A33",
-        legalBlue: '#6F8BA4'
+        legalBlue: '#6F8BA4',
+        dark: '#052A24',
+        legalLightGray: '#98A6A4'
       }
     },
   },
