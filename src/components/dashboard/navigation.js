@@ -3,7 +3,7 @@ import {
     BellIcon
 } from '@heroicons/react/24/outline'
 
-export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu }) => {
+export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavText }) => {
     return (
         <div className="w-full sticky top-0 z-10 flex items-center justify-between bg-white p-4">
             <div>
@@ -17,7 +17,9 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu }) => {
                 </button>
             </div>
             <div className='font-extrabold text-[#C4C4C4]'>
-                Lawyerspace.io
+                {
+                    middleTopNavText
+                }
             </div>
 
             <div className="">

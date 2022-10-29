@@ -6,6 +6,7 @@ import { MiddleTopNav } from '../../components/dashboard/navigation'
 
 import Main from '../../components/dashboard'
 import Settings from '../../components/dashboard/settings'
+import Appointments from '../../components/dashboard/apointments'
 
 import { Modal, Button } from '../../components/ui'
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
     const [refreshPage, setRefreshPage] = useState(true)
     const [currentRoute, setCurrentRoute] = useState()
     const [profileComplete, setProfileComplete] = useState(true)
+    const [middleTopNavText, setMiddleTopNavText] = useState("Lawyerspace.io")
 
     const location = useLocation()
     const routePrefix = "/dashboard"
@@ -39,13 +41,14 @@ const Dashboard = () => {
             <div>
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} collapsedMenu={collapsedMenu} currentRoute={currentRoute} routePrefix={routePrefix} />
                 <div className={`md:pl-64 flex flex-col flex-1 ${collapsedMenu && "md:pl-16 ease-in-out duration-300"}`}>
-                    <MiddleTopNav setSidebarOpen={setSidebarOpen} setCollapsedMenu={setCollapsedMenu} />
+                    <MiddleTopNav setSidebarOpen={setSidebarOpen} setCollapsedMenu={setCollapsedMenu} middleTopNavText={middleTopNavText} />
                     <main className="flex-1">
                         <div>
                             <Routes>
                                 {
                                     <>
-                                        <Route path="/" exact element={<Main />} />
+                                        <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} />} />
+                                        <Route path="/appointments" exact element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/settings/*" element={<Settings />} />
                                     </>
                                 }

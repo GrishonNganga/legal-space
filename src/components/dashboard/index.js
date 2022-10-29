@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useEffect } from 'react';
 
-const Main = () => {
+const Main = ({setMiddleTopNavText}) => {
     const navigate = useNavigate()
+    
+    useEffect(()=>{
+        setMiddleTopNavText("Lawyerspace.io")
+    })
 
     return (
         <div className="py-4 px-4">
