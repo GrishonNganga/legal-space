@@ -39,7 +39,7 @@ const routes = [
         icon: CogIcon,
         current: false,
         children: [
-            { name: 'Profile', href: '/settings', current: false },
+            { name: 'Profile', href: '/settings/profile', current: false },
             { name: 'Payment', href: '/settings/payment', current: true },
         ],
     },

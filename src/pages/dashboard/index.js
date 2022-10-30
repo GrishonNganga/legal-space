@@ -49,7 +49,7 @@ const Dashboard = () => {
                                     <>
                                         <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/appointments" exact element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
-                                        <Route path="/settings/*" element={<Settings />} />
+                                        <Route path="/settings/*" element={<Settings setMiddleTopNavText={setMiddleTopNavText} />} />
                                     </>
                                 }
                             </Routes>
