@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     const location = useLocation()
     const routePrefix = "/dashboard"
-    //These useEffects are used to handle when the url changes without explicit refresh. 
+
     useEffect(() => {
         setRefreshPage(false)
         setProfileComplete(false)

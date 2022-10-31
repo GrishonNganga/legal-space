@@ -7,10 +7,12 @@ import { userStore } from './stores';
 
 import Landing from './pages/landing';
 import LawyerSignup from './pages/lawyer/signup'
+import ClientSignup from './pages/client/signup'
 import Signin from './pages/lawyer/signin'
 import FourOhFour from './pages/404';
-import Dashboard from './pages/dashboard'
-import Onboarding from './pages//lawyer/onboarding'
+import ClientDashboard from './pages/client/dashboard'
+import LawyerDashboard from './pages/lawyer/dashboard'
+import Onboarding from './pages/lawyer/onboarding'
 
 import { refresh } from './data/controller/auth'
 
@@ -18,10 +20,12 @@ function App() {
   const user = userStore(state => state.user)
   const storeUser = userStore(state => state.storeUser)
   const removeUser = userStore(state => state.removeUser)
+  const isLoadingUser = userStore(state => state.isLoadingUser)
 
   useEffect(() => {
     if (!user) {
       refresh().then(response => {
+        console.log("REFRESH", response)
         if (response.status === "success") {
           storeUser(response.data.user)
         } else {
@@ -37,18 +41,28 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path='/lawyer-signup' element={<LawyerSignup />} />
+        <Route path='/client-signup' element={<ClientSignup />} />
         <Route path='/signin' element={<Signin />} />
         {
+          user?.role !== "client" &&
           <>
-            <Route path='/onboarding' element={<Onboarding />} />
-            <Route path='/dashboard/*' element={<Dashboard />} />
-
+            <Route path='/dashboard/*' element={<ClientDashboard />} />
           </>
         }
-        <Route
-          path="*"
-          element={<FourOhFour />}
-        />
+        {
+          user?.role !== "lawyer" &&
+          <>
+            <Route path='/onboarding' element={<Onboarding />} />
+            <Route path='/dashboard/*' element={<LawyerDashboard />} />
+          </>
+        }
+        {
+          !isLoadingUser &&
+          <Route
+            path="*"
+            element={<FourOhFour />}
+          />
+        }
       </Routes>
     </Router>
   );

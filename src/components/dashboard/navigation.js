@@ -5,7 +5,7 @@ import {
 
 export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavText }) => {
     return (
-        <div className="w-full sticky top-0 z-10 flex items-center justify-between bg-white p-4">
+        <div className="w-full sticky top-0 z-10 flex items-center justify-between bg-gray-50 p-4">
             <div>
                 <button
                     type="button"

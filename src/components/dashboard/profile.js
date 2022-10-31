@@ -1,10 +1,27 @@
 import { useEffect } from "react"
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import profile from '../../assets/profile.png'
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
 
-import { Toggle, Button } from "../ui"
+import { Toggle, Button, Input } from "../ui"
+
 const Profile = ({ setMiddleTopNavText }) => {
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<ProfileHome setMiddleTopNavText={setMiddleTopNavText} />} />
+                <Route path="/password-reset" element={<PasswordReset setMiddleTopNavText={setMiddleTopNavText} />} />
+                <Route path="/previous-engagements" element={<PreviousEngagements setMiddleTopNavText={setMiddleTopNavText} />} />
+            </Routes>
+        </>
+    )
+}
+export default Profile
+
+const ProfileHome = ({ setMiddleTopNavText }) => {
+    const navigate = useNavigate()
+
     useEffect(() => {
         setMiddleTopNavText("My Profile")
     }, [])
@@ -45,7 +62,7 @@ const Profile = ({ setMiddleTopNavText }) => {
                                 </div>
                             </div>
                             <div className="flex justify-between p-4">
-                                <div className="text-gray-400">
+                                <div className="text-gray-400" onClick={() => { navigate('password-reset') }}>
                                     Reset Password
                                 </div>
                                 <div>
@@ -61,7 +78,7 @@ const Profile = ({ setMiddleTopNavText }) => {
                                 </div>
                             </div>
                             <div className="flex justify-between p-4">
-                                <div className="text-gray-400">
+                                <div className="text-gray-400" onClick={() => { navigate('previous-engagements') }}>
                                     Previous engagements
                                 </div>
                             </div>
@@ -111,4 +128,209 @@ const Profile = ({ setMiddleTopNavText }) => {
     )
 }
 
-export default Profile
+
+const PasswordReset = ({ setMiddleTopNavText }) => {
+    useEffect(() => {
+        setMiddleTopNavText("Password")
+    }, [])
+
+    return (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-screen">
+            <div className="flex flex-col justify-between">
+                <div className="flex flex-col h-full">
+                    <div>
+                        <div className="mt-1">
+                            <Input
+                                id="oldPassword"
+                                name="oldPassword"
+                                type="password"
+                                label="Old Password"
+                                autoComplete="false"
+                                placeholder={"********"}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="mt-1">
+                            <Input
+                                id="newPassword"
+                                name="newPassword"
+                                type="password"
+                                label="New Password"
+                                autoComplete="false"
+                                placeholder={"********"}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="mt-1">
+                            <Input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                label="Confirm Password"
+                                placeholder={"********"}
+                                autoComplete="false"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-5">
+                    <Button text="Save changes" type={"secondary"} />
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
+const PreviousEngagements = ({ setMiddleTopNavText }) => {
+    useEffect(() => {
+        setMiddleTopNavText("Engagements")
+    }, [])
+
+    return (
+        <div className="w-full py-4 px-2">
+            <div className="w-full max-w-7xl mx-auto sm:px-6 md:px-8">
+                {/* Replace with your content */}
+                <div className='flex flex-col gap-y-5 p-3'>
+                    <div className='flex flex-col gap-y-3 shadow-md px-5 rounded-md'>
+                        <div className='flex gap-x-2 items-center'>
+                            <div className='w-10 h-10 bg-gray-200 rounded-full shrink-0'>
+
+                            </div>
+                            <div className='flex flex-col'>
+                                <div className='font-semibold text-base'>
+                                    Alexander Johansen
+                                </div>
+                                <div className='flex gap-x-3 items-center'>
+                                    <div className=' text-gray-400 text-sm'>
+                                        Criminal representation
+                                    </div>
+                                    <div className='w-1 h-1 bg-gray-400'>
+
+                                    </div>
+                                    <div className='-ml-2 text-xs text-gray-500'>
+                                        East Dakota
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className=''>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Date
+                                </div>
+                                <div>
+                                    4/09/2022
+                                </div>
+                            </div>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Time
+                                </div>
+                                <div>
+                                    11 AM
+                                </div>
+                            </div>
+                            <div className='mt-5'>
+                                vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
+                            </div>
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-y-3 shadow-md p-5 rounded-md'>
+                        <div className='flex gap-x-2 items-center'>
+                            <div className='w-10 h-10 bg-gray-200 rounded-full shrink-0'>
+
+                            </div>
+                            <div className='flex flex-col'>
+                                <div className='font-semibold text-base'>
+                                    Alexander Johansen
+                                </div>
+                                <div className='flex gap-x-3 items-center'>
+                                    <div className=' text-gray-400 text-sm'>
+                                        Criminal representation
+                                    </div>
+                                    <div className='w-1 h-1 bg-gray-400'>
+
+                                    </div>
+                                    <div className='-ml-2 text-xs text-gray-500'>
+                                        East Dakota
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className=''>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Date
+                                </div>
+                                <div>
+                                    4/09/2022
+                                </div>
+                            </div>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Time
+                                </div>
+                                <div>
+                                    11 AM
+                                </div>
+                            </div>
+                            <div className='mt-5'>
+                                vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
+                            </div>
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-y-3 shadow-md p-5 rounded-md'>
+                        <div className='flex gap-x-2 items-center'>
+                            <div className='w-10 h-10 bg-gray-200 rounded-full shrink-0'>
+
+                            </div>
+                            <div className='flex flex-col'>
+                                <div className='font-semibold text-base'>
+                                    Alexander Johansen
+                                </div>
+                                <div className='flex gap-x-3 items-center'>
+                                    <div className=' text-gray-400 text-sm'>
+                                        Criminal representation
+                                    </div>
+                                    <div className='w-1 h-1 bg-gray-400'>
+
+                                    </div>
+                                    <div className='-ml-2 text-xs text-gray-500'>
+                                        East Dakota
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className=''>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Date
+                                </div>
+                                <div>
+                                    4/09/2022
+                                </div>
+                            </div>
+                            <div className='flex gap-x-2 mt-3'>
+                                <div>
+                                    Time
+                                </div>
+                                <div>
+                                    11 AM
+                                </div>
+                            </div>
+                            <div className='mt-5'>
+                                vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

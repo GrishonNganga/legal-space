@@ -1,33 +1,123 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Input, Button, SplashCircles, Notification } from "../../components/ui"
+
+import { Steps, Button, SplashCircles, Input, Notification } from "../../components/ui"
+
+import { validateSignupData } from '../../validator'
+import { signup } from "../../data/controller/auth"
 
 import { userStore } from "../../stores"
 
-import { validateSigninData } from '../../validator'
-import { signin } from "../../data/controller/auth"
+const Signup = () => {
+    const [step, setStep] = useState(1)
 
-const Signin = () => {
+    useEffect(() => {
+        const currentStep = sessionStorage.getItem('step')
+        if (currentStep) {
+            setStep(parseInt(currentStep))
+        }
+    }, [])
+
+    return (
+        <div className="transition-opacity delay-150">
+            {
+                step === 1 &&
+                <SplashScreen step={step} updateStep={setStep} />
+            }
+            {
+                step === 2 &&
+                <SignupStep1 />
+            }
+
+        </div>
+    )
+
+}
+export default Signup
+
+const SplashScreen = ({ step, updateStep }) => {
+    const [steps] = useState([
+        { name: 'Step 1', href: 1, status: 'current' },
+        { name: 'Step 2', href: 2, status: 'upcoming' },
+        { name: 'Step 3', href: 3, status: 'upcoming' },
+        { name: 'Step 4', href: 4, status: 'upcoming' },
+    ])
+
+    const goToNextStep = () => {
+        sessionStorage.setItem('step', step + 1)
+        updateStep(prevState => prevState + 1)
+    }
+    return (
+        <>
+            <div className="hidden md:flex min-h-full h-screen transition-opacity delay-150">
+                <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+                    <div className="mx-auto w-full max-w-sm lg:w-96">
+                        <div>
+                            <h2 className="text-4xl font-bold tracking-tight text-legalYellow text-center">Find the Best Lawyers</h2>
+                            <div className="flex flex-col gap-y-8 text-lg font-normal text-gray-500 mt-2">
+                                <div className='mt-4 text-center'>
+                                    <div> Now you can find a lawyer </div>
+                                    <div>near your location for your case </div>
+                                </div>
+                                <div className='flex justify-center'>
+                                    <Steps steps={steps} />
+                                </div>
+                                <div className='w-full flex justify-center'>
+                                    <div className='w-3/4'>
+                                        <Button text={"Get Started"} onClick={goToNextStep} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <SplashCircles />
+            </div>
+            <div className="w-full h-screen flex md:hidden flex-col justify-between bg-legalGreen transition-opacity delay-150">
+                <SplashCircles />
+                <div className="py-8 flex flex-col items-center">
+                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-legalYellow">Find the Best Lawyers</h2>
+                    <div className="text-sm font-normal text-gray-500 mt-2 text-center">
+                        <div> Now you can find a lawyer </div>
+                        <div>near your location for your case </div>
+                    </div>
+                    <div className='flex justify-center mt-10'>
+                        <Steps steps={steps} />
+                    </div>
+                    <div className='w-full flex justify-center mt-10'>
+                        <div className='w-11/12'>
+                            <Button text={"Get Started"} onClick={goToNextStep} />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </>
+    )
+}
+
+const SignupStep1 = () => {
     const navigate = useNavigate()
+    const [userDetails, setUserDetails] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        role: "client"
+    })
+    const [info, setInfo] = useState({ message: "", type: "" })
+    const [loading, setLoading] = useState(false)
     const storeUser = userStore(state => state.storeUser)
 
-    const [userDetails, setUserDetails] = useState({
-        email: "",
-        password: ""
-    })
-    const [loading, setLoading] = useState(false)
-    const [info, setInfo] = useState({ message: "", type: "" })
-
     const handleSubmit = async () => {
-        const validationResult = await validateSigninData(userDetails)
+        const validationResult = await validateSignupData(userDetails)
         if (!validationResult.status) {
             setInfo({ message: validationResult.message, type: "error" })
             return
         }
         setInfo({ message: "", type: "" })
         setLoading(true)
-        signin(userDetails).then(response => {
-            console.log("SIGNIN", response)
+        signup(userDetails).then(response => {
             setLoading(false)
             setInfo({ message: response.message, type: response.status })
             if (response.status === "success") {
@@ -37,7 +127,6 @@ const Signin = () => {
         })
     }
 
-
     return (
         <div className="flex flex-1 min-h-full w-full h-screen transition-opacity delay-300">
             <div>
@@ -46,7 +135,7 @@ const Signin = () => {
             <div className="w-full md:w-4/5 h-full flex flex-col bg-legalGreen">
                 <div className="md:hidden w-full flex justify-center py-8 md:py-0">
                     <div className="text-legalYellow font-semibold">
-                        You are one step away, Sign in!
+                        Sign up
                     </div>
                 </div>
                 <div className="relative w-full h-full -mt-5 md:mt-0">
@@ -63,6 +152,32 @@ const Signin = () => {
                     <div className="absolute top-12 md:top-0 w-full h-full">
                         <div className="bg-white w-full h-full flex justify-center items-center">
                             <div className="space-y-6 w-4/5 md:w-2/3">
+                                <div>
+                                    <div className="mt-1">
+                                        <Input
+                                            id="firstName"
+                                            name="firstName"
+                                            type="text"
+                                            label="First Name"
+                                            autoComplete="email"
+                                            required
+                                            onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="mt-1">
+                                        <Input
+                                            id="lastName"
+                                            name="lastName"
+                                            type="text"
+                                            label="Last Name"
+                                            autoComplete="text"
+                                            required
+                                            onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                        />
+                                    </div>
+                                </div>
                                 <div>
                                     <div className="mt-1">
                                         <Input
@@ -92,6 +207,18 @@ const Signin = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="remember-me"
+                                            name="remember-me"
+                                            type="checkbox"
+                                            className="h-4 w-4 rounded focus:outline-none focus:border-legalYellow focus:ring-legalYellow"
+                                        />
+                                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                                            Remember me
+                                        </label>
+                                    </div>
+
                                     <div className="text-sm">
                                         <a href="/forgot-password" className="font-medium text-legalYellow hover:opacity-60">
                                             Forgot your password?
@@ -100,7 +227,7 @@ const Signin = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Log in" type="secondary" onClick={handleSubmit} loading={loading} />
+                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} />
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">
@@ -115,7 +242,7 @@ const Signin = () => {
                                     <div className="flex gap-3 mt-6">
                                         <div className="w-1/2">
                                             <a
-                                                href="/signin"
+                                                href="/client-signup"
                                                 className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                                             >
                                                 <span className="sr-only">Sign in with Facebook</span>
@@ -131,7 +258,7 @@ const Signin = () => {
 
                                         <div className="w-1/2">
                                             <a
-                                                href="/signin"
+                                                href="/client-signup"
                                                 className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                                             >
                                                 <span className="sr-only">Sign in with Twitter</span>
@@ -144,9 +271,9 @@ const Signin = () => {
 
                                     <div className="mt-6">
                                         <span className="text-sm text-legalBlue">
-                                            Not a member?
+                                            Already a member?
                                         </span>
-                                        <span className="ml-2 font-bold text-sm hover:underline cursor-pointer" onClick={() => { navigate('/lawyer-signup') }}>Sign up</span>
+                                        <span className="ml-2 font-bold text-sm hover:underline cursor-pointer" onClick={() => { navigate('/signin') }}>Log in</span>
                                     </div>
                                 </div>
                             </div>
@@ -161,4 +288,3 @@ const Signin = () => {
         </div>
     )
 }
-export default Signin

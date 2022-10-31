@@ -53,7 +53,7 @@ const SplashScreen = ({ step, updateStep }) => {
                 <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
                     <div className="mx-auto w-full max-w-sm lg:w-96">
                         <div>
-                            <h2 className="text-4xl font-bold tracking-tight text-gray-900 text-legalYellow text-center">Find the Best Lawyers</h2>
+                            <h2 className="text-4xl font-bold tracking-tight text-legalYellow text-center">Find the Best Lawyers</h2>
                             <div className="flex flex-col gap-y-8 text-lg font-normal text-gray-500 mt-2">
                                 <div className='mt-4 text-center'>
                                     <div> Now you can find a lawyer </div>
@@ -76,7 +76,7 @@ const SplashScreen = ({ step, updateStep }) => {
             <div className="w-full h-screen flex md:hidden flex-col justify-between bg-legalGreen transition-opacity delay-150">
                 <SplashCircles />
                 <div className="py-8 flex flex-col items-center">
-                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-gray-900 text-legalYellow">Find the Best Lawyers</h2>
+                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-legalYellow">Find the Best Lawyers</h2>
                     <div className="text-sm font-normal text-gray-500 mt-2 text-center">
                         <div> Now you can find a lawyer </div>
                         <div>near your location for your case </div>
@@ -103,13 +103,11 @@ const SignupStep1 = () => {
         lastName: "",
         email: "",
         password: "",
-        role: "client"
+        role: "lawyer"
     })
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const storeUser = userStore(state => state.storeUser)
-
-
 
     const handleSubmit = async () => {
         const validationResult = await validateSignupData(userDetails)
@@ -162,7 +160,7 @@ const SignupStep1 = () => {
                                             name="firstName"
                                             type="text"
                                             label="First Name"
-                                            autoComplete="email"
+                                            autoComplete="off "
                                             required
                                             onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                         />

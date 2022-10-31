@@ -26,24 +26,7 @@ const routes = [
         icon: UserGroupIcon,
         current: false,
         href: "/appointments",
-    },
-    {
-        name: 'Engagements',
-        icon: FolderOpenIcon,
-        current: false,
-        href: "/engagements",
-        enableNavigation: true,
-    },
-    {
-        name: 'Settings',
-        icon: CogIcon,
-        current: false,
-        enableNavigation: true,
-        children: [
-            { name: 'Profile', href: '/settings/profile', current: false },
-            { name: 'Payment', href: '/settings/payment', current: true },
-        ],
-    },
+    }
 ]
 
 export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRoute, routePrefix }) => {

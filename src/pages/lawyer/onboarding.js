@@ -1,36 +1,82 @@
-import { useState } from "react"
-import { useNavigate } from "react-router"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { Notification, Input, Button, SplashCircles, ImageUpload, TextArea } from "../../components/ui"
 
+import { DocumentIcon } from "@heroicons/react/24/solid"
+
+import { userStore } from "../../stores"
+
 const Onboarding = () => {
+    const user = userStore(state => state.user)
+    const navigate = useNavigate()
+
     const [step, setStep] = useState(1)
-    const [onboardindingDetails, setOnboardingDetails] = useState({
-        represents: "individual"
+    const [onboardingDetails, setOnboardingDetails] = useState({
+        represents: "individual",
+        image: "",
+        practicingCertificate: "",
+        admissionNumber: ""
     })
+
+    useEffect(() => {
+        const currentStep = sessionStorage.getItem('onboarding')
+        if (currentStep) {
+            setStep(parseInt(currentStep))
+        }
+    }, [])
+
+    useEffect(() => {
+        if (user?.onboarding) {
+            navigate('/dashboard')
+        }
+    }, [user])
 
     return (
         <>
             {
                 step === 1 &&
-                <Step1 onboardindingDetails={onboardindingDetails} setOnboardingDetails={setOnboardingDetails} setStep={setStep} />
+                <Step1 onboardingDetails={onboardingDetails} setOnboardingDetails={setOnboardingDetails} step={step} setStep={setStep} />
             }
             {
                 step === 2 &&
-                <Step2 onboardindingDetails={onboardindingDetails} setOnboardingDetails={setOnboardingDetails} setStep={setStep} />
+                <Step2 onboardingDetails={onboardingDetails} setOnboardingDetails={setOnboardingDetails} step={step} setStep={setStep} />
             }
         </>
     )
 }
 export default Onboarding
 
-const Step1 = ({ onboardindingDetails, setOnboardingDetails, setStep }) => {
+const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
     const navigate = useNavigate()
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
+    const [uploadingImage, setUploadingImage] = useState(false)
+    const [uploadingPracticeCertificate, setUploadingPracticeCertificate] = useState(false)
+
+
 
     const handleSubmit = () => {
-        setStep(prevState => prevState + 1)
+        let error
+        console.log("KEYS", Object.keys(onboardingDetails))
+        for (const key in onboardingDetails) {
+            console.log("KEY", key)
+            console.log("FIELD", onboardingDetails[key])
+            if (onboardingDetails[key] === "") {
+                error = true
+                setInfo({ type: "error", message: `${key} can't be empty` })
+                break
+            }
+        }
+        if (error) {
+            sessionStorage.setItem('onboarding', step + 1)
+            setStep(prevState => prevState + 1)
+            return
+        }
+    }
+
+    const uploadImage = (e) => {
+
     }
 
     return (
@@ -69,11 +115,12 @@ const Step1 = ({ onboardindingDetails, setOnboardingDetails, setStep }) => {
                                             Law firm
                                         </label>
                                         <input
-                                            id="remember-me"
-                                            name="remember-me"
+                                            id="firm"
+                                            name="firm"
                                             type="checkbox"
-                                            className="h-12 w-12 rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border-gray-300 text-[#6F8BA4]"
-                                            onChange={()=>{ setOnboardingDetails(prevState=>({...prevState, "represents": "firm"}))}}
+                                            checked={onboardingDetails?.represents === "firm"}
+                                            className="appearance-none h-12 w-12 border rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border-gray-300 text-[#6F8BA4] checked:bg-legalGreen styledRadio"
+                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, "represents": "firm" })) }}
 
                                         />
                                     </div>
@@ -82,59 +129,36 @@ const Step1 = ({ onboardindingDetails, setOnboardingDetails, setStep }) => {
                                             Individual
                                         </label>
                                         <input
-                                            id="remember-me"
-                                            name="remember-me"
+                                            id="individual"
+                                            name="individual"
                                             type="checkbox"
-                                            className="h-12 w-12 rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border-gray-300 text-[#6F8BA4]"
-                                            onChange={()=>{ setOnboardingDetails(prevState=>({...prevState, "represents": "individual"}))}}
+                                            checked={onboardingDetails?.represents === "individual"}
+                                            className="appearance-none h-12 w-12 rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border-gray-300 text-[#6F8BA4] checked:bg-legalGreen styledRadio"
+                                            onChange={() => { setOnboardingDetails(prevState => ({ ...prevState, "represents": "individual" })) }}
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <div className="mt-1">
-                                        <Input
-                                            id="firstName"
-                                            name="firstName"
-                                            type="text"
-                                            label="First Name"
-                                            autoComplete="email"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="mt-1">
-                                        <Input
-                                            id="lastName"
-                                            name="lastName"
-                                            type="text"
-                                            label="Last Name"
-                                            autoComplete="text"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="mt-1">
-                                        <Input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            label="Email Address"
-                                            autoComplete="email"
-                                            required
-                                        />
-                                    </div>
-                                </div>
+                                        {
+                                            uploadingImage &&
+                                            <ImageUpload
+                                                id="profilePhoto"
+                                                name="profilePhoto"
+                                                label="Upload your profile photo"
+                                                required
+                                                onChange={(e) => { uploadImage(e) }}
+                                            />
+                                            ||
+                                            <div className="flex gap-x-2 border p-3 rounded-md items-center">
+                                                <div>
+                                                    <DocumentIcon className="w-8 h-8 text-legalGreen" />
+                                                </div>
+                                                <div className="h-2 bg-legalGreen transition-all rounded-full" style={{ width: '100%' }}>
 
-                                <div>
-                                    <div className="mt-1">
-                                        <ImageUpload
-                                            id="profilePhoto"
-                                            name="profilePhoto"
-                                            label="Upload your profile photo"
-                                            required
-                                        />
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -219,7 +243,7 @@ const Step2 = ({ onboardindingDetails, setOnboardingDetails }) => {
                                         </div>
 
                                         <div>
-                                            
+
                                             <div className="mt-1">
                                                 <TextArea
                                                     id="about"

@@ -6,7 +6,7 @@ import Profile from './profile'
 const Settings = ({setMiddleTopNavText}) => {
     return (
         <Routes>
-            <Route path="/profile" element={<Profile setMiddleTopNavText={setMiddleTopNavText}/>} />
+            <Route path="/profile/*" element={<Profile setMiddleTopNavText={setMiddleTopNavText}/>} />
             <Route path="/payment" element={<Payment />} />
         </Routes>
     )
