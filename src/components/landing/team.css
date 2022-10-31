@@ -1,16 +1,16 @@
-.modules {
-  background: #c6a85c;
-  display: flex;
+.teams {
+  /* background: #c6a85c; */
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
-  padding: 3.5rem 0;
+  padding: 3.5rem 3.5rem;
 }
 
 .overlay {
   background: #d0efed;
 }
 
-.course-card {
+.team-card {
   background: #c6a85c;
   /* width: 85%;
   padding-bottom: 3.5rem;
@@ -19,7 +19,7 @@
   margin-left: 2rem; */
 }
 
-.course-card img {
+.team-card img {
   width: 100%;
   margin-bottom: 1.5rem;
 }

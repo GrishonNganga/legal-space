@@ -1,11 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { PlayIcon } from "@heroicons/react/24/solid";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    localStorage.setItem("clicked", JSON.parse(clicked));
+  }, [clicked]);
 
   return (
-    <nav className="w-full fixed bg-dark h-24 pt-4">
-      <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+    <nav className="w-full fixed top-0 z-50 bg-dark h-auto">
+      <div
+        className={`h-14 ${
+          clicked ? "hidden" : "flex"
+        } items-center flex-row justify-center bg-black top-0`}
+      >
+        <div className="flex flex-row items-center">
+          <p className="text-sm text-white px-10">
+            Ready to take your firm to the next level? Join over 200+ Legal
+            space clients
+          </p>
+          <button
+            className="hidden sm:flex flex-row items-center py-3 outline-white border cursor-pointer text-white px-8 space-x-2"
+            type="button"
+            onClick={() => setClicked(true)}
+          >
+            <PlayIcon height={20} width={20} />
+            <p className="text-xs">See Video</p>
+          </button>
+        </div>
+      </div>
+      <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <a href="/">
@@ -57,7 +82,7 @@ const NavBar = () => {
               navbar ? "block bg-white h-4/5 w-screen" : "hidden"
             }`}
           >
-            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 px-4 pt-8">
+            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 px-4">
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/">Home</a>
               </li>
@@ -73,9 +98,7 @@ const NavBar = () => {
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/contact">Contact</a>
               </li>
-              <li className="text-legalLightGray md:hover:text-white">
-                <a href="/client-landing">Signup</a>
-              </li>
+              
             </ul>
 
             <div
@@ -84,14 +107,14 @@ const NavBar = () => {
             >
               <a
                 href="/"
-                className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow"
+                className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
               >
                 Free Consultation
               </a>
             </div>
           </div>
         </div>
-        <div className="hidden space-x-2 lg:inline-block h-11 pt-3">
+        <div className="hidden space-x-2 lg:inline-block h-11 pt-3 ml=8">
           <a href="/" className="px-4 py-3 text-white bg-legalYellow">
             Free Consultation
           </a>
