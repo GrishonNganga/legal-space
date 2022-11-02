@@ -40,10 +40,11 @@ const Footer = () => {
               required
               onChange={null}
               placeholder="Enter your email"
+              className="rounded-none"
             />
 
             <div
-              className="h-10 w-10 bg-legalYellow flex items-center justify-center rounded"
+              className="h-10 w-10 bg-legalYellow flex items-center justify-center"
               aria-hidden={true}
             >
               <a href="mailto:email@example.com" rel="noreferrer">
@@ -52,6 +53,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="pt-20">
+        <p className="text-xs md:text-sm text-[#98A6A4]">
+          2022 copyright by LegalSPACE. All rights reserved
+        </p>
       </div>
     </div>
   );
