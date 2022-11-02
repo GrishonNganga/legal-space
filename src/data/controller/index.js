@@ -1,4 +1,4 @@
-import { signinUser, signupUser } from '../api/unauthenticatedRequests'
+import { signinUser, signupUser, getAllAreasOfPracticeRequest } from '../api/unauthenticatedRequests'
 import { editUserRequest, refreshSession } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -13,6 +13,11 @@ export const signup = async (userDetails) => {
 
 export const refresh = async () => {
     const response = await refreshSession()
+    return _returnResponse(response)
+}
+
+export const getAllAreasOfPractice = async () => {
+    const response = await getAllAreasOfPracticeRequest()
     return _returnResponse(response)
 }
 

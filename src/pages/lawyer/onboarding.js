@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { Notification, Input, Button, SplashCircles, ImageUpload, TextArea } from "../../components/ui"
 
 import { TrashIcon } from "@heroicons/react/24/solid"
-import { DocumentIcon } from "@heroicons/react/24/outline"
+import { ChevronDownIcon, DocumentIcon, XMarkIcon } from "@heroicons/react/24/outline"
 
 import { userStore } from "../../stores"
 
 import { getDownloadURL } from "firebase/storage";
 import { firebaseUpload } from "../../data/api/unauthenticatedRequests"
-import { editUser } from "../../data/controller"
+import { editUser, getAllAreasOfPractice } from "../../data/controller"
 
 const Onboarding = () => {
     const user = userStore(state => state.user)
@@ -25,9 +25,10 @@ const Onboarding = () => {
         practicingCertificate: "",
         admissionNumber: "",
         description: "",
-        // casesHandled: 0,
+        numberOfCases: 0,
         yearsOfExprience: 0,
-        phone: ""
+        phone: "",
+        areasOfPractice: []
     })
 
     useEffect(() => {
@@ -368,15 +369,27 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
 }
 
 const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
-    const onboardingInputsForStep2 = ["description", "yearsOfExperience", "phone"]
+    const onboardingInputsForStep2 = ["description", "yearsOfExperience", "phone", "numberOfCases", "areasOfPractice"]
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const [stepCompleted, setStepCompleted] = useState(false)
+    const [categories, setCategories] = useState([])
+    const [selectedCategories, setSelectedCategories] = useState([])
+
+    const categoriesRef = useRef(null)
+
+    useEffect(() => {
+        getAllAreasOfPractice().then(response => {
+            if (response?.status === "success") {
+                setCategories(response.data.categories)
+            }
+        })
+    }, [])
 
     useEffect(() => {
         let completed
         for (const key in onboardingDetails) {
-            if (onboardingInputsForStep2.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key])) {
+            if (onboardingInputsForStep2.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
                 completed = false
                 break
             }
@@ -385,6 +398,26 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
         setStepCompleted(completed)
         return
     }, [onboardingDetails])
+
+    useEffect(() => {
+        setOnboardingDetails(prevState => ({ ...prevState, 'areasOfPractice': selectedCategories.map(cat => cat._id) }))
+    }, [selectedCategories])
+
+    const addSelectedCategory = (e) => {
+        const category = categories.find(cat => cat._id === e.target.value)
+        if (category) {
+            setSelectedCategories(prevState => ([...prevState, category]))
+            const newCategories = categories.filter(cat => cat?._id !== e.target.value)
+            setCategories(newCategories)
+            categoriesRef.current.value = ""
+        }
+    }
+
+    const removeSelectedCategory = (category) => {
+        const newSelectedCategories = selectedCategories.filter(cat => cat._id !== category._id)
+        setSelectedCategories(newSelectedCategories)
+        setCategories(prevState => ([...prevState, category]))
+    }
 
     const handleSubmit = () => {
         setInfo({ type: "error", message: "" })
@@ -460,35 +493,69 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
                                                     onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                 />
                                             </div>
-                                            {/* <div>
+                                            <div>
                                                 <div className="mt-1">
                                                     <Input
                                                         id="numberOfCases"
                                                         name="numberOfCases"
-                                                        type="text"
+                                                        type="number"
                                                         label="Cases handled"
                                                         autoComplete="number"
                                                         required
                                                         onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                     />
                                                 </div>
-                                            </div> */}
-                                            {/* <div>
+                                            </div>
+                                            <div className="mt-1">
                                                 <div>
                                                     <label htmlFor={"areasOfPractice"} className="block text-sm font-medium text-legalBlue pb-2"
                                                     >
                                                         Areas of practice
                                                     </label>
-                                                    <select
-                                                        id="areasOfPractice"
-                                                        name="areasOfPractice"
-                                                        className={`block w-full px-3 py-2 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm`}
-                                                    >
-                                                        <option></option>
+                                                    {
+                                                        selectedCategories?.length > 0 &&
+                                                        <div className="flex border p-3 rounded-md mb-2">
+                                                            <div className="flex gap-x-2 flex-wrap gap-y-2 z-20 bg-white">
+                                                                {
+                                                                    selectedCategories?.map(category => {
+                                                                        return (
+                                                                            <div className="px-2 py-1 border border-legalYellow text-legalYellow font-semibold rounded-full text-sm flex space-x-1 items-center transition-all ease-in-out">
+                                                                                <div>
+                                                                                    {category.title}
+                                                                                </div>
+                                                                                <div onClick={() => { removeSelectedCategory(category) }}>
+                                                                                    <XMarkIcon className="w-4 h-4 text-legalYellow" />
+                                                                                </div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
 
-                                                    </select>
+                                                    }
+                                                    <div className="">
+                                                        <select
+                                                            id="areasOfPractice"
+                                                            name="areasOfPractice"
+                                                            className={`w-full px-3 py-2 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm`}
+                                                            onChange={addSelectedCategory}
+                                                            ref={categoriesRef}
+                                                        >
+                                                            <option className="text-gray-500">Select areas of practice</option>
+                                                            {
+                                                                categories?.map(category => {
+                                                                    return (
+                                                                        <option value={category?._id} className="text-gray-100">{category?.title}</option>
+
+                                                                    )
+                                                                })
+                                                            }
+
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                             <div>
                                                 <div className="mt-1">
                                                     <Input
