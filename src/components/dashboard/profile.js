@@ -117,7 +117,7 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                                 </div>
                             </div>
                             <div className="mt-3">
-                                <Button text="Done" type="secondary" />
+                                <Button text="Done" type="secondary" active={true}/>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import { signinUser, signupUser } from '../api/unauthenticatedRequests'
-import { refreshSession } from '../api/authenticatedRequests'
+import { editUserRequest, refreshSession } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
     const response = await signinUser(userDetails)
@@ -16,9 +16,12 @@ export const refresh = async () => {
     return _returnResponse(response)
 }
 
-const _returnResponse = (response) => {
-    console.log("RESPONSE", response)
+export const editUser = async (userDetails) => {
+    const response = await editUserRequest(userDetails)
+    return _returnResponse(response)
+}
 
+const _returnResponse = (response) => {
     switch (true) {
         case response?.status === 200:
             return { status: "success", data: response?.data, message: response?.data?.message }

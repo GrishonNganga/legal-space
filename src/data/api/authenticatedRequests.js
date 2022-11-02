@@ -17,4 +17,12 @@ export const refreshSession = async () => {
             return error.response;
         });
 };
- 
+
+export const editUserRequest = async (data) => {
+    return await api
+        .patch("/user/edit", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};

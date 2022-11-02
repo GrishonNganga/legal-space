@@ -8,7 +8,7 @@ import { Button, Input, TextArea, Calendar } from '../../../components/ui'
 
 const LawyerDetails = ({ setMiddleTopNavText }) => {
     const [bookAppointment, setBookAppointment] = useState(false)
-    const [appointmentBooked, setAppointmentBooked] = useState(false) 
+    const [appointmentBooked, setAppointmentBooked] = useState(false)
 
     useEffect(() => {
         setMiddleTopNavText("Lawyer Details")
@@ -56,12 +56,12 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
                         <LawyerInfo setBookAppointment={setBookAppointment} />
                         ||
                         <>
-                            <BookAppointment setMiddleTopNavText={setMiddleTopNavText} setAppointmentBooked={setAppointmentBooked}/>
+                            <BookAppointment setMiddleTopNavText={setMiddleTopNavText} setAppointmentBooked={setAppointmentBooked} />
                         </>
                     }
                 </div>
             </div>
-            
+
         </div>
     )
 }
@@ -187,7 +187,7 @@ const BookAppointment = ({ setMiddleTopNavText }) => {
                             />
                         </div>
                         <div>
-                            <Button text={"Next"} type="secondary" onClick={() => { setStep(prevState => prevState + 1) }} />
+                            <Button text={"Next"} type="secondary" onClick={() => { setStep(prevState => prevState + 1) }} active={true} />
                         </div>
                     </div>
                 </div>
@@ -238,7 +238,7 @@ const BookAppointment = ({ setMiddleTopNavText }) => {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <Button text="Next" type="secondary"/> 
+                        <Button text="Next" type="secondary" active={true} />
                     </div>
                 </div>
             }

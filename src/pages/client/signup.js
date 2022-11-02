@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Steps, Button, SplashCircles, Input, Notification } from "../../components/ui"
 
 import { validateSignupData } from '../../validator'
-import { signup } from "../../data/controller/auth"
+import { signup } from "../../data/controller"
 
 import { userStore } from "../../stores"
 
@@ -64,7 +64,7 @@ const SplashScreen = ({ step, updateStep }) => {
                                 </div>
                                 <div className='w-full flex justify-center'>
                                     <div className='w-3/4'>
-                                        <Button text={"Get Started"} onClick={goToNextStep} />
+                                        <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ const SplashScreen = ({ step, updateStep }) => {
                     </div>
                     <div className='w-full flex justify-center mt-10'>
                         <div className='w-11/12'>
-                            <Button text={"Get Started"} onClick={goToNextStep} />
+                            <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
                         </div>
                     </div>
 
@@ -227,7 +227,7 @@ const SignupStep1 = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} />
+                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true}/>
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">

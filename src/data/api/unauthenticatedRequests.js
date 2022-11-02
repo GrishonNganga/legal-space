@@ -34,16 +34,9 @@ export const signinUser = async (user) => {
 };
 
 
-export const firebaseUploadImg = (file) => {
-    const storageRef = ref(storage, `/files/images/${file.name}_${new Date().getTime()}`)
+export const firebaseUpload = (file, type) => {
+    const storageRef = ref(storage, `/files/${type}/${file.name}_${new Date().getTime()}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
-
-    return uploadTask
-}
-
-export const firebaseUploadDoc = (data, filename) => {
-    const storageRef = ref(storage, `/files/documents/${filename}_${new Date().getTime()}`)
-    const uploadTask = uploadString(storageRef, data)
 
     return uploadTask
 }

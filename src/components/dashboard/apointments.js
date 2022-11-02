@@ -61,7 +61,7 @@ const Appointments = ({ setMiddleTopNavText }) => {
                                     vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
                                 </div>
                                 <div className='mt-5'>
-                                    <Button text="Accept request" type="secondary" />
+                                    <Button text="Accept request" type="secondary" active={true} />
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ const Appointments = ({ setMiddleTopNavText }) => {
                                     vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
                                 </div>
                                 <div className='mt-5'>
-                                    <Button text="Accept request" type="secondary" />
+                                    <Button text="Accept request" type="secondary" active={true} />
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@ const Appointments = ({ setMiddleTopNavText }) => {
                                     vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occ
                                 </div>
                                 <div className='mt-5'>
-                                    <Button text="Accept request" type="secondary" />
+                                    <Button text="Accept request" type="secondary" active={true} />
                                 </div>
                             </div>
                         </div>

@@ -14,7 +14,7 @@ import ClientDashboard from './pages/client/dashboard'
 import LawyerDashboard from './pages/lawyer/dashboard'
 import Onboarding from './pages/lawyer/onboarding'
 
-import { refresh } from './data/controller/auth'
+import { refresh } from './data/controller'
 
 function App() {
   const user = userStore(state => state.user)
@@ -23,9 +23,9 @@ function App() {
   const isLoadingUser = userStore(state => state.isLoadingUser)
 
   useEffect(() => {
+    console.log("USER", user)
     if (!user) {
       refresh().then(response => {
-        console.log("REFRESH", response)
         if (response.status === "success") {
           storeUser(response.data.user)
         } else {
@@ -44,13 +44,13 @@ function App() {
         <Route path='/client-signup' element={<ClientSignup />} />
         <Route path='/signin' element={<Signin />} />
         {
-          user?.role !== "client" &&
+          user?.role === "client" &&
           <>
             <Route path='/dashboard/*' element={<ClientDashboard />} />
           </>
         }
         {
-          user?.role !== "lawyer" &&
+          user?.role === "lawyer" &&
           <>
             <Route path='/onboarding' element={<Onboarding />} />
             <Route path='/dashboard/*' element={<LawyerDashboard />} />

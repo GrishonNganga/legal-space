@@ -5,7 +5,7 @@ import { Input, Button, SplashCircles, Notification } from "../../components/ui"
 import { userStore } from "../../stores"
 
 import { validateSigninData } from '../../validator'
-import { signin } from "../../data/controller/auth"
+import { signin } from "../../data/controller"
 
 const Signin = () => {
     const navigate = useNavigate()
@@ -27,7 +27,6 @@ const Signin = () => {
         setInfo({ message: "", type: "" })
         setLoading(true)
         signin(userDetails).then(response => {
-            console.log("SIGNIN", response)
             setLoading(false)
             setInfo({ message: response.message, type: response.status })
             if (response.status === "success") {
@@ -100,7 +99,7 @@ const Signin = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Log in" type="secondary" onClick={handleSubmit} loading={loading} />
+                                    <Button text="Log in" type="secondary" onClick={handleSubmit} loading={loading} active={true}/>
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">

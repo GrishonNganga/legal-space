@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom"
 
 import { Notification, Input, Button, SplashCircles, ImageUpload, TextArea } from "../../components/ui"
 
-import { DocumentIcon } from "@heroicons/react/24/solid"
+import { TrashIcon } from "@heroicons/react/24/solid"
+import { DocumentIcon } from "@heroicons/react/24/outline"
 
 import { userStore } from "../../stores"
+
+import { getDownloadURL } from "firebase/storage";
+import { firebaseUpload } from "../../data/api/unauthenticatedRequests"
+import { editUser } from "../../data/controller"
 
 const Onboarding = () => {
     const user = userStore(state => state.user)
@@ -13,14 +18,20 @@ const Onboarding = () => {
 
     const [step, setStep] = useState(1)
     const [onboardingDetails, setOnboardingDetails] = useState({
+        firstName: "",
+        lastName: "",
         represents: "individual",
         image: "",
         practicingCertificate: "",
-        admissionNumber: ""
+        admissionNumber: "",
+        description: "",
+        // casesHandled: 0,
+        yearsOfExprience: 0,
+        phone: ""
     })
 
     useEffect(() => {
-        const currentStep = sessionStorage.getItem('onboarding')
+        const currentStep = localStorage.getItem('onboarding')
         if (currentStep) {
             setStep(parseInt(currentStep))
         }
@@ -40,7 +51,7 @@ const Onboarding = () => {
             }
             {
                 step === 2 &&
-                <Step2 onboardingDetails={onboardingDetails} setOnboardingDetails={setOnboardingDetails} step={step} setStep={setStep} />
+                <Step2 onboardingDetails={onboardingDetails} setOnboardingDetails={setOnboardingDetails} step={step} setStep={setStep} navigate={navigate} />
             }
         </>
     )
@@ -48,35 +59,119 @@ const Onboarding = () => {
 export default Onboarding
 
 const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
-    const navigate = useNavigate()
+    const onboardingInputsForStep1 = ["represents", "image", "practicingCertificate", "admissionNumber", "firstName", "lastName"]
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const [uploadingImage, setUploadingImage] = useState(false)
+    const [uploadingImagePercentage, setUploadingImagePercentage] = useState(0)
     const [uploadingPracticeCertificate, setUploadingPracticeCertificate] = useState(false)
+    const [uploadingPracticeCertificatePercentage, setUploadingCertificatePercentage] = useState(0)
+    const [completedUploadingImage, setCompletedUploadingImage] = useState(false)
+    const [completedUploadingCert, setCompletedUploadingCert] = useState(false)
+    const [stepCompleted, setStepCompleted] = useState(false)
 
-
+    useEffect(() => {
+        let completed
+        for (const key in onboardingDetails) {
+            if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
+                completed = false
+                break
+            }
+            completed = true
+        }
+        setStepCompleted(completed)
+        return
+    }, [onboardingDetails])
 
     const handleSubmit = () => {
+        setInfo({ type: "error", message: "" })
         let error
-        console.log("KEYS", Object.keys(onboardingDetails))
         for (const key in onboardingDetails) {
-            console.log("KEY", key)
-            console.log("FIELD", onboardingDetails[key])
-            if (onboardingDetails[key] === "") {
+            if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
                 error = true
                 setInfo({ type: "error", message: `${key} can't be empty` })
                 break
             }
         }
         if (error) {
-            sessionStorage.setItem('onboarding', step + 1)
-            setStep(prevState => prevState + 1)
             return
         }
+        setLoading(true)
+        editUser(onboardingDetails).then(response => {
+            setLoading(false)
+            if (response?.status === "success") {
+                setInfo({ type: "success", message: `Profile updated successfully` })
+                setTimeout(() => {
+                    localStorage.setItem('onboarding', step + 1)
+                    setStep(prevState => prevState + 1)
+
+                }, 1000)
+            } else {
+                setInfo({ type: "error", message: response.message })
+
+            }
+        })
     }
 
-    const uploadImage = (e) => {
+    const upload = (e, type) => {
+        const file = e.target.files[0]
+        if (type === 'cert') {
+            setUploadingPracticeCertificate(true)
+            const uploadTask = firebaseUpload(file, 'docs');
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setUploadingCertificatePercentage(progress);
+                },
+                (err) => { },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setUploadingPracticeCertificate(false);
+                        setOnboardingDetails((prevState) => ({ ...prevState, practicingCertificate: url }));
+                        setCompletedUploadingCert(true)
+                    });
+                }
+            );
+        }
+        if (type === 'image') {
+            setUploadingImage(true)
+            const uploadTask = firebaseUpload(file, 'images');
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setUploadingImagePercentage(progress);
+                },
+                (err) => { },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setUploadingImage(false);
+                        setOnboardingDetails((prevState) => ({ ...prevState, image: url }));
+                        setCompletedUploadingImage(true)
+                    });
+                }
+            );
+        }
 
+    }
+
+    const remove = (type) => {
+        if (type === "cert") {
+            setUploadingCertificatePercentage(false)
+            setCompletedUploadingCert(false)
+            setOnboardingDetails(prevState => ({ ...prevState, "practicingCertificate": "" }))
+        }
+        if (type === "image") {
+            setUploadingImage(false)
+            setCompletedUploadingImage(false)
+            setOnboardingDetails(prevState => ({ ...prevState, "image": "" }))
+
+        }
     }
 
     return (
@@ -133,43 +228,114 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                                             name="individual"
                                             type="checkbox"
                                             checked={onboardingDetails?.represents === "individual"}
-                                            className="appearance-none h-12 w-12 rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border-gray-300 text-[#6F8BA4] checked:bg-legalGreen styledRadio"
+                                            className="appearance-none h-12 w-12 rounded-md focus:outline-none focus:border-legalYellow focus:ring-legalYellow border border-gray-300 text-[#6F8BA4] checked:bg-legalGreen styledRadio"
                                             onChange={() => { setOnboardingDetails(prevState => ({ ...prevState, "represents": "individual" })) }}
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <div className="mt-1">
+                                        <Input
+                                            id="firstName"
+                                            name="firstName"
+                                            type="text"
+                                            label="First name"
+                                            required
+                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="mt-1">
+                                        <Input
+                                            id="lastName"
+                                            name="lastName"
+                                            type="text"
+                                            label="Last Name"
+                                            required
+                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="mt-1">
                                         {
-                                            uploadingImage &&
-                                            <ImageUpload
-                                                id="profilePhoto"
-                                                name="profilePhoto"
-                                                label="Upload your profile photo"
-                                                required
-                                                onChange={(e) => { uploadImage(e) }}
-                                            />
-                                            ||
-                                            <div className="flex gap-x-2 border p-3 rounded-md items-center">
-                                                <div>
-                                                    <DocumentIcon className="w-8 h-8 text-legalGreen" />
-                                                </div>
-                                                <div className="h-2 bg-legalGreen transition-all rounded-full" style={{ width: '100%' }}>
+                                            (uploadingImage &&
+                                                <div className="flex gap-x-2 border p-3 rounded-md items-center">
+                                                    <div>
+                                                        <DocumentIcon className="w-8 h-8 text-legalGreen" />
+                                                    </div>
+                                                    <div className="h-2 bg-legalGreen transition-all rounded-full" style={{ width: `${uploadingImagePercentage}%` }}>
 
+                                                    </div>
+                                                </div>) ||
+
+                                            (!uploadingImage && !completedUploadingImage &&
+                                                < ImageUpload
+                                                    id="profilePhoto"
+                                                    name="profilePhoto"
+                                                    label="Upload your profile photo"
+                                                    required
+                                                    accept={"image/*"}
+                                                    onChange={(e) => { upload(e, 'image') }}
+                                                />)
+                                            ||
+                                            (completedUploadingImage && !uploadingImage &&
+                                                <div className="flex justify-between gap-x-2 border p-2 rounded-md items-center">
+                                                    <div>
+                                                        <img src={onboardingDetails.image} className="w-10 h-10" />
+                                                    </div>
+                                                    <div className="ml-5">
+                                                        <div className="rounded-md font-semibold ">
+                                                            <TrashIcon className="w-7 h-7 text-red-500" onClick={() => { remove('image') }} />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )
                                         }
                                     </div>
                                 </div>
 
                                 <div>
                                     <div className="mt-1">
-                                        <ImageUpload
-                                            id="certificate"
-                                            name="certificate"
-                                            label="Upload your current Practicing Certificate"
-                                            required
-                                        />
+                                        {
+                                            (uploadingPracticeCertificate &&
+                                                <div className="flex gap-x-2 border p-3 rounded-md items-center">
+                                                    <div>
+                                                        <DocumentIcon className="w-8 h-8 text-legalGreen" />
+                                                    </div>
+                                                    <div className="h-2 bg-legalGreen transition-all rounded-full" style={{ width: `${uploadingPracticeCertificatePercentage}%` }}>
+
+                                                    </div>
+                                                </div>) ||
+                                            (!uploadingPracticeCertificate && !completedUploadingCert &&
+                                                <ImageUpload
+                                                    id="certificate"
+                                                    name="certificate"
+                                                    label="Upload your current Practicing Certificate"
+                                                    required
+                                                    onChange={(e) => { upload(e, 'cert') }}
+                                                    accept=".pdf"
+                                                />)
+                                            ||
+                                            (completedUploadingCert && !uploadingPracticeCertificate &&
+                                                <div className="flex justify-between gap-x-2 border p-2 rounded-md items-center">
+                                                    <div className="flex gap-x-2 items-center">
+                                                        <div>
+                                                            <DocumentIcon className="w-8 h-8 text-legalGreen" />
+                                                        </div>
+                                                        <div className="text-legalGreen font-semibold underline" onClick={() => { window.open(onboardingDetails.practicingCertificate, '_blank'); }}>
+                                                            View
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-5">
+                                                        <div className="rounded-md font-semibold ">
+                                                            <TrashIcon className="w-7 h-7 text-red-500" onClick={() => { remove('cert') }} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 </div>
 
@@ -181,11 +347,12 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                                             type="text"
                                             label="Admission number"
                                             required
+                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <Button text="Next" type="secondary" onClick={handleSubmit} loading={loading} />
+                                    <Button text="Next" type="secondary" onClick={handleSubmit} loading={loading} active={stepCompleted} />
                                 </div>
                             </div>
                         </div>
@@ -200,13 +367,51 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
     )
 }
 
-const Step2 = ({ onboardindingDetails, setOnboardingDetails }) => {
-    const navigate = useNavigate()
+const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
+    const onboardingInputsForStep2 = ["description", "yearsOfExperience", "phone"]
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
+    const [stepCompleted, setStepCompleted] = useState(false)
+
+    useEffect(() => {
+        let completed
+        for (const key in onboardingDetails) {
+            if (onboardingInputsForStep2.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key])) {
+                completed = false
+                break
+            }
+            completed = true
+        }
+        setStepCompleted(completed)
+        return
+    }, [onboardingDetails])
 
     const handleSubmit = () => {
+        setInfo({ type: "error", message: "" })
+        let error
+        for (const key in onboardingDetails) {
+            if (onboardingInputsForStep2.includes(key) && onboardingDetails[key] === "") {
+                error = true
+                setInfo({ type: "error", message: `${key} can't be empty` })
+                break
+            }
+        }
+        if (error) {
+            return
+        }
+        setLoading(true)
+        editUser(onboardingDetails).then(response => {
+            setLoading(false)
+            if (response?.status === "success") {
+                setInfo({ type: "success", message: `Profile updated successfully` })
+                setTimeout(() => {
+                    navigate('/dashboard/settings/payment')
+                }, 1000)
+            } else {
+                setInfo({ type: "error", message: response.message })
 
+            }
+        })
     }
 
     return (
@@ -234,7 +439,7 @@ const Step2 = ({ onboardindingDetails, setOnboardingDetails }) => {
                     <div className="absolute top-12 md:top-0 w-full h-full">
                         <div className="bg-white w-full h-full flex justify-center pt-8">
                             {
-                                onboardindingDetails?.represents === "individual" ?
+                                onboardingDetails?.represents === "individual" ?
                                     <div className="space-y-6 w-4/5 md:w-2/3">
                                         <div className="hidden w-full md:flex justify-center py-8 md:py-0">
                                             <div className="text-2xl text-legalYellow font-semibold">
@@ -246,53 +451,73 @@ const Step2 = ({ onboardindingDetails, setOnboardingDetails }) => {
 
                                             <div className="mt-1">
                                                 <TextArea
-                                                    id="about"
-                                                    name="about"
+                                                    id="desctiption"
+                                                    name="description"
                                                     type="text"
                                                     label="Tell us about yourself"
                                                     autoComplete="text"
                                                     required
+                                                    onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                 />
+                                            </div>
+                                            {/* <div>
+                                                <div className="mt-1">
+                                                    <Input
+                                                        id="numberOfCases"
+                                                        name="numberOfCases"
+                                                        type="text"
+                                                        label="Cases handled"
+                                                        autoComplete="number"
+                                                        required
+                                                        onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                                    />
+                                                </div>
+                                            </div> */}
+                                            {/* <div>
+                                                <div>
+                                                    <label htmlFor={"areasOfPractice"} className="block text-sm font-medium text-legalBlue pb-2"
+                                                    >
+                                                        Areas of practice
+                                                    </label>
+                                                    <select
+                                                        id="areasOfPractice"
+                                                        name="areasOfPractice"
+                                                        className={`block w-full px-3 py-2 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm`}
+                                                    >
+                                                        <option></option>
+
+                                                    </select>
+                                                </div>
+                                            </div> */}
+                                            <div>
+                                                <div className="mt-1">
+                                                    <Input
+                                                        id="yearsOfExperience"
+                                                        name="yearsOfExperience"
+                                                        type="text"
+                                                        label="Years in experience"
+                                                        autoComplete="number"
+                                                        required
+                                                        onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                                    />
+                                                </div>
                                             </div>
                                             <div>
                                                 <div className="mt-1">
                                                     <Input
-                                                        id="casesHandled"
-                                                        name="casesHandled"
+                                                        id="phone"
+                                                        name="phone"
                                                         type="text"
-                                                        label="Cases handled"
+                                                        label="Phone number"
                                                         autoComplete="text"
                                                         required
+                                                        onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="mt-1">
-                                                <Input
-                                                    id="yearsExperience"
-                                                    name="yearsExperience"
-                                                    type="text"
-                                                    label="Years in experience"
-                                                    autoComplete="text"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="mt-1">
-                                                <Input
-                                                    id="phoneNumber"
-                                                    name="phoneNumber"
-                                                    type="text"
-                                                    label="Phone number"
-                                                    autoComplete="text"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <Button text="Complete" type="secondary" onClick={handleSubmit} loading={loading} />
+                                            <Button text="Complete" type="secondary" onClick={handleSubmit} loading={loading} active={stepCompleted} />
                                         </div>
                                     </div>
                                     :
