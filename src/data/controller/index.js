@@ -1,5 +1,11 @@
 import { signinUser, signupUser, getAllAreasOfPracticeRequest } from '../api/unauthenticatedRequests'
-import { editUserRequest, refreshSession } from '../api/authenticatedRequests'
+import {
+    editUserRequest,
+    refreshSession,
+    getUserOnboardingPercentageRequest,
+    getLawyerCasesByStageRequest,
+    getLawyerAppointmentsByStatusRequest
+} from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
     const response = await signinUser(userDetails)
@@ -25,6 +31,23 @@ export const editUser = async (userDetails) => {
     const response = await editUserRequest(userDetails)
     return _returnResponse(response)
 }
+
+export const getUserOnboardingPercentage = async (stage) => {
+    const response = await getUserOnboardingPercentageRequest({ stage: stage })
+    return _returnResponse(response)
+}
+
+export const getLawyerCasesByStage = async () => {
+    const response = await getLawyerCasesByStageRequest()
+    return _returnResponse(response)
+}
+
+export const getLawyerAppointmentsByStatus = async (userId, status) => {
+    const response = await getLawyerAppointmentsByStatusRequest(userId, { status: status })
+    return _returnResponse(response)
+}
+
+
 
 const _returnResponse = (response) => {
     switch (true) {

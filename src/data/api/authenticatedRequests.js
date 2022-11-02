@@ -26,3 +26,31 @@ export const editUserRequest = async (data) => {
             return error.response;
         });
 };
+
+export const getUserOnboardingPercentageRequest = async () => {
+    return await api
+        .get("/user/onboarding")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getLawyerCasesByStageRequest = async (stage) => {
+    return await api
+        .post("/case/client/cases", stage)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getLawyerAppointmentsByStatusRequest = async (userId, status) => {
+    return await api
+        .post(`/appointment/lawyer/appointments/${userId}`, status)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+

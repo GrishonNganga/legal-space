@@ -3,8 +3,6 @@ import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
 
-import { userStore } from './stores';
-
 import Landing from './pages/landing';
 import LawyerSignup from './pages/lawyer/signup'
 import ClientSignup from './pages/client/signup'
@@ -13,19 +11,25 @@ import FourOhFour from './pages/404';
 import ClientDashboard from './pages/client/dashboard'
 import LawyerDashboard from './pages/lawyer/dashboard'
 import Onboarding from './pages/lawyer/onboarding'
+import SplashScreen from './pages/splashScreen'
 
 import { refresh } from './data/controller'
+
+import { userStore } from './stores';
 
 function App() {
   const user = userStore(state => state.user)
   const storeUser = userStore(state => state.storeUser)
   const removeUser = userStore(state => state.removeUser)
   const isLoadingUser = userStore(state => state.isLoadingUser)
+  const setIsLoadingUser = userStore(state => state.setIsLoadingUser)
 
   useEffect(() => {
     console.log("USER", user)
     if (!user) {
+      setIsLoadingUser(true)
       refresh().then(response => {
+        setIsLoadingUser(false)
         if (response.status === "success") {
           storeUser(response.data.user)
         } else {
@@ -57,7 +61,14 @@ function App() {
           </>
         }
         {
-          !isLoadingUser &&
+          !user && isLoadingUser &&
+          <Route
+            path="*"
+            element={<SplashScreen />}
+          />
+        }
+        {
+          !user && !isLoadingUser &&
           <Route
             path="*"
             element={<FourOhFour />}

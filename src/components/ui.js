@@ -96,43 +96,43 @@ export const Spinner = ({ size }) => {
     )
 }
 
-export const SplashCircles = () => {
+export const SplashCircles = ({ shimmer }) => {
     return (
         <>
             <div className="hidden md:flex w-full h-full bg-legalGreen flex-col justify-between">
                 <div className="w-full h-full flex justify-center items-center relative overflow-hidden pb-72">
-                    <div className="absolute w-[343px] h-[343px] border border-gray-500 rounded-full ">
+                    <div className={`absolute w-[343px] h-[343px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
-                    <div className="absolute w-[515px] h-[515px] border border-gray-500 rounded-full">
+                    <div className={`absolute w-[515px] h-[515px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
-                    <div className="absolute w-[687px] h-[687px] border border-gray-500 rounded-full">
+                    <div className={`absolute w-[687px] h-[687px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
-                    <div className="absolute w-[859px] h-[859px] border border-gray-500 rounded-full">
+                    <div className={`absolute w-[859px] h-[859px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
-                    <div className="absolute w-[1031px] h-[1031px] border border-gray-500 rounded-full">
+                    <div className={`absolute w-[1031px] h-[1031px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
 
                 </div>
             </div>
             <div className="w-full h-full flex md:hidden justify-center items-center relative overflow-hidden pb-28">
-                <div className="absolute w-[250px] h-[250px] border border-gray-500 rounded-full">
+                <div className={`absolute w-[250px] h-[250px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                 </div>
-                <div className="absolute w-[350px] h-[350px] border border-gray-500 rounded-full">
+                <div className={`absolute w-[350px] h-[350px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                 </div>
-                <div className="absolute w-[450px] h-[450px] border border-gray-500 rounded-full">
+                <div className={`absolute w-[450px] h-[450px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                 </div>
-                <div className="absolute w-[550px] h-[550px] border border-gray-500 rounded-full">
+                <div className={`absolute w-[550px] h-[550px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                 </div>
-                <div className="absolute w-[650px] h-[650px] border border-gray-500 rounded-full">
+                <div className={`absolute w-[650px] h-[650px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                 </div>
 
