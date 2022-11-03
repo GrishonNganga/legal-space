@@ -4,7 +4,8 @@ import {
     refreshSession,
     getUserOnboardingPercentageRequest,
     getLawyerCasesByStageRequest,
-    getLawyerAppointmentsByStatusRequest
+    getLawyerAppointmentsByStatusRequest,
+    createFirmRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -44,6 +45,11 @@ export const getLawyerCasesByStage = async () => {
 
 export const getLawyerAppointmentsByStatus = async (userId, status) => {
     const response = await getLawyerAppointmentsByStatusRequest(userId, { status: status })
+    return _returnResponse(response)
+}
+
+export const createFirm = async (firmDetails) => {
+    const response = await createFirmRequest(firmDetails)
     return _returnResponse(response)
 }
 

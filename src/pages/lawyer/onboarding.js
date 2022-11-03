@@ -10,7 +10,8 @@ import { userStore } from "../../stores"
 
 import { getDownloadURL } from "firebase/storage";
 import { firebaseUpload } from "../../data/api/unauthenticatedRequests"
-import { editUser, getAllAreasOfPractice } from "../../data/controller"
+
+import { editUser, getAllAreasOfPractice, createFirm } from "../../data/controller"
 
 const Onboarding = () => {
     const user = userStore(state => state.user)
@@ -28,19 +29,19 @@ const Onboarding = () => {
         numberOfCases: 0,
         yearsOfExprience: 0,
         phone: "",
-        areasOfPractice: []
+        areasOfPractice: [],
+        onboardingStep: 0,
+        firmName: "",
+        email: ""
     })
 
-    useEffect(() => {
-        const currentStep = localStorage.getItem('onboarding')
-        if (currentStep) {
-            setStep(parseInt(currentStep))
-        }
-    }, [])
 
     useEffect(() => {
         if (user?.onboarding) {
             navigate('/dashboard')
+        }
+        if (user && !user?.onboarding) {
+            setStep(user?.onboardingStep || 1)
         }
     }, [user])
 
@@ -60,7 +61,8 @@ const Onboarding = () => {
 export default Onboarding
 
 const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
-    const onboardingInputsForStep1 = ["represents", "image", "practicingCertificate", "admissionNumber", "firstName", "lastName"]
+    const onboardingInputsForStep1 = ["represents", "image", "practicingCertificate", "admissionNumber"]
+    const firmInputs = ["firmName", "email"]
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const [uploadingImage, setUploadingImage] = useState(false)
@@ -72,47 +74,30 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
     const [stepCompleted, setStepCompleted] = useState(false)
 
     useEffect(() => {
+        setOnboardingDetails(prevState => ({ ...prevState, "onboardingStep": 2 }))
+    }, [])
+
+    useEffect(() => {
+        console.log("ONBOARDING DETAILS STEP 1", onboardingDetails)
         let completed
         for (const key in onboardingDetails) {
             if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
+                console.log("Empty is ", key)
                 completed = false
                 break
+            }
+            if (onboardingDetails.represents === "firm") {
+                if (firmInputs.includes(key) && onboardingDetails[key] === "") {
+                    console.log("Empty is ", key)
+                    completed = false
+                    break
+                }
             }
             completed = true
         }
         setStepCompleted(completed)
         return
     }, [onboardingDetails])
-
-    const handleSubmit = () => {
-        setInfo({ type: "error", message: "" })
-        let error
-        for (const key in onboardingDetails) {
-            if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
-                error = true
-                setInfo({ type: "error", message: `${key} can't be empty` })
-                break
-            }
-        }
-        if (error) {
-            return
-        }
-        setLoading(true)
-        editUser(onboardingDetails).then(response => {
-            setLoading(false)
-            if (response?.status === "success") {
-                setInfo({ type: "success", message: `Profile updated successfully` })
-                setTimeout(() => {
-                    localStorage.setItem('onboarding', step + 1)
-                    setStep(prevState => prevState + 1)
-
-                }, 1000)
-            } else {
-                setInfo({ type: "error", message: response.message })
-
-            }
-        })
-    }
 
     const upload = (e, type) => {
         const file = e.target.files[0]
@@ -175,6 +160,67 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
         }
     }
 
+    const handleSubmit = () => {
+        setInfo({ message: "", type: "" })
+        let error
+        for (const key in onboardingDetails) {
+            if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
+                error = true
+                setInfo({ type: "error", message: `${key} can't be empty` })
+                break
+            }
+            if (onboardingDetails.represents === "firm") {
+                if (firmInputs.includes(key) && onboardingDetails[key] === "") {
+                    error = true
+                    setInfo({ type: "error", message: `${key} can't be empty` })
+                    break
+                }
+            }
+        }
+
+        if (error) {
+            return
+        }
+        setLoading(true)
+        Object.keys(onboardingDetails).forEach(key => {
+            if ((onboardingDetails[key] === '' || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
+                delete onboardingDetails[key];
+            }
+        });
+        console.log("UPDATED ONBOARDING DETAILS", onboardingDetails)
+        if (onboardingDetails.represents === "firm") {
+            createFirm(onboardingDetails).then(response => {
+                setLoading(false)
+                if (response?.status === "success") {
+                    setInfo({ type: "success", message: `Profile updated successfully` })
+                    setTimeout(() => {
+                        localStorage.setItem('onboarding', step + 1)
+                        setStep(prevState => prevState + 1)
+
+                    }, 1000)
+                } else {
+                    setInfo({ type: "error", message: response.message })
+
+                }
+            })
+        } else {
+            editUser(onboardingDetails).then(response => {
+                setLoading(false)
+                if (response?.status === "success") {
+                    setInfo({ type: "success", message: `Profile updated successfully` })
+                    setTimeout(() => {
+                        localStorage.setItem('onboarding', step + 1)
+                        setStep(prevState => prevState + 1)
+
+                    }, 1000)
+                } else {
+                    setInfo({ type: "error", message: response.message })
+
+                }
+            })
+        }
+    }
+
     return (
         <div className="flex flex-1 min-h-full w-full h-screen transition-opacity delay-300">
             <div>
@@ -198,7 +244,7 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                         </div>
                     </div>
                     <div className="absolute top-12 md:top-0 w-full h-full">
-                        <div className="bg-white w-full h-full flex justify-center items-center">
+                        <div className="bg-white w-full h-full flex justify-center pt-12">
                             <div className="space-y-6 w-4/5 md:w-2/3">
                                 <div className="hidden w-full md:flex justify-center py-8 md:py-0">
                                     <div className="text-2xl text-legalYellow font-semibold">
@@ -234,30 +280,37 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                                         />
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="mt-1">
-                                        <Input
-                                            id="firstName"
-                                            name="firstName"
-                                            type="text"
-                                            label="First name"
-                                            required
-                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
-                                        />
+                                {
+                                    onboardingDetails?.represents === "firm" &&
+                                    <div className="ease-in-out duration-500">
+                                        <div>
+                                            <div className="mt-1">
+                                                <Input
+                                                    id="firmName"
+                                                    name="firmName"
+                                                    type="text"
+                                                    label="Firm name"
+                                                    required
+                                                    value={onboardingDetails.firmName}
+                                                    onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="mt-1">
+                                                <Input
+                                                    id="firmEmail"
+                                                    name="email"
+                                                    type="email"
+                                                    label="Firm email"
+                                                    required
+                                                    value={onboardingDetails.email}
+                                                    onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div className="mt-1">
-                                        <Input
-                                            id="lastName"
-                                            name="lastName"
-                                            type="text"
-                                            label="Last Name"
-                                            required
-                                            onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
-                                        />
-                                    </div>
-                                </div>
+                                }
                                 <div>
                                     <div className="mt-1">
                                         {
@@ -348,6 +401,7 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                                             type="text"
                                             label="Admission number"
                                             required
+                                            value={onboardingDetails.admissionNumber}
                                             onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                         />
                                     </div>
@@ -379,6 +433,7 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
     const categoriesRef = useRef(null)
 
     useEffect(() => {
+        setOnboardingDetails(prevState => ({ ...prevState, "onboardingStep": 2 }))
         getAllAreasOfPractice().then(response => {
             if (response?.status === "success") {
                 setCategories(response.data.categories)
@@ -388,6 +443,7 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
 
     useEffect(() => {
         let completed
+        console.log("ONBOARDING DETAILS", onboardingDetails)
         for (const key in onboardingDetails) {
             if (onboardingInputsForStep2.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
                 completed = false
@@ -432,6 +488,12 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
         if (error) {
             return
         }
+        Object.keys(onboardingDetails).forEach(key => {
+            if ((onboardingDetails[key] === '' || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
+                delete onboardingDetails[key];
+            }
+        });
+        console.log("UPDATED ONBOARDING DETAILS", onboardingDetails)
         setLoading(true)
         editUser(onboardingDetails).then(response => {
             setLoading(false)
@@ -604,6 +666,7 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
                                                     label="Tell us about your firm"
                                                     autoComplete="text"
                                                     required
+                                                    onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                 />
                                             </div>
                                             <div>
@@ -615,6 +678,7 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
                                                         label="Cases handled"
                                                         autoComplete="text"
                                                         required
+
                                                     />
                                                 </div>
                                             </div>

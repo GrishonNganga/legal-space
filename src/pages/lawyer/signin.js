@@ -19,12 +19,12 @@ const Signin = () => {
     const [info, setInfo] = useState({ message: "", type: "" })
 
     const handleSubmit = async () => {
+        setInfo({ message: "", type: "" })
         const validationResult = await validateSigninData(userDetails)
         if (!validationResult.status) {
             setInfo({ message: validationResult.message, type: "error" })
             return
         }
-        setInfo({ message: "", type: "" })
         setLoading(true)
         signin(userDetails).then(response => {
             setLoading(false)

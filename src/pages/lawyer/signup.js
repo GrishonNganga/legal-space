@@ -64,7 +64,7 @@ const SplashScreen = ({ step, updateStep }) => {
                                 </div>
                                 <div className='w-full flex justify-center'>
                                     <div className='w-3/4'>
-                                        <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
+                                        <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ const SplashScreen = ({ step, updateStep }) => {
                     </div>
                     <div className='w-full flex justify-center mt-10'>
                         <div className='w-11/12'>
-                            <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
+                            <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                         </div>
                     </div>
 
@@ -110,6 +110,7 @@ const SignupStep1 = () => {
     const storeUser = userStore(state => state.storeUser)
 
     const handleSubmit = async () => {
+        setInfo({ message: "", type: "" })
         const validationResult = await validateSignupData(userDetails)
         if (!validationResult.status) {
             setInfo({ message: validationResult.message, type: "error" })
@@ -228,7 +229,7 @@ const SignupStep1 = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true}/>
+                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true} />
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">

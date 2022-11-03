@@ -27,7 +27,9 @@ const Main = ({ setMiddleTopNavText }) => {
         if (user && !user.onboarding) {
             getUserOnboardingPercentage().then(response => {
                 if (response?.status === "success") {
-                    setAnimateOnboardingPercentage(response.data.onboardingPercentage)
+                    setInterval(()=>{
+                        setAnimateOnboardingPercentage(response.data.onboardingPercentage)
+                    }, 1000)
                 }
             })
         }

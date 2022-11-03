@@ -54,3 +54,11 @@ export const getLawyerAppointmentsByStatusRequest = async (userId, status) => {
         });
 };
 
+export const createFirmRequest = async (data) => {
+    return await api
+        .patch("/firm/create", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
