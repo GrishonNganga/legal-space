@@ -119,7 +119,7 @@ const Homepage = () => {
 
       {/* section 2 */}
       <div className="pt-20 md:flex">
-        <div className="w-screen lg:ml-64 md:ml-4 md:w-1/2">
+        <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
           <div className="lg:w-[450px] w-screen md:w-full lg:h-[600px]">
             <img
               src={stairs}
@@ -129,14 +129,23 @@ const Homepage = () => {
             <div className="bg-[#C6A85C70] h-56 w-[600px] relative -top-56 -right-[1px] "></div>
           </div>
         </div>
+
+        {/* stairs mobile */}
+        <div className="md:hidden h-80 pt-24 px-4">
+          <div className="relative bg-[#C6A85C70] h-36">
+            <div className="absolute -leftx-[2px] -top-[124px]">
+              <img src={stairs} alt="stairs" className="h-[270px] w-[200px]" />
+            </div>
+          </div>
+        </div>
         <div className="w-screen md:w-1/2 mr-64">
           <div>
-            <p className="text-6xl font-semibold text-dark leading-normal tracking-wide">
+            <p className="text-6xl font-semibold text-dark leading-normal tracking-wide md:px-0 px-4">
               Get a lawyer in minutes!
             </p>
           </div>
           <div>
-            <p className="text-legalLightGray justify-center">
+            <p className="text-legalLightGray justify-center md:px-0 px-4">
               t vero eos et accusamus et iusto odio dignissimos ducimus qui
               blanditiis praesentium voluptatum deleniti atque corrupti quos
               dolores et quas molestias excepturi sint occ t
@@ -164,12 +173,12 @@ const Homepage = () => {
       <div className="lg:pl-64 md:ml-4">
         <div className="md:flex flex-row mt-24 pd:h-40 h-auto">
           <div className="w-1/2">
-            <p className="md:text-6xl text-2xl font-bold text-dark">
+            <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
               Meet our <span className="text-legalYellow">TOP</span> <br />{" "}
               expert legal team
             </p>
           </div>
-          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40">
+          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4">
             <p className="text-base align-baseline text-legalLightGray">
               Legal space top expert legal team covering any field. They have
               more than 10 years experience in they specialization
