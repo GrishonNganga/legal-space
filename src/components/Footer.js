@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const Footer = () => {
   return (
-    <div className="mt-8 bottom-0 sm:px-80 sm:pt-8 sm:pb-14 text-white md:h-[400px] h-auto w-screen bg-dark pt-8 pl-8">
+    <div className="mt-8 bottom-0 sm:px-80 sm:pt-8 sm:pb-14 text-white md:h-[400px] h-auto w-screen bg-dark pt-8 pl-8 pb-8 overflow-hidden">
       <div className="mb-8 space-y-3">
         <p>LEGAL SPACE.IO</p>
         <p className="text-legalLightGray text-sm">For the people</p>
@@ -54,10 +54,11 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="pt-20">
-        <p className="text-xs md:text-sm text-[#98A6A4]">
+      <div className="pt-20 flex flex-row items-center space-x-4">
+        <p className="text-[10px] md:text-sm text-[#98A6A4]">
           2022 copyright by LegalSPACE. All rights reserved
         </p>
+        <div className="h-[1px] md:w-3/5 w-16 bg-[#98A6A4]" />
       </div>
     </div>
   );

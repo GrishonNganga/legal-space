@@ -11,7 +11,7 @@ const Homepage = () => {
   return (
     <div className="overflow-hidden">
       <NavBar />
-      <div className="lg:px-64 md:px-4 md:pt-72 pt-40 pl-4 md:flex flex-row bg-dark h-[950px] overflow-hidden">
+      <div className="lg:px-64 md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[950px] h-[800px] overflow-hidden">
         <div className="md:flex w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
