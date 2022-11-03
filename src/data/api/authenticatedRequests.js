@@ -27,6 +27,16 @@ export const editUserRequest = async (data) => {
         });
 };
 
+export const editFirmRequest = async (data) => {
+    return await api
+        .patch("/firm/edit", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+
 export const getUserOnboardingPercentageRequest = async () => {
     return await api
         .get("/user/onboarding")
@@ -56,7 +66,7 @@ export const getLawyerAppointmentsByStatusRequest = async (userId, status) => {
 
 export const createFirmRequest = async (data) => {
     return await api
-        .patch("/firm/create", data)
+        .post("/firm/create", data)
         .then((response) => response)
         .catch((error) => {
             return error.response;

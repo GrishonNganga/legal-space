@@ -5,7 +5,8 @@ import {
     getUserOnboardingPercentageRequest,
     getLawyerCasesByStageRequest,
     getLawyerAppointmentsByStatusRequest,
-    createFirmRequest
+    createFirmRequest,
+    editFirmRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -53,7 +54,10 @@ export const createFirm = async (firmDetails) => {
     return _returnResponse(response)
 }
 
-
+export const editFirm = async (firmDetails) => {
+    const response = await editFirmRequest(firmDetails)
+    return _returnResponse(response)
+}
 
 const _returnResponse = (response) => {
     switch (true) {
