@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const Footer = () => {
   return (
-    <div className="mt-8 bottom-0 sm:px-80 sm:pt-8 sm:pb-14 text-white md:h-[400px] h-auto w-screen bg-dark pt-8 pl-8 pb-8 overflow-hidden">
+    <div className="mt-8 bottom-0 lg:px-72 md:px-20 sm:pt-8 sm:pb-14 text-white md:h-[400px] h-auto w-screen bg-dark pt-8 pl-8 pb-8 overflow-hidden">
       <div className="mb-8 space-y-3">
         <p>LEGAL SPACE.IO</p>
         <p className="text-legalLightGray text-sm">For the people</p>
