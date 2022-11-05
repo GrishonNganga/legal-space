@@ -7,7 +7,7 @@ import { getUserOnboardingPercentage, getLawyerCasesByStage, getLawyerAppointmen
 
 import { userStore } from '../../stores';
 
-const Main = ({ setMiddleTopNavText }) => {
+const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
     const navigate = useNavigate()
     const user = userStore(state => state.user)
     const [onboardingPercentage, setOnboardingPercentage] = useState(0)
@@ -27,7 +27,8 @@ const Main = ({ setMiddleTopNavText }) => {
         if (user && !user.onboarding) {
             getUserOnboardingPercentage().then(response => {
                 if (response?.status === "success") {
-                    setInterval(()=>{
+                    updateOnboardingPercentage(response.data.onboardingPercentage)
+                    setInterval(() => {
                         setAnimateOnboardingPercentage(response.data.onboardingPercentage)
                     }, 1000)
                 }
@@ -37,6 +38,7 @@ const Main = ({ setMiddleTopNavText }) => {
             getAllStats()
         }
     }, [user])
+
     useEffect(() => {
         if (animateOnboardingPercentage !== onboardingPercentage) {
             setOnboardingPercentage(prevState => prevState + 0.5)

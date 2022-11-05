@@ -17,6 +17,7 @@ const Dashboard = () => {
     const [currentRoute, setCurrentRoute] = useState()
     const [profileComplete, setProfileComplete] = useState(true)
     const [middleTopNavText, setMiddleTopNavText] = useState("Lawyerspace.io")
+    const [onboardingPercentage, setOnboardingPercentage] = useState(0)
 
     const location = useLocation()
     const routePrefix = "/dashboard"
@@ -47,7 +48,7 @@ const Dashboard = () => {
                             <Routes>
                                 {
                                     <>
-                                        <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} />} />
+                                        <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} updateOnboardingPercentage={setOnboardingPercentage}/>} />
                                         <Route path="/appointments" exact element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/settings/*" element={<Settings setMiddleTopNavText={setMiddleTopNavText} />} />
                                     </>
@@ -61,7 +62,7 @@ const Dashboard = () => {
                 !profileComplete ?
                     <div className='absolute top-0 w-full  h-full'>
                         <div className='w-full h-full backdrop-blur-sm flex justify-center items-center z-40'>
-                            <Modal open={!profileComplete} setOpen={(prevState) => { setProfileComplete(prevState => !prevState) }} ui={<CompleteProfileModal />} />
+                            <Modal open={!profileComplete} setOpen={(prevState) => { setProfileComplete(prevState => !prevState) }} ui={<CompleteProfileModal onboardingPercentage={onboardingPercentage} />} />
                         </div>
                     </div>
                     :
@@ -75,7 +76,7 @@ const Dashboard = () => {
 
 export default Dashboard
 
-const CompleteProfileModal = () => {
+const CompleteProfileModal = ({ onboardingPercentage }) => {
     const navigate = useNavigate()
 
     return (
@@ -84,7 +85,7 @@ const CompleteProfileModal = () => {
                 Complete your profile to access your clients
             </div>
             <div className='text-gray-500 trext-sm'>
-                Your profile is 25% complete
+                Your profile is {onboardingPercentage}% complete
             </div>
             <div className='w-full md:w-1/2'>
                 <Button type="secondary" text="Complete" active={true} onClick={() => { navigate('/onboarding') }} />

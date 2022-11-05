@@ -43,7 +43,6 @@ const Onboarding = () => {
             navigate('/dashboard')
         }
         if (user && !user?.onboarding) {
-            console.log("USER", user)
             setStep(user?.onboardingStep || 1)
         }
         if (user?.represents) {
@@ -796,7 +795,7 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
                                                     label="Years in experience"
                                                     autoComplete="number"
                                                     required
-                                                    onChange={(e) => { console.log("Changing as expected"); setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
+                                                    onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                 />
                                             </div>
                                         </div>
