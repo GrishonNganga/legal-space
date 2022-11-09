@@ -37,7 +37,6 @@ const Onboarding = () => {
         phone: ""
     })
 
-
     useEffect(() => {
         if (user?.onboarding) {
             navigate('/dashboard')
@@ -83,17 +82,14 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
     }, [])
 
     useEffect(() => {
-        console.log("ONBOARDING DETAILS STEP 1", onboardingDetails)
         let completed
         for (const key in onboardingDetails) {
             if (onboardingInputsForStep1.includes(key) && onboardingDetails[key] === "") {
-                console.log("Empty is ", key)
                 completed = false
                 break
             }
             if (onboardingDetails.represents === "firm") {
                 if (firmInputs.includes(key) && onboardingDetails[key] === "") {
-                    console.log("Empty is ", key)
                     completed = false
                     break
                 }
@@ -192,7 +188,6 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                 delete onboardingDetails[key];
             }
         });
-        console.log("UPDATED ONBOARDING DETAILS", onboardingDetails)
         if (onboardingDetails.represents === "firm") {
             delete onboardingDetails.admissionNumber
             createFirm(onboardingDetails).then(response => {
@@ -202,8 +197,7 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
                     editUser({ onboardingStep: step + 1, represents: "firm" }).then(userResponse => {
                         if (userResponse?.status === "success") {
                             setInfo({ type: "success", message: `Profile updated successfully` })
-                            console.log("This is edited", userResponse)
-                            // setStep(prevState => prevState + 1)
+                            setStep(prevState => prevState + 1)
                         } else {
                             setInfo({ type: "error", message: userResponse?.message })
                         }
@@ -448,6 +442,9 @@ const Step1 = ({ onboardingDetails, setOnboardingDetails, step, setStep }) => {
 const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
     const onboardingInputsForStep2 = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice"]
     const individualInputs = ["phone"]
+    const user = userStore(state => state.user)
+    const storeUser = userStore(state => state.storeUser)
+
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const [stepCompleted, setStepCompleted] = useState(false)
@@ -467,11 +464,9 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
 
     useEffect(() => {
         let completed
-        console.log("ONBOARDING DETAILS", onboardingDetails)
         for (const key in onboardingDetails) {
             if (onboardingInputsForStep2.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
                 completed = false
-                console.log("Empty is", key)
                 break
             }
             if (onboardingDetails.represents === "individual") {
@@ -530,16 +525,20 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
             if ((onboardingDetails[key] === '' || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
                 delete onboardingDetails[key];
             }
+            if (individualInputs.includes(key)) {
+                delete onboardingDetails[key];
+            }
         });
-        console.log("UPDATED ONBOARDING DETAILS", onboardingDetails)
         setLoading(true)
         if (onboardingDetails.represents === "firm") {
             editFirm(onboardingDetails).then(response => {
                 setLoading(false)
                 if (response?.status === "success") {
                     setInfo({ type: "success", message: `Company updated successfully` })
+                    const updatedUser = { ...user, ...response?.data?.user }
+                    storeUser(updatedUser)
                     setTimeout(() => {
-                        navigate('/dashboard/settings/payment')
+                        navigate('/dashboard')
                     }, 1000)
                 } else {
                     setInfo({ type: "error", message: response.message })
@@ -551,8 +550,10 @@ const Step2 = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
                 setLoading(false)
                 if (response?.status === "success") {
                     setInfo({ type: "success", message: `Profile updated successfully` })
+                    const updatedUser = { ...user, ...response?.data?.user }
+                    storeUser(updatedUser)
                     setTimeout(() => {
-                        navigate('/dashboard/settings/payment')
+                        navigate('/dashboard')
                     }, 1000)
                 } else {
                     setInfo({ type: "error", message: response.message })

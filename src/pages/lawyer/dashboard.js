@@ -4,13 +4,15 @@ import { useLocation, Routes, Route, useNavigate } from 'react-router-dom'
 import { Sidebar } from '../../components/dashboard/sidebar'
 import { MiddleTopNav } from '../../components/dashboard/navigation'
 
-import Main from '../../components/dashboard'
-import Settings from '../../components/dashboard/settings'
-import Appointments from '../../components/dashboard/apointments'
+import Main from '../../components/lawyer/dashboard'
+import Settings from '../../components/lawyer/dashboard/settings'
+import Appointments from '../../components/lawyer/dashboard/apointments'
 
 import { Modal, Button } from '../../components/ui'
+import { userStore } from '../../stores'
 
 const Dashboard = () => {
+    const user = userStore(state => state.user)
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [collapsedMenu, setCollapsedMenu] = useState(false)
     const [refreshPage, setRefreshPage] = useState(true)
@@ -24,7 +26,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         setRefreshPage(false)
-        setProfileComplete(false)
     }, [])
 
     useEffect(() => {
@@ -37,6 +38,11 @@ const Dashboard = () => {
         setRefreshPage(true)
         setCurrentRoute(location.pathname)
     }, [location])
+    useEffect(() => {
+        if (user) {
+            setProfileComplete(user?.onboarding)
+        }
+    }, [user])
     return (
         <div className='relative'>
             <div>
@@ -48,8 +54,8 @@ const Dashboard = () => {
                             <Routes>
                                 {
                                     <>
-                                        <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} updateOnboardingPercentage={setOnboardingPercentage}/>} />
-                                        <Route path="/appointments" exact element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
+                                        <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} updateOnboardingPercentage={setOnboardingPercentage} />} />
+                                        <Route path="/appointments/*" element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/settings/*" element={<Settings setMiddleTopNavText={setMiddleTopNavText} />} />
                                     </>
                                 }

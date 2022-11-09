@@ -436,85 +436,17 @@ export const Toggle = ({ title, enabled, setEnabled }) => {
     )
 }
 
-export const Calendar = () => {
-    const days = [
-        { date: '2021-12-27', events: [] },
-        { date: '2021-12-28', events: [] },
-        { date: '2021-12-29', events: [] },
-        { date: '2021-12-30', events: [] },
-        { date: '2021-12-31', events: [] },
-        { date: '2022-01-01', isCurrentMonth: true, events: [] },
-        { date: '2022-01-02', isCurrentMonth: true, events: [] },
-        {
-            date: '2022-01-03',
-            isCurrentMonth: true,
-            events: [
-                { id: 1, name: 'Design review', time: '10AM', datetime: '2022-01-03T10:00', href: '#' },
-                { id: 2, name: 'Sales meeting', time: '2PM', datetime: '2022-01-03T14:00', href: '#' },
-            ],
-        },
-        { date: '2022-01-04', isCurrentMonth: true, events: [] },
-        { date: '2022-01-05', isCurrentMonth: true, events: [] },
-        { date: '2022-01-06', isCurrentMonth: true, events: [] },
-        {
-            date: '2022-01-07',
-            isCurrentMonth: true,
-            events: [{ id: 3, name: 'Date night', time: '6PM', datetime: '2022-01-08T18:00', href: '#' }],
-        },
-        { date: '2022-01-08', isCurrentMonth: true, events: [] },
-        { date: '2022-01-09', isCurrentMonth: true, events: [] },
-        { date: '2022-01-10', isCurrentMonth: true, events: [] },
-        { date: '2022-01-11', isCurrentMonth: true, events: [] },
-        {
-            date: '2022-01-12',
-            isCurrentMonth: true,
-            isToday: true,
-            events: [{ id: 6, name: "Sam's birthday party", time: '2PM', datetime: '2022-01-25T14:00', href: '#' }],
-        },
-        { date: '2022-01-13', isCurrentMonth: true, events: [] },
-        { date: '2022-01-14', isCurrentMonth: true, events: [] },
-        { date: '2022-01-15', isCurrentMonth: true, events: [] },
-        { date: '2022-01-16', isCurrentMonth: true, events: [] },
-        { date: '2022-01-17', isCurrentMonth: true, events: [] },
-        { date: '2022-01-18', isCurrentMonth: true, events: [] },
-        { date: '2022-01-19', isCurrentMonth: true, events: [] },
-        { date: '2022-01-20', isCurrentMonth: true, events: [] },
-        { date: '2022-01-21', isCurrentMonth: true, events: [] },
-        {
-            date: '2022-01-22',
-            isCurrentMonth: true,
-            isSelected: true,
-            events: [
-                { id: 4, name: 'Maple syrup museum', time: '3PM', datetime: '2022-01-22T15:00', href: '#' },
-                { id: 5, name: 'Hockey game', time: '7PM', datetime: '2022-01-22T19:00', href: '#' },
-            ],
-        },
-        { date: '2022-01-23', isCurrentMonth: true, events: [] },
-        { date: '2022-01-24', isCurrentMonth: true, events: [] },
-        { date: '2022-01-25', isCurrentMonth: true, events: [] },
-        { date: '2022-01-26', isCurrentMonth: true, events: [] },
-        { date: '2022-01-27', isCurrentMonth: true, events: [] },
-        { date: '2022-01-28', isCurrentMonth: true, events: [] },
-        { date: '2022-01-29', isCurrentMonth: true, events: [] },
-        { date: '2022-01-30', isCurrentMonth: true, events: [] },
-        { date: '2022-01-31', isCurrentMonth: true, events: [] },
-        { date: '2022-02-01', events: [] },
-        { date: '2022-02-02', events: [] },
-        {
-            date: '2022-02-03',
-            events: [{ id: 7, name: 'Cinema with friends', time: '9PM', datetime: '2022-02-04T21:00', href: '#' }],
-        },
-        { date: '2022-02-04', events: [] },
-        { date: '2022-02-05', events: [] },
-        { date: '2022-02-06', events: [] },
-    ]
-    const selectedDay = days.find((day) => day.isSelected)
+export const Calendar = ({ currentDate, days, selectDay }) => {
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 
     return (
         <div className="lg:flex lg:h-full lg:flex-col">
             <header className="flex items-center justify-between border-b border-gray-200 py-4 px-6 lg:flex-none">
                 <h1 className="text-lg font-semibold text-gray-900">
-                    <time dateTime="2022-01">January 2022</time>
+                    <time dateTime={currentDate?.toLocaleDateString().replaceAll("/", "-")}><span>{monthNames[currentDate?.getMonth()]} </span> <span>{currentDate?.getFullYear()}</span></time>
                 </h1>
                 <div className="flex items-center">
                     <div className="flex items-center rounded-md shadow-sm md:items-stretch">
@@ -550,7 +482,7 @@ export const Calendar = () => {
                                 <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                             </Menu.Button>
 
-                            <Transition
+                            {/* <Transition
                                 as={Fragment}
                                 enter="transition ease-out duration-100"
                                 enterFrom="transform opacity-0 scale-95"
@@ -615,7 +547,7 @@ export const Calendar = () => {
                                         </Menu.Item>
                                     </div>
                                 </Menu.Items>
-                            </Transition>
+                            </Transition> */}
                         </Menu>
                         <div className="ml-6 h-6 w-px bg-gray-300" />
                         <button
@@ -671,60 +603,6 @@ export const Calendar = () => {
                                         )}
                                     </Menu.Item>
                                 </div>
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Day view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Week view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Month view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Year view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
                             </Menu.Items>
                         </Transition>
                     </Menu>
@@ -756,72 +634,72 @@ export const Calendar = () => {
                 </div>
                 <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
                     <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-                        {days.map((day) => (
+                        {days.map((day, index) => (
                             <div
                                 key={day.date}
                                 className={classNames(
                                     day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-500',
-                                    'relative py-2 px-3'
+                                    'relative py-2 px-3 cursor-pointer hover:bg-gray-100',
+                                    day?.date?.getDate() >= currentDate.getDate() ? "bg-white" : "bg-gray-50"
                                 )}
+                                onClick={() => { day.isCurrentMonth && day?.date.getDate() >= currentDate.getDate() && selectDay(index) }}
                             >
                                 <time
-                                    dateTime={day.date}
-                                    className={
-                                        day.isToday
-                                            ? 'flex h-6 w-6 items-center justify-center rounded-full bg-legalYellow font-semibold text-white'
-                                            : undefined
-                                    }
+                                    dateTime={day?.date?.toLocaleDateString().replaceAll("/", "-")}
+                                    className={classNames(
+                                        "flex h-6 w-6 items-center justify-center rounded-full",
+                                        day?.isSelected && "bg-legalYellow text-white",
+                                        day?.isToday
+                                            ? 'bg-legalYellow font-semibold text-white'
+                                            : undefined,
+                                        day?.isToday && !day?.isSelected && "bg-legalGreen text-white",
+                                        day?.isToday && day?.isSelected && "bg-legalGreen",
+                                    )}
                                 >
-                                    {day.date.split('-').pop().replace(/^0/, '')}
+                                    {day?.date?.getDate()}
                                 </time>
                                 {day.events.length > 0 && (
                                     <ol className="mt-2">
-                                        {day.events.slice(0, 2).map((event) => (
-                                            <li key={event.id}>
-                                                <a href={event.href} className="group flex">
-                                                    <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-legalGreen">
-                                                        {event.name}
-                                                    </p>
-                                                    <time
-                                                        dateTime={event.datetime}
-                                                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-legalGreen xl:block"
-                                                    >
-                                                        {event.time}
-                                                    </time>
-                                                </a>
-                                            </li>
-                                        ))}
-                                        {day.events.length > 2 && <li className="text-gray-500">+ {day.events.length - 2} more</li>}
+                                        {day.events.length > 0 && (
+                                            <span className="-mx-0.5 mt-auto flex flex-wrap-reverse py-3">
+                                                {day.events.map((event) => (
+                                                    <span key={event.id} className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
+                                                ))}
+                                            </span>
+                                        )}
                                     </ol>
                                 )}
                             </div>
                         ))}
                     </div>
                     <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
-                        {days.map((day) => (
+                        {days.map((day, index) => (
                             <button
                                 key={day.date}
                                 type="button"
                                 className={classNames(
                                     day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                                    (day.isSelected || day.isToday) && 'font-semibold',
+                                    day?.date?.getDate() >= currentDate?.getDate() ? "bg-white" : "bg-gray-50",
+                                    (day.isSelected || day.isToday) && 'font-bold',
                                     day.isSelected && 'text-white',
-                                    !day.isSelected && day.isToday && 'text-legalGreen',
+                                    !day.isSelected && day.isToday && 'text-white',
                                     !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900',
                                     !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-500',
                                     'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'
                                 )}
+                                onClick={() => { day.isCurrentMonth && day?.date.getDate() >= currentDate.getDate() && selectDay(index) }}
                             >
                                 <time
-                                    dateTime={day.date}
+                                    dateTime={day?.date?.toLocaleDateString().replaceAll("/", "-")}
                                     className={classNames(
-                                        day.isSelected && 'flex h-6 w-6 items-center justify-center rounded-full',
+                                        day.isToday && "flex h-6 w-6 items-center justify-center rounded-full bg-legalGreen text-white",
+                                        day.isSelected ? 'flex h-6 w-6 items-center justify-center rounded-full' : "",
                                         day.isSelected && day.isToday && 'bg-legalGreen',
                                         day.isSelected && !day.isToday && 'bg-legalYellow',
                                         'ml-auto'
                                     )}
                                 >
-                                    {day.date.split('-').pop().replace(/^0/, '')}
+                                    {day?.date?.getDate()}
                                 </time>
                                 <span className="sr-only">{day.events.length} events</span>
                                 {day.events.length > 0 && (

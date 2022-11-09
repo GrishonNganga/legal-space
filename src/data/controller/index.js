@@ -2,11 +2,19 @@ import { signinUser, signupUser, getAllAreasOfPracticeRequest } from '../api/una
 import {
     editUserRequest,
     refreshSession,
+    logoutRequest,
     getUserOnboardingPercentageRequest,
-    getLawyerCasesByStageRequest,
     getLawyerAppointmentsByStatusRequest,
     createFirmRequest,
-    editFirmRequest
+    editFirmRequest,
+    getLawyerCasesRequest,
+    getLawyersRequest,
+    searchLawyersRequest,
+    getSpecificLawyerRequest,
+    clientCreateAppointmentRequest,
+    getSpecificAppointmentRequest,
+    lawyerEditAppointmentRequest,
+    userChangePasswordRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -24,8 +32,23 @@ export const refresh = async () => {
     return _returnResponse(response)
 }
 
+export const logout = async () => {
+    const response = await logoutRequest()
+    return _returnResponse(response)
+}
+
 export const getAllAreasOfPractice = async () => {
     const response = await getAllAreasOfPracticeRequest()
+    return _returnResponse(response)
+}
+
+export const searchLawyers = async () => {
+    const response = await searchLawyersRequest()
+    return _returnResponse(response)
+}
+
+export const getLawyers = async () => {
+    const response = await getLawyersRequest()
     return _returnResponse(response)
 }
 
@@ -34,23 +57,51 @@ export const editUser = async (userDetails) => {
     return _returnResponse(response)
 }
 
+export const userChangePassword = async (passwordDetails) => {
+    const response = await userChangePasswordRequest(passwordDetails)
+    return _returnResponse(response)
+}
+
+
+
 export const getUserOnboardingPercentage = async (stage) => {
     const response = await getUserOnboardingPercentageRequest({ stage: stage })
     return _returnResponse(response)
 }
 
-export const getLawyerCasesByStage = async () => {
-    const response = await getLawyerCasesByStageRequest()
+export const getSpecificLawyer = async (id) => {
+    const response = await getSpecificLawyerRequest(id)
+    return _returnResponse(response)
+}
+
+export const getSpecificAppointment = async (id) => {
+    const response = await getSpecificAppointmentRequest(id)
+    return _returnResponse(response)
+}
+
+
+export const getLawyerCases = async (stage) => {
+    const response = await getLawyerCasesRequest({stage: stage})
     return _returnResponse(response)
 }
 
 export const getLawyerAppointmentsByStatus = async (userId, status) => {
-    const response = await getLawyerAppointmentsByStatusRequest(userId, { status: status })
+    const response = await getLawyerAppointmentsByStatusRequest({ status: status })
     return _returnResponse(response)
 }
 
 export const createFirm = async (firmDetails) => {
     const response = await createFirmRequest(firmDetails)
+    return _returnResponse(response)
+}
+
+export const clientCreateAppointment = async (appointmentDetails) => {
+    const response = await clientCreateAppointmentRequest(appointmentDetails)
+    return _returnResponse(response)
+}
+
+export const lawyerEditAppointment = async (appointmentId, appointmentDetails) => {
+    const response = await lawyerEditAppointmentRequest(appointmentId, appointmentDetails)
     return _returnResponse(response)
 }
 

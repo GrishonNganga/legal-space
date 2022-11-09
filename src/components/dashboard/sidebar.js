@@ -26,6 +26,7 @@ const routes = [
         icon: UserGroupIcon,
         current: false,
         href: "/appointments",
+        enableNavigation: true,
     },
     {
         name: 'Engagements',
@@ -42,6 +43,7 @@ const routes = [
         children: [
             { name: 'Profile', href: '/settings/profile', current: false },
             { name: 'Payment', href: '/settings/payment', current: true },
+            { name: 'Logout', href: '/settings/logout', current: false },
         ],
     },
 ]
@@ -64,7 +66,10 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRou
                     })
                     return { ...nav, children: updatedSubNav, current: matched }
                 } else {
-                    if (routePrefix + nav?.href === currentRoute) {
+                    let matched = false
+
+                    if ((nav?.enableNavigation && currentRoute?.includes(routePrefix + nav?.href)) || (routePrefix + nav?.href === currentRoute)) {
+                        matched = true
                         return { ...nav, current: true }
                     } else {
                         return { ...nav, current: false }

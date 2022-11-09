@@ -18,6 +18,25 @@ export const refreshSession = async () => {
         });
 };
 
+export const logoutRequest = async () => {
+    return await api
+        .post("/auth/logout")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const userChangePasswordRequest = async (data) => {
+    return await api
+        .patch("/auth/changePassword")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+
 export const editUserRequest = async (data) => {
     return await api
         .patch("/user/edit", data)
@@ -30,6 +49,24 @@ export const editUserRequest = async (data) => {
 export const editFirmRequest = async (data) => {
     return await api
         .patch("/firm/edit", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getSpecificLawyerRequest = async (lawyerId) => {
+    return await api
+        .get("/lawyer/" + lawyerId)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getSpecificAppointmentRequest = async (appointmentId) => {
+    return await api
+        .get("/appointment/lawyer/get/" + appointmentId)
         .then((response) => response)
         .catch((error) => {
             return error.response;
@@ -55,9 +92,36 @@ export const getLawyerCasesByStageRequest = async (stage) => {
         });
 };
 
-export const getLawyerAppointmentsByStatusRequest = async (userId, status) => {
+export const getLawyerCasesRequest = async (stage) => {
     return await api
-        .post(`/appointment/lawyer/appointments/${userId}`, status)
+        .post("/case/lawyer/cases", stage)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const searchLawyersRequest = async () => {
+    return await api
+        .post("/user/search/lawyer", { query: " " })
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getLawyersRequest = async () => {
+    return await api
+        .get("/lawyer/lawyers")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+}
+
+export const getLawyerAppointmentsByStatusRequest = async (status) => {
+    return await api
+        .post(`/appointment/lawyer/appointments`, status)
         .then((response) => response)
         .catch((error) => {
             return error.response;
@@ -72,3 +136,22 @@ export const createFirmRequest = async (data) => {
             return error.response;
         });
 };
+
+export const lawyerEditAppointmentRequest = async (appointmentId, data) => {
+    return await api
+        .patch("/appointment/lawyer/edit/" + appointmentId, data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const clientCreateAppointmentRequest = async (data) => {
+    return await api
+        .post("appointment/create", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+

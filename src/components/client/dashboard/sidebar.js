@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import {
-    FolderOpenIcon,
     HomeIcon,
     XMarkIcon,
     UserGroupIcon,
-    CogIcon
+    ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline'
 
 function classNames(...classes) {
@@ -26,6 +25,12 @@ const routes = [
         icon: UserGroupIcon,
         current: false,
         href: "/appointments",
+    },
+    {
+        name: 'Logout',
+        icon: ArrowRightOnRectangleIcon,
+        current: false,
+        href: "/logout",
     }
 ]
 

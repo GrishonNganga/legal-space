@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { CheckIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
-import mpesa from '../../assets/mpesa.png'
+import mpesa from '../../../assets/mpesa.png'
 
-import { Input, Modal, Button } from '../../components/ui'
+import { Input, Modal, Button } from '../../../components/ui'
 
-import { userStore } from '../../stores'
+import { userStore } from '../../../stores'
 
 const Payment = () => {
     const plans = [

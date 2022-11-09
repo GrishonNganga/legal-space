@@ -1,17 +1,56 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { Input } from '../../ui';
+import { getLawyers, getAllAreasOfPractice } from '../../../data/controller';
+import { userStore } from '../../../stores';
 
 const Main = ({ setMiddleTopNavText }) => {
     const navigate = useNavigate()
+    const setLawyer = userStore(state => state.setLawyer)
+    const [allLawyers, setAllLawyers] = useState([])
+    const [lawyers, setLawyers] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [categories, setCategories] = useState([])
+    const [loadingCategories, setLoadingCategories] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState("all")
 
     useEffect(() => {
         setMiddleTopNavText("Lawyerspace.io")
-    })
+
+        setLoadingCategories(true)
+        getAllAreasOfPractice().then(response => {
+            setLoadingCategories(false)
+            if (response?.status === "success") {
+                setCategories(response.data.categories)
+            }
+        })
+
+        setLoading(true)
+        getLawyers().then(response => {
+            setLoading(false)
+            if (response?.status === "success") {
+                setAllLawyers(response.data.lawyers)
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        if (allLawyers?.length > 0) {
+            setLawyers(allLawyers)
+        }
+    }, [allLawyers])
+
+    useEffect(() => {
+        if(selectedCategory === "all"){
+            setLawyers(allLawyers)
+        }else{
+
+        }
+    },[selectedCategory])
 
     return (
         <div className="p-2">
@@ -41,18 +80,30 @@ const Main = ({ setMiddleTopNavText }) => {
                         </div>
                     </div>
                     <div className='mt-5 flex gap-x-2 overflow-scroll no-scrollbar text-sm'>
-                        <div className='px-4 py-2 border border-legalGreen text-gray-500 rounded-md'>
-                            Family
-                        </div>
-                        <div className='px-4 py-2 border-0 text-white bg-legalGreen rounded-md'>
-                            General
-                        </div>
-                        <div className='px-4 py-2 border border-legalGreen text-gray-500 rounded-md'>
-                            Criminal
-                        </div>
-                        <div className='px-4 py-2 border border-legalGreen text-gray-500 rounded-md'>
-                            Criminal
-                        </div>
+                        {
+                            !loadingCategories &&
+                            <div className={`px-4 py-2 rounded-md ${selectedCategory === "all" ? "bg-[#DEAB52] border-[#DEAB52] text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory("all") }}>
+                                All
+                            </div>
+                        }
+                        {
+                            !loadingCategories && categories?.map((category, idx) => {
+                                return (
+                                    <div key={idx} className={`px-4 py-2 rounded-md ${selectedCategory === category?._id ? "bg-[#DEAB52] border-[#DEAB52] text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory(category._id) }}>
+                                        {category?.title}
+                                    </div>
+                                )
+                            })
+                        }
+                        {
+                            loadingCategories && [...Array(4)].map(idx => {
+                                return (
+                                    <div key={idx} className='px-4 py-2 w-40 h-10 bg-gray-300 animate-pulse rounded-md'>
+
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                     <div className='mt-8 flex justify-between items-center'>
                         <div className='font-semibold text-md'>
@@ -63,192 +114,74 @@ const Main = ({ setMiddleTopNavText }) => {
                         </div>
                     </div>
                     <div className='mt-5 flex flex-col gap-y-4'>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow' onClick={() => { navigate('lawyer/1') }}>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
+                        {
+                            !loading && lawyers?.map(lawyer => {
+                                return (
+                                    <div key={lawyer?._id} className='flex justify-between items-center bg-white p-2 rounded-md shadow' onClick={() => { setLawyer(lawyer); navigate(`lawyer/${lawyer?._id}`) }}>
+                                        <div className='flex gap-x-2 items-center'>
+                                            <div className='shrink-0 w-10 h-10'>
+                                                <img src={lawyer?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-full h-full rounded-full object-cover" />
+                                            </div>
+                                            <div className='flex flex-col'>
+                                                <div className='font-semibold text-base'>
+                                                    <span>{lawyer?.firstName} </span> <span>{lawyer?.lastName}</span>
+                                                </div>
+                                                <div className='flex gap-x-3 items-center'>
+                                                    <div className=' text-gray-400 text-sm'>
+                                                        Criminal representation
+                                                    </div>
+                                                    <div className='w-1 h-1 bg-gray-400'>
 
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Alexander Johansen
+                                                    </div>
+                                                    <div className='-ml-2 text-xs text-gray-500'>
+                                                        East Dakota
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {
+                                            lawyer?.rating &&
+                                            <div className='flex gap-x-1 items-center'>
+                                                <div>
+                                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
+                                                </div>
+                                                {
+                                                    lawyer?.rating &&
+                                                    <div className='text-xs text-[#DEAB52]'>
+                                                        {
+                                                            lawyer?.rating
+                                                        }
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                     </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Criminal representation
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
+                                )
+                            })
+                        }
+                        {
+                            loading && [...Array(6)].map(idx => {
+                                return (
+                                    <div key={idx} className='w-full flex flex-col gap-y-3 shadow-lg p-5 rounded-md'>
+                                        <div className='w-full flex gap-x-2 items-start h-full'>
+                                            <div>
+                                                <div className='w-10 h-10 bg-gray-300 animate-pulse rounded-full'>
 
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            East Dakota
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow'>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
+                                                </div>
+                                            </div>
+                                            <div className='w-full flex flex-col gap-y-2'>
+                                                <div className='font-semibold text-base w-1/2 h-4 bg-gray-300 animate-pulse rounded-md'>
 
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Robert Lewangoaski
-                                    </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Intellectual
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
+                                                </div>
+                                                <div className='font-semibold text-base w-1/2 h-4 bg-gray-300 animate-pulse rounded-md'>
 
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            South Borneo
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow'>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
-
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Robert Lewangoaski
-                                    </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Intellectual
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
-
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            South Borneo
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow'>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
-
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Robert Lewangoaski
-                                    </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Intellectual
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
-
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            South Borneo
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow'>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
-
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Robert Lewangoaski
-                                    </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Intellectual
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
-
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            South Borneo
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex justify-between items-center bg-white p-2 rounded-md shadow'>
-                            <div className='flex gap-x-2 items-center'>
-                                <div className='w-8 h-8 bg-gray-200 rounded-full shrink-0'>
-
-                                </div>
-                                <div className='flex flex-col'>
-                                    <div className='font-semibold text-base'>
-                                        Robert Lewangoaski
-                                    </div>
-                                    <div className='flex gap-x-3 items-center'>
-                                        <div className=' text-gray-400 text-sm'>
-                                            Intellectual
-                                        </div>
-                                        <div className='w-1 h-1 bg-gray-400'>
-
-                                        </div>
-                                        <div className='-ml-2 text-xs text-gray-500'>
-                                            South Borneo
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex gap-x-1 items-center'>
-                                <div>
-                                    <StarIcon className='w-5 h-5 text-[#DEAB52]' />
-                                </div>
-                                <div className='text-xs text-[#DEAB52]'>
-                                    4.6
-                                </div>
-                            </div>
-                        </div>
+                                )
+                            })
+                        }
                     </div>
 
                 </div>
