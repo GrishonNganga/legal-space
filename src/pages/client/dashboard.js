@@ -6,7 +6,7 @@ import { MiddleTopNav } from '../../components/dashboard/navigation'
 
 import Main from '../../components/client/dashboard'
 import LawyerDetails from '../../components/client/dashboard/lawyerDetails'
-import Appointments from '../../components/lawyer/dashboard/apointments'
+import Appointments from '../../components/client/dashboard/appointments'
 import Logout from '../../components/dashboard/logout'
 
 const Dashboard = () => {
@@ -46,7 +46,7 @@ const Dashboard = () => {
                                     <>
                                         <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/lawyer/:id" exact element={<LawyerDetails setMiddleTopNavText={setMiddleTopNavText} />} />
-                                        <Route path="/appointments" exact element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
+                                        <Route path="/appointments/*" element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/logout" element={<Logout setMiddleTopNavText={setMiddleTopNavText} />} /> 
                                     </>
                                 }

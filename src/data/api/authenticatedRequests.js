@@ -29,7 +29,7 @@ export const logoutRequest = async () => {
 
 export const userChangePasswordRequest = async (data) => {
     return await api
-        .patch("/auth/changePassword")
+        .patch("/auth/changePassword", data)
         .then((response) => response)
         .catch((error) => {
             return error.response;
@@ -64,9 +64,35 @@ export const getSpecificLawyerRequest = async (lawyerId) => {
         });
 };
 
+export const getLawyersPerCategoryRequest = async (categoryId) => {
+    return await api
+        .get("/category/get/" + categoryId)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
 export const getSpecificAppointmentRequest = async (appointmentId) => {
     return await api
         .get("/appointment/lawyer/get/" + appointmentId)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getSpecificClientAppointmentRequest = async (appointmentId) => {
+    return await api
+        .get("/appointment/client/get/" + appointmentId)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getLawyerBookedDatesRequest = async (data) => {
+    return await api
+        .post("/appointment/booked_dates", data)
         .then((response) => response)
         .catch((error) => {
             return error.response;
@@ -119,9 +145,18 @@ export const getLawyersRequest = async () => {
         });
 }
 
-export const getLawyerAppointmentsByStatusRequest = async (status) => {
+export const getLawyerAppointmentsByStatusRequest = async (stage) => {
     return await api
-        .post(`/appointment/lawyer/appointments`, status)
+        .post(`/appointment/lawyer/appointments`, stage)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const getClientAppointmentsByStatusRequest = async (stage) => {
+    return await api
+        .post(`/appointment/client/appointments`, stage)
         .then((response) => response)
         .catch((error) => {
             return error.response;
@@ -140,6 +175,15 @@ export const createFirmRequest = async (data) => {
 export const lawyerEditAppointmentRequest = async (appointmentId, data) => {
     return await api
         .patch("/appointment/lawyer/edit/" + appointmentId, data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const clientEditAppointmentRequest = async (appointmentId, data) => {
+    return await api
+        .patch("/appointment/client/edit/" + appointmentId, data)
         .then((response) => response)
         .catch((error) => {
             return error.response;

@@ -63,7 +63,7 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
                 setStats(prevState => ({ ...prevState, "totalCases": response.data?.cases }))
             }
         })
-        getLawyerAppointmentsByStatus({ status: "pending" }).then(response => {
+        getLawyerAppointmentsByStatus({ stage: "pending" }).then(response => {
             if (response?.status === "success") {
                 setStats(prevState => ({ ...prevState, "pendingAppointments": response.data?.appointments }))
             }
@@ -183,11 +183,14 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
                                                         <div className=' text-gray-400 text-sm truncate'>
                                                             {appointment.subject}
                                                         </div>
-                                                        <div className='w-1 h-1 bg-gray-400'>
+                                                        {
+                                                            user?.location &&
+                                                            <div className='w-1 h-1 bg-gray-400'>
 
-                                                        </div>
+                                                            </div>
+                                                        }
                                                         <div className='-ml-2 text-xs text-gray-500'>
-                                                            East Dakota
+                                                            {user?.location}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -14,7 +14,12 @@ import {
     clientCreateAppointmentRequest,
     getSpecificAppointmentRequest,
     lawyerEditAppointmentRequest,
-    userChangePasswordRequest
+    clientEditAppointmentRequest,
+    userChangePasswordRequest,
+    getLawyersPerCategoryRequest,
+    getClientAppointmentsByStatusRequest,
+    getSpecificClientAppointmentRequest,
+    getLawyerBookedDatesRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -52,6 +57,11 @@ export const getLawyers = async () => {
     return _returnResponse(response)
 }
 
+export const getLawyersPerCategory = async (categoryId) => {
+    const response = await getLawyersPerCategoryRequest(categoryId)
+    return _returnResponse(response)
+}
+
 export const editUser = async (userDetails) => {
     const response = await editUserRequest(userDetails)
     return _returnResponse(response)
@@ -62,7 +72,10 @@ export const userChangePassword = async (passwordDetails) => {
     return _returnResponse(response)
 }
 
-
+export const getLawyerBookedDates = async (lawyerDetails) => {
+    const response = await getLawyerBookedDatesRequest({ lawyerId: lawyerDetails })
+    return _returnResponse(response)
+}
 
 export const getUserOnboardingPercentage = async (stage) => {
     const response = await getUserOnboardingPercentageRequest({ stage: stage })
@@ -79,16 +92,26 @@ export const getSpecificAppointment = async (id) => {
     return _returnResponse(response)
 }
 
+export const getSpecificClientAppointment = async (id) => {
+    const response = await getSpecificClientAppointmentRequest(id)
+    return _returnResponse(response)
+}
 
 export const getLawyerCases = async (stage) => {
-    const response = await getLawyerCasesRequest({stage: stage})
+    const response = await getLawyerCasesRequest({ stage: stage })
     return _returnResponse(response)
 }
 
-export const getLawyerAppointmentsByStatus = async (userId, status) => {
-    const response = await getLawyerAppointmentsByStatusRequest({ status: status })
+export const getLawyerAppointmentsByStatus = async (stageDetails) => {
+    const response = await getLawyerAppointmentsByStatusRequest(stageDetails)
     return _returnResponse(response)
 }
+
+export const getClientAppointmentsByStatus = async (stageDetails) => {
+    const response = await getClientAppointmentsByStatusRequest(stageDetails)
+    return _returnResponse(response)
+}
+
 
 export const createFirm = async (firmDetails) => {
     const response = await createFirmRequest(firmDetails)
@@ -104,6 +127,12 @@ export const lawyerEditAppointment = async (appointmentId, appointmentDetails) =
     const response = await lawyerEditAppointmentRequest(appointmentId, appointmentDetails)
     return _returnResponse(response)
 }
+
+export const clientEditAppointment = async (appointmentId, appointmentDetails) => {
+    const response = await clientEditAppointmentRequest(appointmentId, appointmentDetails)
+    return _returnResponse(response)
+}
+
 
 export const editFirm = async (firmDetails) => {
     const response = await editFirmRequest(firmDetails)

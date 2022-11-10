@@ -37,7 +37,6 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
     const updateUser = (details) => {
         setLoading(true)
         editUser(details).then(response => {
-            console.log("RESPONSE", response)
             setLoading(false)
             if (response?.status === "success") {
                 const updatedUser = { ...user, ...response?.data?.user }
@@ -228,7 +227,7 @@ const PasswordReset = ({ setMiddleTopNavText }) => {
                     storeUser(null)
                     navigate('/signin')
                 }, 1000)
-            }else{
+            } else {
                 setInfo({ message: response?.message, type: "error" })
             }
         })
@@ -342,11 +341,14 @@ const PreviousEngagements = ({ setMiddleTopNavText }) => {
                                                             engagement?.subject
                                                         }
                                                     </div>
-                                                    <div className='w-1 h-1 bg-gray-400'>
+                                                    {
+                                                        user?.location &&
+                                                        <div className='w-1 h-1 bg-gray-400'>
 
-                                                    </div>
+                                                        </div>
+                                                    }
                                                     <div className='-ml-2 text-xs text-gray-500'>
-                                                        East Dakota
+                                                        {user?.location}
                                                     </div>
                                                 </div>
                                             </div>

@@ -67,7 +67,6 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRou
                     return { ...nav, children: updatedSubNav, current: matched }
                 } else {
                     let matched = false
-
                     if ((nav?.enableNavigation && currentRoute?.includes(routePrefix + nav?.href)) || (routePrefix + nav?.href === currentRoute)) {
                         matched = true
                         return { ...nav, current: true }

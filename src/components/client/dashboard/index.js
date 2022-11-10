@@ -5,11 +5,12 @@ import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/react
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { Input } from '../../ui';
-import { getLawyers, getAllAreasOfPractice } from '../../../data/controller';
+import { getLawyers, getAllAreasOfPractice, getLawyersPerCategory } from '../../../data/controller';
 import { userStore } from '../../../stores';
 
 const Main = ({ setMiddleTopNavText }) => {
     const navigate = useNavigate()
+    const user = userStore(state => state.user)
     const setLawyer = userStore(state => state.setLawyer)
     const [allLawyers, setAllLawyers] = useState([])
     const [lawyers, setLawyers] = useState([])
@@ -45,17 +46,25 @@ const Main = ({ setMiddleTopNavText }) => {
     }, [allLawyers])
 
     useEffect(() => {
-        if(selectedCategory === "all"){
+        if (selectedCategory === "all") {
             setLawyers(allLawyers)
-        }else{
-
+        } else {
+            setLoading(true)
+            getLawyersPerCategory(selectedCategory).then(response => {
+                setLoading(false)
+                if (response?.status === "success") {
+                    setLawyers(response?.data?.category?.lawyers)
+                } else {
+                    setLawyers([])
+                }
+            })
         }
-    },[selectedCategory])
+    }, [selectedCategory])
 
     return (
         <div className="p-2">
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-gray-900">Hello Bendon</h1>
+                <h1 className="text-gray-900">Hello {user?.firstName}</h1>
                 <h1 className="mt-2 font-semibold text-[#183A33] text-xl">Find the best lawyers here</h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
@@ -130,11 +139,14 @@ const Main = ({ setMiddleTopNavText }) => {
                                                     <div className=' text-gray-400 text-sm'>
                                                         Criminal representation
                                                     </div>
-                                                    <div className='w-1 h-1 bg-gray-400'>
+                                                    {
+                                                        user?.location &&
+                                                        <div className='w-1 h-1 bg-gray-400'>
 
-                                                    </div>
+                                                        </div>
+                                                    }
                                                     <div className='-ml-2 text-xs text-gray-500'>
-                                                        East Dakota
+                                                        {lawyer?.location}
                                                     </div>
                                                 </div>
                                             </div>

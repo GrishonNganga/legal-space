@@ -53,7 +53,7 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                 return (
                                     <div key={index} className='flex flex-col gap-y-3 shadow-md p-4 rounded-md' onClick={() => { setShowMore(index) }}>
                                         <div className='flex gap-x-2 items-start'>
-                                            <img src={appointment?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-12 h-12 rounded-full" />
+                                            <img src={appointment?.clientId?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-12 h-12 rounded-full" />
                                             <div className='flex flex-col' onClick={() => { navigate(appointment?._id) }}>
                                                 <div className='font-semibold text-base'>
                                                     <span>{appointment?.clientId.firstName}</span> <span> {appointment?.clientId?.lastName}</span>
@@ -62,11 +62,14 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                                     <div className=' text-gray-400 text-sm'>
                                                         {appointment.subject}
                                                     </div>
-                                                    <div className='w-1 h-1 bg-gray-400'>
+                                                    {
+                                                        user?.location &&
+                                                        <div className='w-1 h-1 bg-gray-400'>
 
-                                                    </div>
+                                                        </div>
+                                                    }
                                                     <div className='-ml-2 text-xs text-gray-500'>
-                                                        East Dakota
+                                                        {user.location}
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,6 +143,7 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
 }
 
 const ViewAppointment = ({ setMiddleTopNavText }) => {
+    const user = userStore(state => state.user)
     const location = useLocation()
     const [appointment, setAppointment] = useState()
     const [loading, setLoading] = useState(false)
@@ -228,7 +232,7 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
 
                                 </div>
                                 <div className='-ml-2 text-xs text-gray-500'>
-                                    East Dakota
+                                    {user?.location}
                                 </div>
                             </div>
                         </div>

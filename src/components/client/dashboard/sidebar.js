@@ -25,12 +25,14 @@ const routes = [
         icon: UserGroupIcon,
         current: false,
         href: "/appointments",
+        enableNavigation: true,
     },
     {
         name: 'Logout',
         icon: ArrowRightOnRectangleIcon,
         current: false,
         href: "/logout",
+        enableNavigation: true,
     }
 ]
 
@@ -52,7 +54,9 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRou
                     })
                     return { ...nav, children: updatedSubNav, current: matched }
                 } else {
-                    if (routePrefix + nav?.href === currentRoute) {
+                    let matched = false
+                    if ((nav?.enableNavigation && currentRoute?.includes(routePrefix + nav?.href)) || (routePrefix + nav?.href === currentRoute)) {
+                        matched = true
                         return { ...nav, current: true }
                     } else {
                         return { ...nav, current: false }
