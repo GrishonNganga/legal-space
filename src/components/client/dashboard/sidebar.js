@@ -17,7 +17,7 @@ const routes = [
     {
         name: 'Dashboard',
         icon: HomeIcon,
-        current: false,
+        current: true,
         href: '',
     },
     {

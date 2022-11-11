@@ -99,6 +99,7 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
 export default LawyerDetails
 
 const LawyerInfo = ({ setBookAppointment, lawyer }) => {
+    console.log("Lawyer", lawyer)
     return (
         <div>
             <div className="mt-20 w-full justify-center">
@@ -108,7 +109,7 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                             Cases handled
                         </div>
                         <div className="text-[#DEAB52]">
-                            68+
+                            {lawyer?.casesHandled?.length || 0} {lawyer?.casesHandled?.length > 0 && "+"}
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-4 p-4 bg-white shadow">
@@ -116,7 +117,7 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                             Experience
                         </div>
                         <div className="text-[#DEAB52]">
-                            7 yrs+
+                            {lawyer?.yearsOfExperience} yrs+
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-4 p-4 bg-white shadow">
@@ -124,7 +125,7 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                             Endorsements
                         </div>
                         <div className="text-[#DEAB52]">
-                            885+
+                            -
                         </div>
                     </div>
                 </div>
@@ -249,10 +250,8 @@ const BookAppointment = ({ setMiddleTopNavText, lawyer, bookedDates }) => {
         setCompleteBookingStepTwo(completedStepTwo)
     }, [bookingDetails])
 
-    console.log("CALENDAr", calendarDays)
     useEffect(() => {
         if (selectedDay) {
-            console.log("SELECTED DATE", selectedDay)
             setBookingDetails(prevState => ({ ...prevState, date: selectedDay.date }))
             const newAvailableSlots = availableSlots?.map(slot => {
                 if (bookingDetails?.time === slot.time) {
@@ -284,7 +283,7 @@ const BookAppointment = ({ setMiddleTopNavText, lawyer, bookedDates }) => {
             if (index === idx) {
                 return { ...slot, available: false }
             }
-            if (selectedDay?.events && selectedDay?.events?.find(event => event?.time === slot?.time)) {
+            if (selectedDay?.events && selectedDay?.events?.find(event => new Date(event?.date)?.getHours() === slot?.time)) {
                 return { ...slot, available: false }
             }
             return { ...slot, available: timeIsValid(selectedDay?.date, slot.time) }

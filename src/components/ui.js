@@ -62,7 +62,7 @@ export const Steps = ({ steps }) => {
     )
 }
 
-export const Button = ({ text, onClick, loading, type, active }) => {
+export const Button = ({ text, onClick, loading, type, active, classNames }) => {
 
     const clicked = () => {
         if (active) {
@@ -72,7 +72,7 @@ export const Button = ({ text, onClick, loading, type, active }) => {
     return (
         <>
             <button
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all ${type === "secondary" ? "bg-legalGreen text-legalYellow" : "bg-legalYellow text-legalGray"} ${!active && "opacity-50"}`}
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all ${type === "secondary" ? "bg-legalGreen text-legalYellow" : "bg-legalYellow text-legalGray"} ${!active && "opacity-50"} ${classNames}`}
                 onClick={clicked}
             >
                 {
@@ -175,7 +175,7 @@ export const Input = ({ id, type, name, placeholder, defaultValue, autoComplete,
                         id={id || ""}
                         name={name || ""}
                         type={types[type] || "text"}
-                        step={type === "number" && step}
+                        step={type === "number" ? step : 0}
                         autoComplete={autoComplete}
                         required={required || false}
                         placeholder={placeholder}

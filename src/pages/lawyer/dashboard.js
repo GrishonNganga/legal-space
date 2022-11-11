@@ -94,7 +94,7 @@ const CompleteProfileModal = ({ onboardingPercentage }) => {
                 Your profile is {onboardingPercentage}% complete
             </div>
             <div className='w-full md:w-1/2'>
-                <Button type="secondary" text="Complete" active={true} onClick={() => { navigate('/onboarding') }} />
+                <Button type="secondary" text="Complete" active={true} onClick={() => { navigate('/onboarding?type=individual') }} />
             </div>
         </div>
     )

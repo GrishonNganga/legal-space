@@ -80,7 +80,7 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
                 <div className="py-4">
                     {
                         !user?.onboarding &&
-                        <div className="bg-legalGreen p-5 flex justify-between items-center rounded-lg gap-x-3" onClick={() => { navigate('/onboarding') }}>
+                        <div className="bg-legalGreen p-5 flex justify-between items-center rounded-lg gap-x-3" onClick={() => { navigate('/onboarding?type=individual') }}>
                             <div className="flex flex-col gap-y-4">
                                 <div className="text-white font-extrabold">
                                     Complete your profile to access your clients
