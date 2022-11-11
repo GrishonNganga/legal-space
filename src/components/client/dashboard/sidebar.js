@@ -1,16 +1,13 @@
 import { Fragment, useEffect, useState, useRef } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import {
-    FolderOpenIcon,
     HomeIcon,
     XMarkIcon,
     UserGroupIcon,
-    CogIcon
+    ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline'
-import { CheckCircleIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
-import { userStore } from '../../stores'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -20,7 +17,7 @@ const routes = [
     {
         name: 'Dashboard',
         icon: HomeIcon,
-        current: false,
+        current: true,
         href: '',
     },
     {
@@ -31,23 +28,12 @@ const routes = [
         enableNavigation: true,
     },
     {
-        name: 'Engagements',
-        icon: FolderOpenIcon,
+        name: 'Logout',
+        icon: ArrowRightOnRectangleIcon,
         current: false,
-        href: "/engagements",
+        href: "/logout",
         enableNavigation: true,
-    },
-    {
-        name: 'Settings',
-        icon: CogIcon,
-        current: false,
-        enableNavigation: true,
-        children: [
-            { name: 'Profile', href: '/settings/profile', current: false },
-            { name: 'Payment', href: '/settings/payment', current: true },
-            { name: 'Logout', href: '/settings/logout', current: false },
-        ],
-    },
+    }
 ]
 
 export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRoute, routePrefix }) => {
@@ -138,7 +124,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                         </button>
                                     </div>
                                 </Transition.Child>
-                                <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+                                <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                                     <div className="flex-shrink-0 flex items-center px-4">
                                         LegalSpace
                                     </div>
@@ -220,7 +206,6 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                             )}
                                         </nav>
                                     </div>
-                                    <AccountInfo />
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -234,7 +219,6 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
 
 const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, navigation }) => {
     const navRef = useRef(null);
-    const user = userStore(state => state.user)
 
     return (
         <>
@@ -324,7 +308,6 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                         )}
                                     </nav>
                                 </div>
-                                <AccountInfo />
                             </div>
                         </div>
                     </div>)
@@ -402,148 +385,6 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                                     )}
                                 </nav>
                             </div>
-                            <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                                <div className="group block flex-shrink-0">
-                                    <div className="flex items-center">
-                                        <div>
-                                            <img
-                                                className="inline-block h-10 w-10 rounded-full"
-                                                src={user?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"}
-                                                alt="User profile picture"
-                                            />
-                                        </div>
-                                        <div className="ml-3">
-                                            <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">Tom Cook</p>
-                                            <p className="text-sm fon t-medium text-gray-500 group-hover:text-gray-700">View profile</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </>
-    )
-}
-
-const AccountInfo = () => {
-    const user = userStore(state => state.user)
-    const location = useLocation()
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false)
-    const [selected, setSelected] = useState("individual")
-    const [selectedFirm, setSelectedFirm] = useState()
-
-    useEffect(() => {
-        const pathname = location.pathname
-        if (pathname.includes('/dashboard/firm')) {
-            setSelected("firm")
-            setSelectedFirm(pathname.split('/')[3])
-        } else {
-            setSelected("individual")
-            setSelectedFirm(null)
-        }
-    }, [location])
-
-    return (
-        <>
-            {
-                open &&
-                <div className=' ease-in-out duration-300 shadow-lg'>
-                    <div className='w-full flex justify-between items-center px-3 py-2 border-b'>
-                        <div className='text-sm text-gray-400 font-semibold'>
-                            Switch account
-                        </div>
-                        <div className='' onClick={() => { setOpen(false) }}>
-                            <XMarkIcon className='w-5 h-5 text-gray-500' />
-                        </div>
-                    </div>
-                    <div className='w-full border-b' onClick={() => { navigate('/dashboard') }}>
-                        <div className="w-full flex flex-shrink-0 p-4">
-                            <div className="w-full flex justify-between items-center group flex-shrink-0">
-                                <div className="flex items-center">
-                                    <div>
-                                        <img
-                                            className="inline-block h-10 w-10 rounded-full"
-                                            src={user?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"}
-                                            alt="User profile picture"
-                                        />
-                                    </div>
-                                    <div className="ml-3">
-                                        <p className="text-base font-medium text-gray-700 group-hover:text-gray-900"><span>{user?.firstName} </span> <span>{user?.lastName}</span></p>
-                                        <p className="text-sm fon t-medium text-gray-500 group-hover:text-gray-700">{user?.represents === "individual" ? "Lawyer account" : "Company account"}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    {
-                                        selected === "individual" &&
-                                        <div className='p-2 rounded-full' onClick={() => { setOpen(true) }}>
-                                            <CheckCircleIcon className='w-6 h-6 text-legalGreen' />
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        user?.firm?.length > 0 &&
-                        user?.firm.map(firm => {
-                            return (
-                                <div className="w-full flex flex-shrink-0 p-4" onClick={() => { navigate(`firm/${firm._id}`) }}>
-                                    <div className="w-full flex justify-between items-center group flex-shrink-0">
-                                        <div className="flex items-center">
-                                            <div>
-                                                <img
-                                                    className="inline-block h-10 w-10 rounded-full"
-                                                    src={firm?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"}
-                                                    alt="User profile picture"
-                                                />
-                                            </div>
-                                            <div className="ml-3">
-                                                <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">{firm?.firmName}</p>
-                                                <p className="text-sm fon t-medium text-gray-500 group-hover:text-gray-700">Company account</p>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            {
-                                                selectedFirm === firm?._id &&
-                                                <div className='p-2 rounded-full' onClick={() => { setOpen(true) }}>
-                                                    <CheckCircleIcon className='w-6 h-6 text-legalGreen' />
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-            {
-                !open &&
-                <div className="w-full flex flex-shrink-0 border-t border-gray-200 p-4">
-                    <div className="w-full flex justify-between items-center group flex-shrink-0">
-                        <div className="flex items-center">
-                            <div>
-                                <img
-                                    className="inline-block h-10 w-10 rounded-full"
-                                    src={user?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"}
-                                    alt="User profile picture"
-                                />
-                            </div>
-                            <div className="ml-3">
-                                <p className="text-base font-medium text-gray-700 group-hover:text-gray-900"><span>{user?.firstName} </span> <span>{user?.lastName}</span></p>
-                                <p className="text-sm fon t-medium text-gray-500 group-hover:text-gray-700">{user?.represents === "individual" ? "Lawyer account" : "Company account"}</p>
-                            </div>
-                        </div>
-                        <div>
-                            {
-                                !open &&
-                                <div className='p-2 rounded-full bg-gray-50 shadow' onClick={() => { setOpen(true) }}>
-                                    <ChevronUpIcon className='w-6 h-6 text-gray-400' />
-                                </div>
-                            }
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,8 @@
 import axios from "axios";
 
+import { ref, uploadBytesResumable, uploadString } from '@firebase/storage';
+import { storage } from '../../firebase'
+
 const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
@@ -29,3 +32,19 @@ export const signinUser = async (user) => {
             return error.response;
         });
 };
+
+export const getAllAreasOfPracticeRequest = async () => {
+    return await api
+        .get("/category/get/categories")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const firebaseUpload = (file, type) => {
+    const storageRef = ref(storage, `/files/${type}/${file.name}_${new Date().getTime()}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    return uploadTask
+}

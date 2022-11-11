@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Steps, Button, SplashCircles, Input, Notification } from "../../components/ui"
 
 import { validateSignupData } from '../../validator'
-import { signup } from "../../data/controller/auth"
+import { signup } from "../../data/controller"
 
 import { userStore } from "../../stores"
 
@@ -53,7 +53,7 @@ const SplashScreen = ({ step, updateStep }) => {
                 <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
                     <div className="mx-auto w-full max-w-sm lg:w-96">
                         <div>
-                            <h2 className="text-4xl font-bold tracking-tight text-gray-900 text-legalYellow text-center">Find the Best Lawyers</h2>
+                            <h2 className="text-4xl font-bold tracking-tight text-legalYellow text-center">Find the Best Lawyers</h2>
                             <div className="flex flex-col gap-y-8 text-lg font-normal text-gray-500 mt-2">
                                 <div className='mt-4 text-center'>
                                     <div> Now you can find a lawyer </div>
@@ -64,7 +64,7 @@ const SplashScreen = ({ step, updateStep }) => {
                                 </div>
                                 <div className='w-full flex justify-center'>
                                     <div className='w-3/4'>
-                                        <Button text={"Get Started"} onClick={goToNextStep} />
+                                        <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ const SplashScreen = ({ step, updateStep }) => {
             <div className="w-full h-screen flex md:hidden flex-col justify-between bg-legalGreen transition-opacity delay-150">
                 <SplashCircles />
                 <div className="py-8 flex flex-col items-center">
-                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-gray-900 text-legalYellow">Find the Best Lawyers</h2>
+                    <h2 className="mt-6 text-2xl font-bold tracking-tight text-legalYellow">Find the Best Lawyers</h2>
                     <div className="text-sm font-normal text-gray-500 mt-2 text-center">
                         <div> Now you can find a lawyer </div>
                         <div>near your location for your case </div>
@@ -86,7 +86,7 @@ const SplashScreen = ({ step, updateStep }) => {
                     </div>
                     <div className='w-full flex justify-center mt-10'>
                         <div className='w-11/12'>
-                            <Button text={"Get Started"} onClick={goToNextStep} />
+                            <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                         </div>
                     </div>
 
@@ -103,15 +103,14 @@ const SignupStep1 = () => {
         lastName: "",
         email: "",
         password: "",
-        role: "client"
+        role: "lawyer"
     })
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const storeUser = userStore(state => state.storeUser)
 
-
-
     const handleSubmit = async () => {
+        setInfo({ message: "", type: "" })
         const validationResult = await validateSignupData(userDetails)
         if (!validationResult.status) {
             setInfo({ message: validationResult.message, type: "error" })
@@ -162,7 +161,7 @@ const SignupStep1 = () => {
                                             name="firstName"
                                             type="text"
                                             label="First Name"
-                                            autoComplete="email"
+                                            autoComplete="off "
                                             required
                                             onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                         />
@@ -230,7 +229,7 @@ const SignupStep1 = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} />
+                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true} />
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">
