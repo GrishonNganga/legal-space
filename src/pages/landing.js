@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import woman from "../assets/images/woman.svg";
 import gavel from "../assets/images/gavel.svg";
@@ -8,6 +9,7 @@ import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
 
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <div className="overflow-hidden">
       <NavBar />
@@ -120,13 +122,14 @@ const Homepage = () => {
       {/* section 2 */}
       <div className="pt-20 md:flex">
         <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
-          <div className="lg:w-[450px] w-screen md:w-full lg:h-[600px]">
+          <div className="lg:w-[450px] w-screen md:w-full">
+            <div className="bg-[#C6A85C70] h-56 w-[600px] relative -right-[1px] mt-56" />
+
             <img
               src={stairs}
               alt="man"
-              className="lg:scale:100 flex flex-grow h-[512px] w-[455px]"
+              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[511px]"
             />
-            <div className="bg-[#C6A85C70] h-56 w-[600px] relative -top-56 -right-[1px] "></div>
           </div>
         </div>
 
@@ -162,7 +165,12 @@ const Homepage = () => {
             </p>
           </div>
           <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
-            <button className="bg-legalYellow text-white h-12 md:w-44 w-44">
+            <button
+              className="bg-legalYellow text-white h-12 md:w-44 w-44"
+              onClick={() => {
+                navigate("/client-signup");
+              }}
+            >
               Free Consultation
             </button>
           </div>

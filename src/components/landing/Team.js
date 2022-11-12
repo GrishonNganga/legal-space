@@ -55,19 +55,47 @@ const teamData = [
   },
 ];
 
+const CustomArrowLeft = ({ className, onClick }) => {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`${className} h-10 w-10`}
+      >
+        <ArrowLeftCircleIcon to="prev" />
+      </button>
+    </div>
+  );
+};
+const CustomArrowRight = ({ className, onClick }) => {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`${className} h-10 w-10 text-black`}
+      >
+        <ArrowRightCircleIcon to="next" />
+      </button>
+    </div>
+  );
+};
+
 const Team = () => {
   const [sliderRef, setSliderRef] = useState(null);
-  const [clicked, setClicked] = useState(false);
   const settings = {
     // dots: true,
     infinite: true,
-    autoplay: true,
+    // autoplay: true,
     cssEase: "linear",
     slidesToShow: 4,
     slidesToScroll: 2,
     lazyLoad: true,
     // initialSlide: 1,
-    arrows: false,
+    arrows: true,
+    // prevArrow: <CustomArrowLeft />,
+    // nextArrow: <CustomArrowRight />,
     responsive: [
       {
         breakpoint: 1024,
@@ -104,34 +132,10 @@ const Team = () => {
 
   return (
     <div className="teams">
-      {/* <div className="grid md:grid-cols-4 content-center">
-        {teamData.map((team, index) => (
-          <div
-            key={index}
-            className="team-card drop-shadow-sm bg-legalYellow text-white"
-          >
-            <div className="h-3/4 w-full">
-              <img
-                src={team.image}
-                alt=""
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="pt-3 pl-3">
-              <div className="module mb-3">
-                <p>{team.name}</p>
-                <p>{team.role}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div> */}
-
       <div className="">
         <div className="flex justify-end">
           <button
-            onCLick={sliderRef?.slickPrev}
+            onCLick={sliderRef?.slickPrev()}
             className={`h-10 w-10 ${
               buttonClicked === "prev"
                 ? "text-legalYellow"
@@ -142,7 +146,7 @@ const Team = () => {
             <ArrowLeftCircleIcon />
           </button>
           <button
-            onCLick={sliderRef?.slickNext}
+            onCLick={sliderRef?.slickNext()}
             className={`h-10 w-10 ${
               buttonClicked === "next"
                 ? "text-legalYellow"
@@ -153,83 +157,26 @@ const Team = () => {
             <ArrowRightCircleIcon />
           </button>
         </div>
-        {/* <Slider ref={setSliderRef} {...settings}>
-          <div className="">
-            <div className="team-card drop-shadow-sm h-full">
-              <div className="h-5/6">
-                <img
-                  src={five}
-                  alt="team"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          {teamData.map((team, index) => (
-            <div
-              key={index}
-              className="team-card drop-shadow-sm bg-legalYellow"
-            >
-              <div className="">
-                <img
-                  src={team.image}
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <div className="pt-3 pl-3">
-                <div className="module mb-3">
-                  <p>{team.name}</p>
-                  <p>{team.role}</p>
+        <div className="">
+          <Slider {...settings} ref={setSliderRef}>
+            {teamData.map((team, index) => (
+              <div
+                key={index}
+                className="team-card drop-shadow-sm text-white flex flex-row"
+              >
+                <div>
+                  <img src={team.image} alt="" className="object-fill" />
+                </div>
+                <div className="pt-3 pl-3">
+                  <div className="module mb-3">
+                    <p>{team.name}</p>
+                    <p>{team.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-
-          <div>
-            <div className="team-card drop-shadow-sm">
-              <div className="h-3/4">
-                <img
-                  src={five}
-                  alt="team"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div className="team-card drop-shadow-sm">
-              <div className="">
-                <img
-                  src={six}
-                  alt="team"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </Slider> */}
-        <Slider {...settings} ref={setSliderRef}>
-          {teamData.map((team, index) => (
-            <div
-              key={index}
-              className="team-card drop-shadow-sm text-white flex flex-row"
-            >
-              <div>
-                <img src={team.image} alt="" className="object-cover" />
-              </div>
-              <div className="pt-3 pl-3">
-                <div className="module mb-3">
-                  <p>{team.name}</p>
-                  <p>{team.role}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );

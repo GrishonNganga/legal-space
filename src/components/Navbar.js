@@ -87,16 +87,16 @@ const NavBar = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-legalLightGray md:hover:text-white focus:bg-legalBlue">
-                <a href="/about">About Us</a>
+                <a href="/">About Us</a>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/services">Services</a>
+                <a href="/">Services</a>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/testimonials">Testimonials</a>
+                <a href="/">Testimonials</a>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/contact">Contact</a>
+                <a href="/">Contact</a>
               </li>
               
             </ul>
@@ -106,7 +106,7 @@ const NavBar = () => {
               aria-hidden={true}
             >
               <a
-                href="/"
+                href="/client-signup"
                 className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
               >
                 Free Consultation
@@ -115,7 +115,7 @@ const NavBar = () => {
           </div>
         </div>
         <div className="hidden space-x-2 lg:inline-block h-11 pt-3 ml=8">
-          <a href="/" className="px-4 py-3 text-white bg-legalYellow">
+          <a href="/client-signup" className="px-4 py-3 text-white bg-legalYellow">
             Free Consultation
           </a>
         </div>
