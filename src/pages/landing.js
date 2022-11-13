@@ -179,7 +179,7 @@ const Homepage = () => {
 
       {/* section 3 */}
       <div className="lg:pl-64 md:ml-4">
-        <div className="md:flex flex-row mt-24 pd:h-40 h-auto">
+        <div className="md:flex flex-row mt-32 pd:h-40 h-auto">
           <div className="w-1/2">
             <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
               Meet our <span className="text-legalYellow">TOP</span> <br />{" "}

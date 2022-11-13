@@ -149,7 +149,7 @@ const Team = () => {
   return (
     <div className="teams">
       <div className="">
-        <div className="flex justify-end">
+        <div className="flex justify-end my-2">
           <button
             onCLick={sliderRef?.slickPrev()}
             className={`h-10 w-10 ${
