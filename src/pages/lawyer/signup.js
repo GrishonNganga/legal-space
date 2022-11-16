@@ -200,7 +200,7 @@ const SignupStep1 = () => {
                                             id="password"
                                             name="password"
                                             type="password"
-                                            label="Passwoerd"
+                                            label="Password"
                                             autoComplete="false"
                                             required
                                             onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
