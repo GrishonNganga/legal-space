@@ -7,6 +7,7 @@ import stairs from "../assets/images/stairs.svg";
 import Footer from "../components/Footer";
 import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
+import { Button } from "../components/ui";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -166,7 +167,7 @@ const Homepage = () => {
           </div>
           <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
             <button
-              className="bg-legalYellow text-white h-12 md:w-44 w-44"
+              className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
               onClick={() => {
                 navigate("/client-signup");
               }}
@@ -186,11 +187,22 @@ const Homepage = () => {
               expert legal team
             </p>
           </div>
-          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4">
+          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4 space-y-4">
             <p className="text-base align-baseline text-legalLightGray">
               Legal space top expert legal team covering any field. They have
               more than 10 years experience in they specialization
             </p>
+            <p className="text-base align-baseline text-legalLightGray">
+              Sign Up to join be part of the top lawyers team
+            </p>
+            <button
+              className="bg-dark rounded-md text-white h-12 md:w-44 w-44 text-xs font-semibold"
+              onClick={() => {
+                navigate("/lawyer-signup");
+              }}
+            >
+              Signup as Lawyer
+            </button>
           </div>
         </div>
       </div>
