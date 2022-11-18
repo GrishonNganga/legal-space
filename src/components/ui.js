@@ -17,7 +17,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { link } from "joi";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
