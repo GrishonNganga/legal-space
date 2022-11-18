@@ -174,7 +174,7 @@ const Main = ({ setMiddleTopNavText }) => {
                           <span>{lawyer?.lastName}</span>
                         </div>
                         <div className="flex gap-x-3 items-center">
-                          <div className=" text-gray-400 text-sm">
+                          <div className=" text-gray-300 text-xs">
                             Criminal representation
                           </div>
                           {user?.location && (
