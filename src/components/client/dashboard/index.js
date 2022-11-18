@@ -71,8 +71,8 @@ const Main = ({ setMiddleTopNavText }) => {
   return (
     <div className="p-2">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-gray-900">Hello {user?.firstName}</h1>
-        <h1 className="mt-2 font-semibold text-[#183A33] text-xl">
+        <h1 className="text-gray-400">Hello {user?.firstName}</h1>
+        <h1 className="mt-2 font-normal text-[#183A33] text-xl">
           Find the best lawyers here
         </h1>
       </div>
@@ -85,7 +85,7 @@ const Main = ({ setMiddleTopNavText }) => {
                 type={"text"}
                 placeholder="Search anything here"
                 Icon={MagnifyingGlassIcon}
-                className="pl-8 placeholder-legalGreen text-legalGreen z-50 border-0 bg-gray-100"
+                className="pl-8 placeholder-legalGreen text-gray-400 z-50 border-0 bg-gray-100 text-sm"
                 iconClassName={"text-legalGreen ml-2"}
               />
             </div>
@@ -97,7 +97,7 @@ const Main = ({ setMiddleTopNavText }) => {
           </div>
           <div className="mt-8 flex justify-between items-center">
             <div className="font-semibold text-md">Category</div>
-            <div className="font-semibold text-gray-400 text-sm">View all</div>
+            <div className="font-semibold text-gray-300 text-sm">View all</div>
           </div>
           <div className="mt-5 flex gap-x-2 overflow-scroll no-scrollbar text-sm">
             {!loadingCategories && (
@@ -144,7 +144,7 @@ const Main = ({ setMiddleTopNavText }) => {
           </div>
           <div className="mt-8 flex justify-between items-center">
             <div className="font-semibold text-md">Top lawyers near you</div>
-            <div className="font-semibold text-gray-400 text-sm">View all</div>
+            <div className="font-semibold text-gray-300 text-sm">View all</div>
           </div>
           <div className="mt-5 flex flex-col gap-y-4">
             {!loading &&
