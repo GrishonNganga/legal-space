@@ -169,7 +169,7 @@ const Main = ({ setMiddleTopNavText }) => {
                         />
                       </div>
                       <div className="flex flex-col">
-                        <div className="font-semibold text-base">
+                        <div className="font-semibold text-sm">
                           <span>{lawyer?.firstName} </span>{" "}
                           <span>{lawyer?.lastName}</span>
                         </div>
