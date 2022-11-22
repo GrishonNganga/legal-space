@@ -18,7 +18,6 @@ import { refresh } from './data/controller'
 import { userStore } from './stores';
 
 function App() {
-  console.log("BASE URL", process.env.REACT_APP_BASE_URL)
   const user = userStore(state => state.user)
   const storeUser = userStore(state => state.storeUser)
   const removeUser = userStore(state => state.removeUser)
@@ -26,7 +25,6 @@ function App() {
   const setIsLoadingUser = userStore(state => state.setIsLoadingUser)
 
   useEffect(() => {
-    console.log(user)
     if (!user) {
       setIsLoadingUser(true)
       refresh().then(response => {

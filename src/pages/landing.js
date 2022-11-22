@@ -6,8 +6,10 @@ import stairs from "../assets/images/stairs.svg";
 import Footer from "../components/Footer";
 import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  const navigate = useNavigate()
   return (
     <div className="overflow-hidden">
       <NavBar />
@@ -162,7 +164,7 @@ const Homepage = () => {
             </p>
           </div>
           <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
-            <button className="bg-legalYellow text-white h-12 md:w-44 w-44">
+            <button className="bg-legalYellow text-white h-12 md:w-44 w-44" onClick={()=>{navigate('/client-signup')}}>
               Free Consultation
             </button>
           </div>

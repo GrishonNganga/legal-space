@@ -885,7 +885,6 @@ const Step1Firm = ({ onboardingDetails, setOnboardingDetails, step, setStep }) =
     const [stepCompleted, setStepCompleted] = useState(false)
 
     useEffect(() => {
-        console.log(onboardingDetails)
         let completed
         for (const key in onboardingDetails) {
             if (stepOneFields.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
@@ -1203,7 +1202,6 @@ const Step1Firm = ({ onboardingDetails, setOnboardingDetails, step, setStep }) =
 }
 
 const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyOnboarding }) => {
-    console.log("DEETS", onboardingDetails)
     const stepTwoInputs = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice"]
     const user = userStore(state => state.user)
     const storeUser = userStore(state => state.storeUser)
@@ -1228,7 +1226,6 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
     }, [])
 
     useEffect(() => {
-        console.log(onboardingDetails)
         let completed = true
         for (const key in onboardingDetails) {
             if (stepTwoInputs.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
@@ -1261,7 +1258,6 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
     }
 
     const handleSubmit = () => {
-        console.log(onboardingDetails)
         setInfo({ type: "error", message: "" })
         let error
         for (const key in onboardingDetails) {

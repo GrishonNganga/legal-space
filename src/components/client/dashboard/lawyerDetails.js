@@ -99,7 +99,6 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
 export default LawyerDetails
 
 const LawyerInfo = ({ setBookAppointment, lawyer }) => {
-    console.log("Lawyer", lawyer)
     return (
         <div>
             <div className="mt-20 w-full justify-center">

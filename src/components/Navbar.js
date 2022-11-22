@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate()
+
   const [navbar, setNavbar] = useState(false);
   const [clicked, setClicked] = useState(false);
   useEffect(() => {
@@ -11,9 +14,8 @@ const NavBar = () => {
   return (
     <nav className="w-full fixed top-0 z-50 bg-dark h-auto">
       <div
-        className={`h-14 ${
-          clicked ? "hidden" : "flex"
-        } items-center flex-row justify-center bg-black top-0`}
+        className={`h-14 ${clicked ? "hidden" : "flex"
+          } items-center flex-row justify-center bg-black top-0`}
       >
         <div className="flex flex-row items-center">
           <p className="text-sm text-white px-10">
@@ -78,9 +80,8 @@ const NavBar = () => {
         </div>
         <div>
           <div
-            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-              navbar ? "block bg-white h-4/5 w-screen" : "hidden"
-            }`}
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block bg-white h-4/5 w-screen" : "hidden"
+              }`}
           >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 px-4">
               <li className="text-legalLightGray md:hover:text-white">
@@ -98,19 +99,19 @@ const NavBar = () => {
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/contact">Contact</a>
               </li>
-              
+
             </ul>
 
             <div
               className="mt-3 space-y-2 lg:hidden md:inline-block w-3/5"
               aria-hidden={true}
             >
-              <a
-                href="/"
+              <div
                 className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
+                onClick={()=>{navigate('/client-signup')}}
               >
                 Free Consultation
-              </a>
+              </div>
             </div>
           </div>
         </div>

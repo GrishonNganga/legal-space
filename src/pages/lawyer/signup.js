@@ -152,7 +152,7 @@ const SignupStep1 = () => {
                         </div>
                     </div>
                     <div className="absolute top-12 md:top-0 w-full h-full">
-                        <div className="bg-white w-full h-full flex justify-center items-center">
+                        <div className="bg-white w-full h-full flex justify-center pt-8">
                             <div className="space-y-6 w-4/5 md:w-2/3">
                                 <div>
                                     <div className="mt-1">
