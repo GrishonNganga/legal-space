@@ -111,6 +111,14 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                             })
                         }
                         {
+                            !loading && appointments?.length === 0 &&
+                            <div className='flex justify-center mt-20'>
+                                <div>
+                                    You don't have any appointments
+                                </div>
+                            </div>
+                        }
+                        {
                             loading && [...Array(6)].map(idx => {
                                 return (
                                     <div key={idx} className='w-full flex flex-col gap-y-3 shadow-lg p-5 rounded-md'>

@@ -25,6 +25,7 @@ function App() {
   const setIsLoadingUser = userStore(state => state.setIsLoadingUser)
 
   useEffect(() => {
+    console.log(user)
     if (!user) {
       setIsLoadingUser(true)
       refresh().then(response => {
