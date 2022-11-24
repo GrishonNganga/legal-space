@@ -40,7 +40,7 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
     }, [user])
 
     return (
-        <div className="py-4 px-2">
+        <div className="py-4 px-2 min-h-screen">
             <div className="max-w-7xl mx-auto px-2">
                 <h1 className="mt-2 font-semibold text-[#183A33] text-xl">Appointments</h1>
             </div>
@@ -109,6 +109,14 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                     </div>
                                 )
                             })
+                        }
+                        {
+                            !loading && appointments?.length === 0 &&
+                            <div className='flex justify-center mt-20'>
+                                <div>
+                                    You don't have any appointments
+                                </div>
+                            </div>
                         }
                         {
                             loading && [...Array(6)].map(idx => {

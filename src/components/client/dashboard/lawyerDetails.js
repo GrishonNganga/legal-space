@@ -52,9 +52,9 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
                             <div className="absolute top-3/4 w-full flex justify-center">
                                 <div className="flex flex-col bg-white p-4 rounded-md text-center w-10/12 shadow-md">
                                     <div className="text-[#126B59] font-semibold text-xl text-center">
-                                        <span> {lawyer?.frstName} </span>  {lawyer?.lastName}
+                                        <span> {lawyer?.firstName} </span>  {lawyer?.lastName}
                                     </div>
-                                    <div className="text-gray-400 font-semibold text-">
+                                    <div className="text-[#D4D4D4] font-medium text-sm">
                                         Criminal Lawyer
                                     </div>
                                     <div className="flex gap-x-2 justify-center items-center">
@@ -110,34 +110,34 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
             <div className="mt-20 w-full justify-center">
                 <div className="grid grid-rows-2 grid-cols-2 md:grid-cols-3 md:grid-rows-1 grid-flow-col gap-4">
                     <div className="flex flex-col gap-y-4 p-4 bg-white shadow grow-0">
-                        <div>
+                        <div className="text-center">
                             Cases handled
                         </div>
-                        <div className="text-[#DEAB52]">
+                        <div className="text-[#DEAB52] text-center">
                             {lawyer?.casesHandled?.length || 0} {lawyer?.casesHandled?.length > 0 && "+"}
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-4 p-4 bg-white shadow">
-                        <div>
+                        <div className="text-center">
                             Experience
                         </div>
-                        <div className="text-[#DEAB52]">
-                            {lawyer?.yearsOfExperience} yrs+
+                        <div className="text-[#DEAB52] text-center">
+                            {lawyer?.yearsOfExperience && lawyer?.yearsOfExperience || 0} yrs+
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-4 p-4 bg-white shadow">
-                        <div>
+                        <div className="text-center">
                             Endorsements
                         </div>
-                        <div className="text-[#DEAB52]">
+                        <div className="text-[#DEAB52] text-center">
                             -
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col mt-5">
-                <div className="flex justify-between">
-                    <div className="text-xl font-semibold text-legalGreen">
+                <div className="flex justify-between items-center">
+                    <div className="text-base font-medium text-legalGreen">
                         About Lawyer
                     </div>
                     <div>
@@ -153,7 +153,7 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                         }
                     </div>
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 text-[#697472] font-normal text-sm tracking-wide">
                     {
                         lawyer?.description
                     }
@@ -161,17 +161,17 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
             </div>
             <div className="flex flex-col mt-5">
                 <div className="flex justify-between">
-                    <div className="text-xl font-semibold text-legalGreen">
+                    <div className="text-base font-medium text-legalGreen">
                         Location
                     </div>
                 </div>
-                <div className="h-72 md:h-96">
-                    <div className='text-sm text-gray-500 w-full h-full'>
+                <div className="my-3 h-72 md:h-96">
+                    <div className='text-sm text-gray-500 w-full h-full rounded'>
                         {
                             isLoaded &&
                             <GoogleMap
                                 center={{ lat: -1.2648630155272294, lng: 36.79303435556186 }}
-                                mapContainerStyle={{ width: '100%', height: '100%' }} zoom={15}
+                                mapContainerStyle={{ width: '100%', height: '100%', borderRadius: "0.25rem" }} zoom={15}
                                 options={{ zoomControl: false, fullscreenControl: false }}
                             >
                                 <MarkerF position={{ lat: -1.2648630155272294, lng: 36.79303435556186 }} />

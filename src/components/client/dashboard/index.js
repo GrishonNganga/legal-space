@@ -32,6 +32,7 @@ const Main = ({ setMiddleTopNavText }) => {
 
         setLoading(true)
         getLawyers().then(response => {
+            console.log(response.data.lawyers)
             setLoading(false)
             if (response?.status === "success") {
                 setAllLawyers(response.data.lawyers)
@@ -64,15 +65,15 @@ const Main = ({ setMiddleTopNavText }) => {
     return (
         <div className="p-2">
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-gray-900">Hello {user?.firstName}</h1>
-                <h1 className="mt-2 font-semibold text-[#183A33] text-xl">Find the best lawyers here</h1>
+                <h1 className="text-[#999999] text-sm">Hello {user?.firstName}</h1>
+                <h1 className="mt-2.5 font-normal text-[#183A33] text-xl">Find the best lawyers here</h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
                 {/* Replace with your content */}
                 <div className="py-4">
                     <div className='flex justify-between items-center gap-x-2 '>
                         <div className='w-full'>
-                            <Input type={"text"} placeholder="Search anything here" Icon={MagnifyingGlassIcon} className="pl-8 placeholder-legalGreen text-legalGreen z-50 border-0 bg-gray-100" iconClassName={"text-legalGreen ml-2"} />
+                            <Input type={"text"} placeholder="Search anything here" Icon={MagnifyingGlassIcon} className="pl-8 placeholder-[#59706B] placeholder:text-xs text-[#59706B] z-50 border-0 bg-gray-100" iconClassName={"text-legalGreen ml-2"}/>
                         </div>
                         <div>
                             <div className='bg-[#DEAB52] p-1.5 rounded-md mt-2'>
@@ -81,24 +82,24 @@ const Main = ({ setMiddleTopNavText }) => {
                         </div>
                     </div>
                     <div className='mt-8 flex justify-between items-center'>
-                        <div className='font-semibold text-md'>
+                        <div className='font-medium text-md text-base text-[#333333]'>
                             Category
                         </div>
-                        <div className='font-semibold text-gray-400 text-sm'>
+                        <div className='font-medium text-gray-400 text-sm'>
                             View all
                         </div>
                     </div>
                     <div className='mt-5 flex gap-x-2 overflow-scroll no-scrollbar text-sm'>
                         {
                             !loadingCategories &&
-                            <div className={`px-4 py-2 rounded-md ${selectedCategory === "all" ? "bg-[#DEAB52] border-[#DEAB52] text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory("all") }}>
+                            <div className={`px-4 py-2 rounded-md ${selectedCategory === "all" ? "bg-legalGreen border-legalGreen text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory("all") }}>
                                 All
                             </div>
                         }
                         {
                             !loadingCategories && categories?.map((category, idx) => {
                                 return (
-                                    <div key={idx} className={`px-4 py-2 rounded-md ${selectedCategory === category?._id ? "bg-[#DEAB52] border-[#DEAB52] text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory(category._id) }}>
+                                    <div key={idx} className={`capitalize px-4 py-2 rounded-md ${selectedCategory === category?._id ? "bg-legalGreen border-legalGreen text-white" : "border border-legalGreen text-gray-500"}`} onClick={() => { setSelectedCategory(category._id) }}>
                                         {category?.title}
                                     </div>
                                 )
@@ -118,7 +119,7 @@ const Main = ({ setMiddleTopNavText }) => {
                         <div className='font-semibold text-md'>
                             Top lawyers near you
                         </div>
-                        <div className='font-semibold text-gray-400 text-sm'>
+                        <div className='font-medium text-gray-400 text-sm'>
                             View all
                         </div>
                     </div>
@@ -126,18 +127,18 @@ const Main = ({ setMiddleTopNavText }) => {
                         {
                             !loading && lawyers?.map(lawyer => {
                                 return (
-                                    <div key={lawyer?._id} className='flex justify-between items-center bg-white p-2 rounded-md shadow' onClick={() => { setLawyer(lawyer); navigate(`lawyer/${lawyer?._id}`) }}>
+                                    <div key={lawyer?._id} className='flex justify-between items-center bg-white p-4 rounded-md' onClick={() => { setLawyer(lawyer); navigate(`lawyer/${lawyer?._id}`) }}>
                                         <div className='flex gap-x-2 items-center'>
                                             <div className='shrink-0 w-10 h-10'>
                                                 <img src={lawyer?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-full h-full rounded-full object-cover" />
                                             </div>
                                             <div className='flex flex-col'>
-                                                <div className='font-semibold text-base'>
+                                                <div className='font-medium text-base text-[#333333] capitalize'>
                                                     <span>{lawyer?.firstName} </span> <span>{lawyer?.lastName}</span>
                                                 </div>
                                                 <div className='flex gap-x-3 items-center'>
-                                                    <div className=' text-gray-400 text-sm'>
-                                                        Criminal representation
+                                                    <div className=' text-[#999999] text-sm'>
+                                                        Criminal
                                                     </div>
                                                     {
                                                         user?.location &&
@@ -152,19 +153,15 @@ const Main = ({ setMiddleTopNavText }) => {
                                             </div>
                                         </div>
                                         {
-                                            lawyer?.rating &&
                                             <div className='flex gap-x-1 items-center'>
                                                 <div>
                                                     <StarIcon className='w-5 h-5 text-[#DEAB52]' />
                                                 </div>
-                                                {
-                                                    lawyer?.rating &&
-                                                    <div className='text-xs text-[#DEAB52]'>
-                                                        {
-                                                            lawyer?.rating
-                                                        }
-                                                    </div>
-                                                }
+                                                <div className='text-xs text-[#DEAB52]'>
+                                                    {
+                                                        Math.round(((lawyer?.rating || 0) + Number.EPSILON) * 10) / 10
+                                                    }
+                                                </div>
                                             </div>
                                         }
                                     </div>
