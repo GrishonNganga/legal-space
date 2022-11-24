@@ -2,6 +2,8 @@
 import { useEffect, useState, useRef } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api"
+
 import { Notification, Input, Button, SplashCircles, ImageUpload, TextArea } from "../../components/ui"
 
 import { TrashIcon } from "@heroicons/react/24/solid"
@@ -118,7 +120,8 @@ const IndividualOnboarding = () => {
         description: "",
         numberOfCases: 0,
         yearsOfExperience: 0,
-        areasOfPractice: []
+        areasOfPractice: [],
+        location: ""
     })
 
     useEffect(() => {
@@ -528,7 +531,7 @@ const Step1Individual = ({ onboardingDetails, setOnboardingDetails, step, setSte
 }
 
 const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) => {
-    const stepTwoInputs = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice", "phone"]
+    const stepTwoInputs = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice", "phone", "location"]
     const user = userStore(state => state.user)
     const storeUser = userStore(state => state.storeUser)
 
@@ -537,6 +540,14 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
     const [stepCompleted, setStepCompleted] = useState(false)
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const [libraries] = useState(['places'])
+    const [locationAutoComplete, setLocationAutoComplete] = useState(null)
+
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+        libraries: libraries
+    })
 
     const categoriesRef = useRef(null)
 
@@ -549,6 +560,7 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
     }, [])
 
     useEffect(() => {
+        console.log(onboardingDetails)
         let completed = true
         for (const key in onboardingDetails) {
             if (stepTwoInputs.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
@@ -606,15 +618,31 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
                 const updatedUser = { ...user, ...response?.data?.user }
                 storeUser(updatedUser)
                 setTimeout(() => {
-                    navigate('/dashboard')
+                    window.location.href = "/dashboard"
                 }, 1000)
             } else {
                 setInfo({ type: "error", message: response.message })
             }
         })
-
     }
 
+    const onPlaceChanged = (e) => {
+        if (locationAutoComplete !== null) {
+            const lat = locationAutoComplete?.getPlace()?.geometry?.location?.lat()
+            const long = locationAutoComplete?.getPlace()?.geometry?.location?.lng()
+            const locationName = locationAutoComplete?.getPlace().name
+            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
+
+        } else {
+            console.log('Autocomplete is not loaded yet!')
+        }
+    }
+
+    const onLoad = (autocomplete) => {
+        console.log('autocomplete: ', autocomplete)
+
+        setLocationAutoComplete(autocomplete)
+    }
     return (
         <div className="flex flex-1 min-h-full w-full h-screen transition-opacity delay-300">
             <div>
@@ -660,6 +688,25 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
                                                     required
                                                     onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                                 />
+                                            </div>
+                                            <div>
+                                                <div className="mt-1">
+                                                    {
+                                                        isLoaded &&
+                                                        <Autocomplete
+                                                            onPlaceChanged={onPlaceChanged}
+                                                            onLoad={onLoad}
+                                                        >
+                                                            <Input
+                                                                id="location"
+                                                                name="location"
+                                                                type="text"
+                                                                label="Where are you based"
+                                                                required
+                                                            />
+                                                        </Autocomplete>
+                                                    }
+                                                </div>
                                             </div>
                                             <div>
                                                 <div className="mt-1">
@@ -1202,7 +1249,7 @@ const Step1Firm = ({ onboardingDetails, setOnboardingDetails, step, setStep }) =
 }
 
 const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyOnboarding }) => {
-    const stepTwoInputs = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice"]
+    const stepTwoInputs = ["description", "yearsOfExperience", "numberOfCases", "areasOfPractice", "location"]
     const user = userStore(state => state.user)
     const storeUser = userStore(state => state.storeUser)
 
@@ -1211,6 +1258,14 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
     const [stepCompleted, setStepCompleted] = useState(false)
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const [libraries] = useState(['places'])
+    const [locationAutoComplete, setLocationAutoComplete] = useState(null)
+
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+        libraries: libraries
+    })
 
     const categoriesRef = useRef(null)
 
@@ -1284,13 +1339,30 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
                 const updatedUser = { ...user, ...response?.data?.user }
                 storeUser(updatedUser)
                 setTimeout(() => {
-                    navigate('/dashboard')
+                    window.location.href = "/dashboard"
                 }, 1000)
             } else {
                 setInfo({ type: "error", message: response.message })
 
             }
         })
+    }
+    const onPlaceChanged = (e) => {
+        if (locationAutoComplete !== null) {
+            const lat = locationAutoComplete?.getPlace()?.geometry?.location?.lat()
+            const long = locationAutoComplete?.getPlace()?.geometry?.location?.lng()
+            const locationName = locationAutoComplete?.getPlace().name
+            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
+
+        } else {
+            console.log('Autocomplete is not loaded yet!')
+        }
+    }
+
+    const onLoad = (autocomplete) => {
+        console.log('autocomplete: ', autocomplete)
+
+        setLocationAutoComplete(autocomplete)
     }
 
     return (
@@ -1334,6 +1406,23 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
                                             required
                                             onChange={(e) => { setOnboardingDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
                                         />
+                                    </div>
+                                    <div className="mt-1">
+                                        {
+                                            isLoaded &&
+                                            <Autocomplete
+                                                onPlaceChanged={onPlaceChanged}
+                                                onLoad={onLoad}
+                                            >
+                                                <Input
+                                                    id="location"
+                                                    name="location"
+                                                    type="text"
+                                                    label="Where are you based"
+                                                    required
+                                                />
+                                            </Autocomplete>
+                                        }
                                     </div>
                                     <div>
                                         <div className="mt-1">

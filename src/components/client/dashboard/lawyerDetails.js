@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { Button, Input, TextArea, Calendar, Notification } from '../../../components/ui'
@@ -99,6 +100,11 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
 export default LawyerDetails
 
 const LawyerInfo = ({ setBookAppointment, lawyer }) => {
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY
+    })
+
     return (
         <div>
             <div className="mt-20 w-full justify-center">
@@ -159,8 +165,23 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                         Location
                     </div>
                 </div>
-                <div className="h-20">
+                <div className="h-72 md:h-96">
+                    <div className='text-sm text-gray-500 w-full h-full'>
+                        {
+                            isLoaded &&
+                            <GoogleMap
+                                center={{ lat: -1.2648630155272294, lng: 36.79303435556186 }}
+                                mapContainerStyle={{ width: '100%', height: '100%' }} zoom={15}
+                                options={{ zoomControl: false, fullscreenControl: false }}
+                            >
+                                <MarkerF position={{ lat: -1.2648630155272294, lng: 36.79303435556186 }} />
+                            </GoogleMap>
+                            ||
+                            <div className="w-full h-full bg-gray-50 animate-pulse">
 
+                            </div>
+                        }
+                    </div>
                 </div>
                 {
                     lawyer?.available &&
