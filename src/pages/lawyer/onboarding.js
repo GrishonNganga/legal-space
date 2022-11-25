@@ -349,12 +349,8 @@ const Step1Individual = ({ onboardingDetails, setOnboardingDetails, step, setSte
             if (response?.status === "success") {
                 storeUser(response?.data?.user)
                 setInfo({ type: "success", message: `Profile updated successfully` })
-                setTimeout(() => {
-                    setStep(prevState => prevState + 1)
-                }, 1000)
             } else {
                 setInfo({ type: "error", message: response.message })
-
             }
         })
     }

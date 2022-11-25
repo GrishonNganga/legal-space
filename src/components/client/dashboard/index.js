@@ -73,7 +73,7 @@ const Main = ({ setMiddleTopNavText }) => {
                 <div className="py-4">
                     <div className='flex justify-between items-center gap-x-2 '>
                         <div className='w-full'>
-                            <Input type={"text"} placeholder="Search anything here" Icon={MagnifyingGlassIcon} className="pl-8 placeholder-[#59706B] placeholder:text-xs text-[#59706B] z-50 border-0 bg-gray-100" iconClassName={"text-legalGreen ml-2"}/>
+                            <Input type={"text"} placeholder="Search anything here" Icon={MagnifyingGlassIcon} className="pl-8 placeholder-[#59706B] placeholder:text-xs text-[#59706B] z-50 border-0 bg-gray-100" iconClassName={"text-legalGreen ml-2"} />
                         </div>
                         <div>
                             <div className='bg-[#DEAB52] p-1.5 rounded-md mt-2'>
@@ -137,17 +137,17 @@ const Main = ({ setMiddleTopNavText }) => {
                                                     <span>{lawyer?.firstName} </span> <span>{lawyer?.lastName}</span>
                                                 </div>
                                                 <div className='flex gap-x-3 items-center'>
-                                                    <div className=' text-[#999999] text-sm'>
-                                                        Criminal
+                                                    <div className=' text-[#999999] text-sm capitalize'>
+                                                        {lawyer?.areasOfPractice?.length > 0 && lawyer?.areasOfPractice[0]?.title}
                                                     </div>
                                                     {
-                                                        user?.location &&
-                                                        <div className='w-1 h-1 bg-gray-400'>
+                                                        lawyer?.location &&
+                                                        <div className='w-1 h-1 bg-gray-400 rounded-full'>
 
                                                         </div>
                                                     }
                                                     <div className='-ml-2 text-xs text-gray-500'>
-                                                        {lawyer?.location}
+                                                        {lawyer?.location?.split('-')[3] || ""}
                                                     </div>
                                                 </div>
                                             </div>

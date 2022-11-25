@@ -54,24 +54,24 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
                                     <div className="text-[#126B59] font-semibold text-xl text-center">
                                         <span> {lawyer?.firstName} </span>  {lawyer?.lastName}
                                     </div>
-                                    <div className="text-[#D4D4D4] font-medium text-sm">
-                                        Criminal Lawyer
+                                    <div className="text-[#D4D4D4] font-medium text-sm capitalize">
+                                        {lawyer?.areasOfPractice?.length > 0 && lawyer?.areasOfPractice[0]?.title} laywer
                                     </div>
                                     <div className="flex gap-x-2 justify-center items-center">
-                                        <div className='-ml-2 text-sm text-gray-500'>
-                                            {lawyer?.location}
+                                        <div className='shrink-0 -ml-2 text-sm text-gray-500'>
+                                            {lawyer?.location?.split('-')[3] || ""}
                                         </div>
                                         {
                                             lawyer?.location &&
-                                            <div className='w-2 h-2 bg-gray-400 rounded-full'>
+                                            <div className='shrink-0 w-2 h-2 bg-gray-400 rounded-full'>
 
                                             </div>
                                         }
-                                        <div className='flex gap-x-1 items-center'>
+                                        <div className='shrink-0 flex gap-x-1 items-center'>
                                             <div>
                                                 <StarIcon className='w-5 h-5 text-[#DEAB52]' />
                                             </div>
-                                            <div className='text-xs text-[#DEAB52]'>
+                                            <div className='shrink-0 text-xs text-[#DEAB52]'>
                                                 {
                                                     lawyer?.rating || 0
                                                 }
