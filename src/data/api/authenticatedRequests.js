@@ -189,6 +189,16 @@ export const clientEditAppointmentRequest = async (appointmentId, data) => {
         });
 };
 
+export const clientRateAppointmentRequest = async (appointmentId, data) => {
+    return await api
+        .post("/appointment/rate/" + appointmentId, data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+
 export const clientCreateAppointmentRequest = async (data) => {
     return await api
         .post("appointment/create", data)

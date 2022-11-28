@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 
-import { Button, Notification } from '../../ui';
+import { Button, Notification, Modal, TextArea } from '../../ui';
 
-import { getSpecificClientAppointment, getClientAppointmentsByStatus, clientEditAppointment } from '../../../data/controller'
+import { getSpecificClientAppointment, getClientAppointmentsByStatus, clientEditAppointment, clientRateAppointment } from '../../../data/controller'
 import { userStore } from '../../../stores';
 import { CalendarIcon, ClockIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/20/solid';
+
 const Appointments = ({ setMiddleTopNavText }) => {
     return (
         <Routes>
@@ -159,7 +161,7 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
     const [loading, setLoading] = useState(false)
     const [loadingCancelledRequest, setLoadingCancelledRequest] = useState(false)
     const [info, setInfo] = useState({ message: "", type: "" })
-
+    const [showRateAppointmentModal, setShowRateAppointmentModal] = useState(false)
     useEffect(() => {
         setMiddleTopNavText("Appointment Details")
     }, [])
@@ -328,9 +330,9 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                         </div>
                         <div className='flex flex-col gap-y-5 mt-5'>
                             {
-                                appointment?.stage === "completed" &&
+                                appointment?.stage === "completed" && !appointment?.ratingId &&
                                 <div className='mt-5'>
-                                    <Button text="Rate your appointment" type="" active={true} onClick={() => { cancelRequest(appointment._id) }} />
+                                    <Button text="Rate your appointment" type="" active={true} onClick={() => { setShowRateAppointmentModal(true) }} />
                                 </div>
                             }
                         </div>
@@ -367,6 +369,91 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                     </div>
                 </div>
             }
+            {
+                showRateAppointmentModal ?
+                    <div className='absolute top-0 w-full  h-full'>
+                        <div className='w-full h-full backdrop-blur-sm flex justify-center items-center z-40'>
+                            <Modal open={showRateAppointmentModal} setOpen={(prevState) => { setShowRateAppointmentModal(prevState => !prevState) }} ui={<RateAppointmentModal appointment={appointment} />} />
+                        </div>
+                    </div>
+                    :
+                    <>
+
+                    </>
+            }
+        </div>
+    )
+}
+
+const RateAppointmentModal = ({ appointment }) => {
+    console.log(appointment)
+    const navigate = useNavigate()
+    const [description, setDescription] = useState("")
+    const [selectedRating, setSelectedRating] = useState(null)
+    const [enableRating, setEnableRating] = useState(false)
+    const [loadingRating, setLoadingRating] = useState(false)
+
+    useEffect(() => {
+        if (selectedRating && description !== "") {
+            setEnableRating(true)
+        } else {
+            setEnableRating(false)
+            return
+        }
+    }, [description, selectedRating])
+
+    const handleSubmit = () => {
+        setLoadingRating(true)
+        clientRateAppointment(appointment?._id, { rating: selectedRating, comment: description }).then(response => {
+            setLoadingRating(false)
+            if (response?.status === "success") {
+                window.location.reload()
+            } else {
+                console.log(response)
+            }
+        })
+    }
+
+    return (
+        <div className='w-full flex flex-col items-center gap-y-4'>
+            <div className='text-gray-500 trext-sm'>
+                How was your appointment?
+            </div>
+            <div className='flex'>
+                {
+                    [...Array(5)].map((idx, index) => {
+                        if (selectedRating > index) {
+                            return (
+                                <div key={index}>
+                                    <StarIcon className='w-9 h-9 text-yellow-500' />
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <div key={index} className='cursor-pointer' onClick={() => { setSelectedRating(index + 1) }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                    </svg>
+                                </div>
+                            )
+                        }
+                    })
+                }
+            </div>
+            <div className='w-3/4'>
+                <TextArea
+                    id="description"
+                    name="description"
+                    type="text"
+                    placeholder={"Tell us about your experience"}
+                    autoComplete="text"
+                    required
+                    onChange={(e) => { setDescription(e.target.value) }}
+                />
+            </div>
+            <div className='w-full md:w-1/2'>
+                <Button type="secondary" text="Complete" active={enableRating} loading={loadingRating} onClick={handleSubmit} />
+            </div>
         </div>
     )
 }

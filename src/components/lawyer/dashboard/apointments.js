@@ -27,6 +27,7 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
     const [appointments, setAppointments] = useState([])
     const [loading, setLoading] = useState(false)
     const [showMore, setShowMore] = useState()
+    const [loadingAcceptRequest, setLoadingAcceptRequest] = useState(false)
 
     useEffect(() => {
         setMiddleTopNavText("Appointments")
@@ -44,6 +45,16 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
             })
         }
     }, [user])
+
+    const acceptRequest = (id) => {
+        setLoadingAcceptRequest(true)
+        lawyerEditAppointment(id, { stage: "accepted" }).then(response => {
+            setLoadingAcceptRequest(false)
+            if (response?.status === "success") {
+                window.location.reload()
+            }
+        })
+    }
 
     return (
         <div className="py-4 px-2">
@@ -100,7 +111,7 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                                 {
                                                     appointment?.stage === "pending" &&
                                                     <div className='mt-5'>
-                                                        <Button text="Accept request" type="secondary" active={true} />
+                                                        <Button text="Accept request" type="secondary" active={true} onClick={() => { acceptRequest(appointment._id) }} loading={loadingAcceptRequest} />
                                                     </div>
                                                 }
                                             </div>

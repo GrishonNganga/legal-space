@@ -15,6 +15,7 @@ import {
     getSpecificAppointmentRequest,
     lawyerEditAppointmentRequest,
     clientEditAppointmentRequest,
+    clientRateAppointmentRequest,
     userChangePasswordRequest,
     getLawyersPerCategoryRequest,
     getClientAppointmentsByStatusRequest,
@@ -133,6 +134,10 @@ export const clientEditAppointment = async (appointmentId, appointmentDetails) =
     return _returnResponse(response)
 }
 
+export const clientRateAppointment = async (appointmentId, ratingDetails) => {
+    const response = await clientRateAppointmentRequest(appointmentId, ratingDetails)
+    return _returnResponse(response)
+}
 
 export const editFirm = async (firmDetails) => {
     const response = await editFirmRequest(firmDetails)
