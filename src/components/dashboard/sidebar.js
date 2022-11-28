@@ -146,7 +146,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                         <nav className="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
                                             {navigation?.map((item) =>
                                                 !item.children ? (
-                                                    <div key={item.name} onClick={() => { navigate(routePrefix + item?.href) }}>
+                                                    <div key={item.name} onClick={() => { navigate(routePrefix + item?.href); setSidebarOpen(false) }}>
                                                         <div
                                                             className={classNames(
                                                                 item.current
@@ -207,7 +207,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
 
                                                                                 )
                                                                             }
-                                                                            onClick={() => { navigate(routePrefix + subItem.href) }}
+                                                                            onClick={() => { navigate(routePrefix + subItem.href); setSidebarOpen(false) }}
                                                                         >
                                                                             {subItem.name}
                                                                         </Disclosure.Button>
