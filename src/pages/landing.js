@@ -14,7 +14,7 @@ const Homepage = () => {
   return (
     <div className="overflow-hidden font-euclid">
       <NavBar />
-      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[950px] h-[800px] overflow-hidden">
+      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden">
         <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
@@ -124,12 +124,12 @@ const Homepage = () => {
       <div className="pt-20 md:flex">
         <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
           <div className="lg:w-[450px] w-screen md:w-full">
-            <div className="bg-[#C6A85C70] h-56 w-[600px] relative -right-[1px] mt-56" />
+            <div className="bg-[#C6A85C70] h-80 w-[600px] relative -right-[1px] mt-56" />
 
             <img
               src={stairs}
               alt="man"
-              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[511px]"
+              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[620px]"
             />
           </div>
         </div>
