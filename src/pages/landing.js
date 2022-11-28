@@ -129,7 +129,7 @@ const Homepage = () => {
             <img
               src={stairs}
               alt="man"
-              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[620px]"
+              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[622px]"
             />
           </div>
         </div>
@@ -138,13 +138,13 @@ const Homepage = () => {
         <div className="md:hidden h-80 pt-24 px-4">
           <div className="relative bg-[#C6A85C70] h-36">
             <div className="absolute -leftx-[2px] -top-[124px]">
-              <img src={stairs} alt="stairs" className="h-[270px] w-[200px]" />
+              <img src={stairs} alt="stairs" className="h-[300px] w-[200px]" />
             </div>
           </div>
         </div>
-        <div className="w-screen md:w-1/2 mr-64">
-          <div>
-            <p className="text-6xl font-semibold text-dark leading-normal md:px-0 px-4">
+        <div className="w-screen md:w-1/2 mr-64 space-y-4">
+          <div className="">
+            <p className="text-6xl font-semibold text-dark md:px-0 px-4">
               Get a lawyer in minutes!
             </p>
           </div>
