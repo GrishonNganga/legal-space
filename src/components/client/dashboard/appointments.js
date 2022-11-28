@@ -17,6 +17,10 @@ const Appointments = ({ setMiddleTopNavText }) => {
 export default Appointments
 
 const ViewAppointments = ({ setMiddleTopNavText }) => {
+    const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    const monthNames = ["Jan", "Feb", "March", "Apr", "May", "June",
+        "July", "Aug", "Sept", "Oct", "Nov", "Dec"
+    ];
     const user = userStore(state => state.user)
     const navigate = useNavigate()
     const [appointments, setAppointments] = useState([])
@@ -72,23 +76,25 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                         {
                                             showMore === index &&
                                             <div className='transition-all ease-in-out duration-500'>
-                                                <div className='flex gap-x-2 mt-3'>
-                                                    <div>
-                                                        Date
+                                                <div className='flex items-center justify-between gap-x-2 bg-gray-100 rounded-md p-3'>
+                                                    <div className='flex gap-x-2 items-center'>
+                                                        <div>
+                                                            <CalendarIcon className='w-5 h-5 text-gray-500' />
+                                                        </div>
+                                                        <div className='font-semibold text-gray-500'>
+                                                            {dayNames[new Date(appointment?.date)?.getDay()]}, {monthNames[new Date(appointment?.date)?.getMonth()]} {new Date(appointment?.date)?.getDate()}
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        {new Date(appointment?.date)?.toLocaleDateString()}
+                                                    <div className='flex gap-x-2 items-center'>
+                                                        <div>
+                                                            <ClockIcon className='w-5 h-5 text-gray-500' />
+                                                        </div>
+                                                        <div className='font-semibold text-gray-500'>
+                                                            {new Date(appointment?.date)?.toLocaleTimeString([], { hour12: true })}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className='flex gap-x-2 mt-3'>
-                                                    <div>
-                                                        Time
-                                                    </div>
-                                                    <div>
-                                                        {new Date(appointment?.date)?.toLocaleTimeString([], { hour12: true })}
-                                                    </div>
-                                                </div>
-                                                <div className='mt-5'>
+                                                <div className='mt-5 text-gray-500 tracking-wide'>
                                                     {
                                                         appointment?.description
                                                     }
