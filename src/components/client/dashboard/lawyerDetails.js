@@ -255,7 +255,7 @@ const BookAppointment = ({ setMiddleTopNavText, lawyer, bookedDates }) => {
     }, [])
 
     useEffect(() => {
-        if (bookingDetails.subject === "" || bookingDetails.description === "" || bookingDetails.subject.length < 3 || bookingDetails.description.length < 6) {
+        if (bookingDetails.subject === "" || bookingDetails.description === "") {
             setCompleteBookingStepOne(false)
         } else {
             setCompleteBookingStepOne(true)

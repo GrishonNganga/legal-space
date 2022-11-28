@@ -7,7 +7,7 @@ import { MiddleTopNav } from '../../components/dashboard/navigation'
 import Main from '../../components/lawyer/dashboard'
 import Settings from '../../components/lawyer/dashboard/settings'
 import Appointments from '../../components/lawyer/dashboard/apointments'
-
+import Engagements from '../../components/lawyer/dashboard/engagements'
 import { Modal, Button } from '../../components/ui'
 import { userStore } from '../../stores'
 
@@ -56,6 +56,7 @@ const Dashboard = () => {
                                     <>
                                         <Route path="/" exact element={<Main setMiddleTopNavText={setMiddleTopNavText} updateOnboardingPercentage={setOnboardingPercentage} />} />
                                         <Route path="/appointments/*" element={<Appointments setMiddleTopNavText={setMiddleTopNavText} />} />
+                                        <Route path="/engagements" exact element={<Engagements setMiddleTopNavText={setMiddleTopNavText} />} />
                                         <Route path="/settings/*" element={<Settings setMiddleTopNavText={setMiddleTopNavText} />} />
                                     </>
                                 }
