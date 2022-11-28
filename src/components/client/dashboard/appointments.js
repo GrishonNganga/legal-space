@@ -60,15 +60,12 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                         <div className='flex gap-x-2 items-start'>
                                             <img src={appointment?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-12 h-12 rounded-full" />
                                             <div className='flex flex-col' onClick={() => { navigate(appointment?._id) }}>
-                                                <div className='font-semibold text-base'>
+                                                <div className='font-semibold text-base capitalize'>
                                                     <span>{appointment?.lawyerId.firstName}</span> <span> {appointment?.lawyerId?.lastName}</span>
                                                 </div>
-                                                <div className='w-full flex'>
-                                                    <div className='text-[#999999] text-xs capitalize'>
-                                                        {
-                                                            appointment?.lawyerId?.areasOfPractice?.length > 0 &&
-                                                            <span>{appointment?.lawyerId?.areasOfPractice[0]?.title}  specialist</span>
-                                                        }
+                                                <div className='flex gap-x-3 items-center'>
+                                                    <div className=' text-gray-400 text-sm'>
+                                                        {appointment?.subject}
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +200,7 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                     <div className='flex gap-x-2 items-start'>
                         <img src={appointment?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-12 h-12 rounded-full" />
                         <div className='flex flex-col'>
-                            <div className='font-semibold text-base flex gap-x-1'>
+                            <div className='font-semibold text-base flex gap-x-1 capitalize'>
                                 <span>
                                     {
                                         appointment?.lawyerId?.firstName
@@ -215,12 +212,9 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                                     }
                                 </span>
                             </div>
-                            <div className='w-full flex'>
-                                <div className='text-[#999999] text-xs capitalize'>
-                                    {
-                                        appointment?.lawyerId?.areasOfPractice?.length > 0 &&
-                                        <span>{appointment?.lawyerId?.areasOfPractice[0]?.title}  specialist</span>
-                                    }
+                            <div className='flex gap-x-3 items-center'>
+                                <div className=' text-gray-400 text-sm'>
+                                    {appointment?.subject}
                                 </div>
                             </div>
                             {/* <div className='flex gap-x-3 items-center'>
