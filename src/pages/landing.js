@@ -12,10 +12,10 @@ import { Button } from "../components/ui";
 const Homepage = () => {
   const navigate = useNavigate();
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden font-euclid">
       <NavBar />
       <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[950px] h-[800px] overflow-hidden">
-        <div className="md:flex w-screen md:w-1/2 flex-col text-white mr-4">
+        <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
           </p>
@@ -144,12 +144,12 @@ const Homepage = () => {
         </div>
         <div className="w-screen md:w-1/2 mr-64">
           <div>
-            <p className="text-6xl font-semibold text-dark leading-normal tracking-wide md:px-0 px-4">
+            <p className="text-6xl font-semibold text-dark leading-normal md:px-0 px-4">
               Get a lawyer in minutes!
             </p>
           </div>
           <div>
-            <p className="text-legalLightGray justify-center md:px-0 px-4">
+            <p className="justify-center md:px-0 px-4 md:text-lg font-normal text-[#697472]">
               t vero eos et accusamus et iusto odio dignissimos ducimus qui
               blanditiis praesentium voluptatum deleniti atque corrupti quos
               dolores et quas molestias excepturi sint occ t
@@ -188,11 +188,11 @@ const Homepage = () => {
             </p>
           </div>
           <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4 space-y-4">
-            <p className="text-base align-baseline text-legalLightGray">
+            <p className="lg:text-xl align-baseline text-[#697472]">
               Legal space top expert legal team covering any field. They have
               more than 10 years experience in they specialization
             </p>
-            <p className="text-base align-baseline text-legalLightGray">
+            <p className="lg:text-xl align-baseline text-[#697472]">
               Sign Up to join be part of the top lawyers team
             </p>
             <button

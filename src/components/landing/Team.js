@@ -103,7 +103,7 @@ const Team = () => {
   const settings = {
     // dots: true,
     infinite: true,
-    // autoplay: true,
+    autoplay: false,
     cssEase: "linear",
     slidesToShow: 4,
     // slidesToScroll: 2,
@@ -143,7 +143,7 @@ const Team = () => {
   const [buttonClicked, setButtonClicked] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setButtonClicked(""), 5000);
+    setTimeout(() => setButtonClicked(""), 2000);
   }, [buttonClicked]);
 
   return (
@@ -178,10 +178,10 @@ const Team = () => {
             {teamData.map((team, index) => (
               <div
                 key={index}
-                className="team-card drop-shadow-sm text-white flex flex-row"
+                className="team-card drop-shadow-sm text-white grid grid-cols-4 gap-4"
               >
                 <div>
-                  <img src={team.image} alt="" className="object-fill" />
+                  <img src={team.image} alt="" className="" />
                 </div>
                 <div className="py-4 pl-3">
                   <div className="module mb-3 flex flex-row justify-between px-4 items-start">
