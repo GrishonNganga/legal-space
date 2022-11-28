@@ -51,7 +51,7 @@ const Homepage = () => {
           {/* desktop satisfied  clients background: #FFFFFF1A;
            */}
           <div
-            className=" hidden md:grid w-[660px] bg-[#FFFFFF1A] h-44 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-32
+            className=" hidden md:grid w-[660px] bg-[#FFFFFF1A] h-44 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-36
 "
           >
             <div className="">
