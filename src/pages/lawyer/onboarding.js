@@ -556,7 +556,6 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
     }, [])
 
     useEffect(() => {
-        console.log(onboardingDetails)
         let completed = true
         for (const key in onboardingDetails) {
             if (stepTwoInputs.includes(key) && (onboardingDetails[key] === "" || !onboardingDetails[key] || onboardingDetails[key]?.length === 0)) {
@@ -629,13 +628,10 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
             const locationName = locationAutoComplete?.getPlace().name
             setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
 
-        } else {
-            console.log('Autocomplete is not loaded yet!')
         }
     }
 
     const onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete)
 
         setLocationAutoComplete(autocomplete)
     }
@@ -1350,14 +1346,10 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
             const locationName = locationAutoComplete?.getPlace().name
             setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
 
-        } else {
-            console.log('Autocomplete is not loaded yet!')
         }
     }
 
     const onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete)
-
         setLocationAutoComplete(autocomplete)
     }
 

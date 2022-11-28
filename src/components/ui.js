@@ -5,7 +5,6 @@ import {
     ChevronDownIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
-    ClockIcon,
     EllipsisHorizontalIcon,
 } from '@heroicons/react/20/solid'
 

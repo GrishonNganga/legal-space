@@ -59,17 +59,13 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                                     <span>{appointment?.clientId.firstName}</span> <span> {appointment?.clientId?.lastName}</span>
                                                 </div>
                                                 <div className='flex gap-x-3 items-center'>
-                                                    <div className=' text-gray-400 text-sm'>
-                                                        {appointment.subject}
-                                                    </div>
-                                                    {
-                                                        user?.location &&
-                                                        <div className='w-1 h-1 bg-gray-400'>
-
+                                                    <div className='w-full flex'>
+                                                        <div className='text-[#999999] text-xs capitalize'>
+                                                            {
+                                                                appointment?.lawyerId?.areasOfPractice?.length > 0 &&
+                                                                <span>{user?.areasOfPractice[0]?.title}  specialist</span>
+                                                            }
                                                         </div>
-                                                    }
-                                                    <div className='-ml-2 text-xs text-gray-500'>
-                                                        {user.location}
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,15 +228,7 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                             </div>
                             <div className='flex gap-x-3 items-center'>
                                 <div className=' text-gray-400 text-sm'>
-                                    {
-                                        appointment?.subject
-                                    }
-                                </div>
-                                <div className='w-1 h-1 bg-gray-400'>
-
-                                </div>
-                                <div className='-ml-2 text-xs text-gray-500'>
-                                    {user?.location}
+                                    {appointment.subject}
                                 </div>
                             </div>
                         </div>

@@ -32,7 +32,6 @@ const Main = ({ setMiddleTopNavText }) => {
 
         setLoading(true)
         getLawyers().then(response => {
-            console.log(response.data.lawyers)
             setLoading(false)
             if (response?.status === "success") {
                 setAllLawyers(response.data.lawyers)

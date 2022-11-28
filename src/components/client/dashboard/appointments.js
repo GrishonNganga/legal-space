@@ -5,6 +5,7 @@ import { Button, Notification } from '../../ui';
 
 import { getSpecificClientAppointment, getClientAppointmentsByStatus, clientEditAppointment } from '../../../data/controller'
 import { userStore } from '../../../stores';
+import { CalendarIcon, ClockIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 const Appointments = ({ setMiddleTopNavText }) => {
     return (
         <Routes>
@@ -58,18 +59,12 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
                                                 <div className='font-semibold text-base'>
                                                     <span>{appointment?.lawyerId.firstName}</span> <span> {appointment?.lawyerId?.lastName}</span>
                                                 </div>
-                                                <div className='flex gap-x-3 items-center'>
-                                                    <div className=' text-gray-400 text-sm'>
-                                                        {appointment.subject}
-                                                    </div>
-                                                    {
-                                                        user?.location &&
-                                                        <div className='w-1 h-1 bg-gray-400'>
-
-                                                        </div>
-                                                    }
-                                                    <div className='-ml-2 text-xs text-gray-500'>
-                                                        {user.location}
+                                                <div className='w-full flex'>
+                                                    <div className='text-[#999999] text-xs capitalize'>
+                                                        {
+                                                            appointment?.lawyerId?.areasOfPractice?.length > 0 &&
+                                                            <span>{appointment?.lawyerId?.areasOfPractice[0]?.title}  specialist</span>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,6 +146,10 @@ const ViewAppointments = ({ setMiddleTopNavText }) => {
 }
 
 const ViewAppointment = ({ setMiddleTopNavText }) => {
+    const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    const monthNames = ["Jan", "Feb", "March", "Apr", "May", "June",
+        "July", "Aug", "Sept", "Oct", "Nov", "Dec"
+    ];
     const user = userStore(state => state.user)
     const location = useLocation()
     const [appointment, setAppointment] = useState()
@@ -178,7 +177,7 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
         clientEditAppointment(id, { stage: "cancelled" }).then(response => {
             setLoadingCancelledRequest(false)
             if (response?.status === "success") {
-                setAppointment(response?.data?.updatedAppointment)
+                window.location.reload()
             }
         })
     }
@@ -201,87 +200,129 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                             <div className='font-semibold text-base flex gap-x-1'>
                                 <span>
                                     {
-                                        appointment?.clientId?.firstName
+                                        appointment?.lawyerId?.firstName
                                     }
                                 </span>
                                 <span>
                                     {
-                                        appointment?.clientId?.lastName
+                                        appointment?.lawyerId?.lastName
                                     }
                                 </span>
                             </div>
-                            <div className='flex gap-x-3 items-center'>
-                                <div className=' text-gray-400 text-sm'>
+                            <div className='w-full flex'>
+                                <div className='text-[#999999] text-xs capitalize'>
                                     {
-                                        appointment?.subject
+                                        appointment?.lawyerId?.areasOfPractice?.length > 0 &&
+                                        <span>{appointment?.lawyerId?.areasOfPractice[0]?.title}  specialist</span>
                                     }
                                 </div>
-                                <div className='w-1 h-1 bg-gray-400'>
+                            </div>
+                            {/* <div className='flex gap-x-3 items-center'>
+                                <div className='text-xs text-gray-500'>
+                                    lawyer {appointment?.lawyer?.location?.split("-")[3]} offices
+                                </div>
+                            </div> */}
+                            <div>
 
-                                </div>
-                                <div className='-ml-2 text-xs text-gray-500'>
-                                    {appointment?.clientId?.location}
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div className=''>
-                        <div className='flex gap-x-2 mt-3'>
-                            <div>
-                                Date
+                        {
+                            appointment?.stage === "accepted" && new Date(appointment?.date) >= new Date() &&
+                            <div className='mb-3 flex items-center gap-x-2 bg-gray-100 rounded-md p-3'>
+                                <div className='flex gap-x-2 items-center'>
+                                    <div>
+                                        <InformationCircleIcon className='w-5 h-5 text-green-500' />
+                                    </div>
+                                    <div className=' text-green-500'>
+                                        Upcoming appointment
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                {new Date(appointment?.date)?.toLocaleDateString()}
+                        }
+                        {
+                            appointment?.stage === "accepted" && new Date(appointment?.date) < new Date() &&
+                            <div className='mb-3 flex items-center gap-x-2 bg-gray-100 rounded-md p-3'>
+                                <div className='flex gap-x-2 items-center'>
+                                    <div>
+                                        <InformationCircleIcon className='w-5 h-5 text-red-500' />
+                                    </div>
+                                    <div className=' text-red-500'>
+                                        Appointment expired
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            appointment?.stage === "pending" &&
+                            <div className='mb-3 flex items-center gap-x-2 bg-gray-100 rounded-md p-3'>
+                                <div className='flex gap-x-2 items-center'>
+                                    <div>
+                                        <InformationCircleIcon className='w-5 h-5 text-yellow-500' />
+                                    </div>
+                                    <div className=' text-yellow-500'>
+                                        Awaiting lawyer confirmation
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            appointment?.stage === "cancelled" &&
+                            <div className='mb-3 flex items-center gap-x-2 bg-gray-100 rounded-md p-3'>
+                                <div className='flex gap-x-2 items-center'>
+                                    <div>
+                                        <InformationCircleIcon className='w-5 h-5 text-red-500' />
+                                    </div>
+                                    <div className=' text-red-500'>
+                                        Appontment cancelled
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            appointment?.stage === "completed" &&
+                            <div className='mb-3 flex items-center gap-x-2 bg-gray-100 rounded-md p-3'>
+                                <div className='flex gap-x-2 items-center'>
+                                    <div>
+                                        <InformationCircleIcon className='w-5 h-5 text-green-500' />
+                                    </div>
+                                    <div className=' text-green-500'>
+                                        Appointment completed
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div className='flex items-center justify-between gap-x-2 bg-gray-100 rounded-md p-3'>
+                            <div className='flex gap-x-2 items-center'>
+                                <div>
+                                    <CalendarIcon className='w-5 h-5 text-gray-500' />
+                                </div>
+                                <div className='font-semibold text-gray-500'>
+                                    {dayNames[new Date(appointment?.date)?.getDay()]}, {monthNames[new Date(appointment?.date)?.getMonth()]} {new Date(appointment?.date)?.getDate()}
+                                </div>
+                            </div>
+                            <div className='flex gap-x-2 items-center'>
+                                <div>
+                                    <ClockIcon className='w-5 h-5 text-gray-500' />
+                                </div>
+                                <div className='font-semibold text-gray-500'>
+                                    {new Date(appointment?.date)?.toLocaleTimeString([], { hour12: true })}
+                                </div>
                             </div>
                         </div>
-                        <div className='flex gap-x-2 mt-3'>
-                            <div>
-                                Time
-                            </div>
-                            <div>
-                                {new Date(appointment?.date)?.toLocaleTimeString([], { hour12: true })}
-                            </div>
-                        </div>
-                        <div className='mt-5'>
+
+                        <div className='mt-5 text-gray-500 tracking-wide'>
                             {
                                 appointment?.description
                             }
                         </div>
                         <div className='flex flex-col gap-y-5 mt-5'>
                             {
-                                appointment?.stage === "accepted" && new Date(appointment?.date) >= new Date() &&
-                                <div className='mt-5'>
-                                    <Button text="Upcoming appointment" type="" active={false} />
-                                </div>
-                            }
-                            {
-                                appointment?.stage === "accepted" && new Date(appointment?.date) < new Date() &&
-                                <div className='mt-5'>
-                                    <Button text="Elapsed appointment" type="" active={false} />
-                                </div>
-                            }
-                            {
                                 appointment?.stage === "pending" &&
                                 <div className='mt-5'>
                                     <Button text="Cancel appointment" type="" active={true} loading={loadingCancelledRequest} onClick={() => { cancelRequest(appointment._id) }} />
-                                </div>
-                            }
-                            {
-                                appointment?.stage === "cancelled" &&
-                                <div className='mt-5'>
-                                    <Button text="Cancelled" type="" />
-                                </div>
-                            }
-                            {
-                                appointment?.stage === "completed" &&
-                                <div className='mt-5'>
-                                    <Button text="Completed" type="secondary" />
-                                </div>
-                            }
-                            {
-                                appointment?.stage === "pending" &&
-                                <div className='mt-5'>
-                                    <Button text="Awaiting lawyer confirmation" type="secondary" />
                                 </div>
                             }
                         </div>
