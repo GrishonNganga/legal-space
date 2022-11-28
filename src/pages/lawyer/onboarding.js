@@ -626,7 +626,7 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
             const lat = locationAutoComplete?.getPlace()?.geometry?.location?.lat()
             const long = locationAutoComplete?.getPlace()?.geometry?.location?.lng()
             const locationName = locationAutoComplete?.getPlace().name
-            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
+            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}*${long}*${locationName}` }))
 
         }
     }
@@ -1344,7 +1344,7 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
             const lat = locationAutoComplete?.getPlace()?.geometry?.location?.lat()
             const long = locationAutoComplete?.getPlace()?.geometry?.location?.lng()
             const locationName = locationAutoComplete?.getPlace().name
-            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}-${long}-${locationName}` }))
+            setOnboardingDetails(prevState => ({ ...prevState, "location": `${lat}*${long}*${locationName}` }))
 
         }
     }

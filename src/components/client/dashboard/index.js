@@ -146,7 +146,7 @@ const Main = ({ setMiddleTopNavText }) => {
                                                         </div>
                                                     }
                                                     <div className='-ml-2 text-xs text-gray-500'>
-                                                        {lawyer?.location?.split('-')[3] || ""}
+                                                        {lawyer?.location?.split('*')[2] || ""}
                                                     </div>
                                                 </div>
                                             </div>

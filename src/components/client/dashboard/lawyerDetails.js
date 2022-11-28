@@ -59,7 +59,7 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
                                     </div>
                                     <div className="flex gap-x-2 justify-center items-center">
                                         <div className='shrink-0 -ml-2 text-sm text-gray-500'>
-                                            {lawyer?.location?.split('-')[3] || ""}
+                                            {lawyer?.location?.split('*')[2] || ""}
                                         </div>
                                         {
                                             lawyer?.location &&
@@ -100,6 +100,7 @@ const LawyerDetails = ({ setMiddleTopNavText }) => {
 export default LawyerDetails
 
 const LawyerInfo = ({ setBookAppointment, lawyer }) => {
+    console.log("Lawyer", lawyer?.location?.split("*")[0], lawyer?.location?.split("*")[1])
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY
@@ -170,11 +171,11 @@ const LawyerInfo = ({ setBookAppointment, lawyer }) => {
                         {
                             isLoaded &&
                             <GoogleMap
-                                center={{ lat: -1.2648630155272294, lng: 36.79303435556186 }}
+                                center={{ lat: parseInt(lawyer?.location?.split("*")[0] || "-1.2648630155272294"), lng: parseInt(lawyer?.location?.split("*")[1] || "36.79303435556186") }}
                                 mapContainerStyle={{ width: '100%', height: '100%', borderRadius: "0.25rem" }} zoom={15}
                                 options={{ zoomControl: false, fullscreenControl: false }}
                             >
-                                <MarkerF position={{ lat: -1.2648630155272294, lng: 36.79303435556186 }} />
+                                <MarkerF position={{ lat: parseInt(lawyer?.location?.split("*")[0] || "-1.2648630155272294"), lng: parseInt(lawyer?.location?.split("*")[1] || "36.79303435556186") }} />
                             </GoogleMap>
                             ||
                             <div className="w-full h-full bg-gray-50 animate-pulse">

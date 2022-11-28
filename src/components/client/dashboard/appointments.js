@@ -332,6 +332,14 @@ const ViewAppointment = ({ setMiddleTopNavText }) => {
                                 </div>
                             }
                         </div>
+                        <div className='flex flex-col gap-y-5 mt-5'>
+                            {
+                                appointment?.stage === "completed" &&
+                                <div className='mt-5'>
+                                    <Button text="Rate your appointment" type="" active={true} onClick={() => { cancelRequest(appointment._id) }} />
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
                 ||

@@ -70,7 +70,7 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
         })
     }
     return (
-        <div className="py-4 px-4">
+        <div className="py-4 px-4 min-h-screen">
             <div className="max-w-7xl mx-auto px-4">
                 <h1 className="text-gray-900">Hello {user?.firstName || user?.lastName || user?.email.split('@')[0]}</h1>
                 <h1 className="mt-2 font-semibold text-[#183A33] text-xl">Your cases are waiting</h1>
@@ -189,8 +189,8 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
 
                                                             </div>
                                                         }
-                                                        <div className='-ml-2 text-xs text-gray-500'>
-                                                            {user?.location}
+                                                        <div className='shrink-0 text-xs text-gray-500'>
+                                                            {user?.location?.split("*")[3]}
                                                         </div>
                                                     </div>
                                                 </div>
