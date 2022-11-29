@@ -17,9 +17,36 @@ export const refreshSession = async () => {
         });
 };
 
+export const validateResetTokenRequest = async (data) => {
+    return await api
+        .post("/auth/verifyJwtResetLink", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
 export const logoutRequest = async () => {
     return await api
         .post("/auth/logout")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const passwordResetRequest = async (email) => {
+    return await api
+        .put("/auth/forgotPassword", email)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const changePasswordRequest = async (data) => {
+    return await api
+        .put("/auth/resetPassword", data)
         .then((response) => response)
         .catch((error) => {
             return error.response;

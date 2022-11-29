@@ -7,6 +7,8 @@ import Landing from './pages/landing';
 import LawyerSignup from './pages/lawyer/signup'
 import ClientSignup from './pages/client/signup'
 import Signin from './pages/lawyer/signin'
+import ForgotPassword from './pages/forgotPassword'
+import ResetPassword from './pages/resetPassword'
 import FourOhFour from './pages/404';
 import ClientDashboard from './pages/client/dashboard'
 import LawyerDashboard from './pages/lawyer/dashboard'
@@ -46,6 +48,9 @@ function App() {
         <Route path='/lawyer-signup' element={<LawyerSignup />} />
         <Route path='/client-signup' element={<ClientSignup />} />
         <Route path='/signin' element={<Signin />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/resetPassword/:token' element={<ResetPassword />} />
+
         {
           user?.role === "client" &&
           <>

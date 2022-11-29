@@ -20,7 +20,10 @@ import {
     getLawyersPerCategoryRequest,
     getClientAppointmentsByStatusRequest,
     getSpecificClientAppointmentRequest,
-    getLawyerBookedDatesRequest
+    getLawyerBookedDatesRequest,
+    passwordResetRequest,
+    validateResetTokenRequest,
+    changePasswordRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -30,6 +33,21 @@ export const signin = async (userDetails) => {
 
 export const signup = async (userDetails) => {
     const response = await signupUser(userDetails)
+    return _returnResponse(response)
+}
+
+export const forgotPassword = async (email) => {
+    const response = await passwordResetRequest(email)
+    return _returnResponse(response)
+}
+
+export const validateResetToken = async (token) => {
+    const response = await validateResetTokenRequest({ resetLink: token })
+    return _returnResponse(response)
+}
+
+export const changePassword = async (newPassword) => {
+    const response = await changePasswordRequest(newPassword)
     return _returnResponse(response)
 }
 
