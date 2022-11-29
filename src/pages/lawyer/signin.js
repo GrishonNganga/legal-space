@@ -82,7 +82,7 @@ const Signin = () => {
                                             id="password"
                                             name="password"
                                             type="password"
-                                            label="Passwoerd"
+                                            label="Password"
                                             autoComplete="false"
                                             required
                                             onChange={(e) => { setUserDetails(prevState => ({ ...prevState, [e.target.name]: e.target.value })) }}
@@ -99,7 +99,7 @@ const Signin = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Log in" type="secondary" onClick={handleSubmit} loading={loading} active={true}/>
+                                    <Button text="Log in" type="secondary" onClick={handleSubmit} loading={loading} active={true} />
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">
