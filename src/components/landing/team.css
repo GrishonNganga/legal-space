@@ -14,9 +14,10 @@
 .team-card {
   background: #c6a85c;
   /* padding-right: 2px; */
-  margin: 0 auto;
+  margin: 0 1.3rem;
   /* width: 70%; */
   padding-bottom: 2rem;
+  height: fit-content;
   /* margin: 0 auto; */
 
   /* margin-left: 2rem; */
