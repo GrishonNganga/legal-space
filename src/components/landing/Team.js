@@ -173,7 +173,7 @@ const Team = () => {
                     <div>
                       <img src={team.image} alt="" className="w-full" />
                     </div>
-                    <div className="py-4 pl-3">
+                    <div className=" pl-3">
                       <div className="module mb-3 flex flex-row justify-between px-4 items-start">
                         <div>
                           <p className="font-semibold">{team.name}</p>
