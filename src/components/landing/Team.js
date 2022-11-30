@@ -108,51 +108,10 @@ const CustomArrowRight = ({ className, onClick }) => {
 };
 
 const Team = () => {
-  const [sliderRef, setSliderRef] = useState(null);
-  const settings = {
-    // dots: true,
-    infinite: true,
-    autoplay: false,
-    cssEase: "linear",
-    slidesToShow: 4,
-    // slidesToScroll: 2,
-    lazyLoad: true,
-    // initialSlide: 1,
-    arrows: true,
-    // prevArrow: <CustomArrowLeft />,
-    // nextArrow: <CustomArrowRight />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-    ],
-  };
   const [buttonClicked, setButtonClicked] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setButtonClicked(""), 2000);
+    setTimeout(() => setButtonClicked(""), 3000);
   }, [buttonClicked]);
 
   return (
@@ -176,17 +135,32 @@ const Team = () => {
             naturalSlideHeight={450}
             totalSlides={teamData.length}
             visibleSlides={4}
+            infinite={true}
           >
             <div className="flex justify-end p-8">
-              <ButtonBack
-                onClick={() => {
-                  setButtonClicked("prev");
-                }}
-              >
-                <ArrowLeftCircleIcon className="text-legalLightGray h-10 w-10" />
+              <ButtonBack>
+                <ArrowLeftCircleIcon
+                  onClick={() => {
+                    setButtonClicked("prev");
+                  }}
+                  className={`h-10 w-10 ${
+                    buttonClicked === "prev"
+                      ? "text-legalYellow"
+                      : "text-legalLightGray"
+                  }`}
+                />
               </ButtonBack>
               <ButtonNext>
-                <ArrowRightCircleIcon className="text-legalLightGray h-10 w-10" />
+                <ArrowRightCircleIcon
+                  onClick={() => {
+                    setButtonClicked("next");
+                  }}
+                  className={`h-10 w-10 ${
+                    buttonClicked === "next"
+                      ? "text-legalYellow"
+                      : "text-legalLightGray"
+                  }`}
+                />
               </ButtonNext>
             </div>
             <Slider>
@@ -253,17 +227,32 @@ const Team = () => {
             naturalSlideHeight={450}
             totalSlides={teamData.length}
             visibleSlides={1}
+            infinite={true}
           >
             <div className="flex justify-end md:p-8 p-4">
-              <ButtonBack
-                onClick={() => {
-                  setButtonClicked("prev");
-                }}
-              >
-                <ArrowLeftCircleIcon className="text-legalLightGray h-10 w-10" />
+              <ButtonBack>
+                <ArrowLeftCircleIcon
+                  onClick={() => {
+                    setButtonClicked("prev");
+                  }}
+                  className={`h-10 w-10 ${
+                    buttonClicked === "prev"
+                      ? "text-legalYellow"
+                      : "text-legalLightGray"
+                  }`}
+                />
               </ButtonBack>
               <ButtonNext>
-                <ArrowRightCircleIcon className="text-legalLightGray h-10 w-10" />
+                <ArrowRightCircleIcon
+                  onClick={() => {
+                    setButtonClicked("next");
+                  }}
+                  className={`h-10 w-10 ${
+                    buttonClicked === "next"
+                      ? "text-legalYellow"
+                      : "text-legalLightGray"
+                  }`}
+                />
               </ButtonNext>
             </div>
             <Slider>
