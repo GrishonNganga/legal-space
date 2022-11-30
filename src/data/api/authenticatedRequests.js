@@ -235,3 +235,12 @@ export const clientCreateAppointmentRequest = async (data) => {
         });
 };
 
+export const triggerFlutterwaveCheckoutRequest = async (data) => {
+    return await api
+        .post("/payments/flwPay", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+

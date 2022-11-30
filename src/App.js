@@ -14,6 +14,7 @@ import ClientDashboard from './pages/client/dashboard'
 import LawyerDashboard from './pages/lawyer/dashboard'
 import Onboarding from './pages/lawyer/onboarding'
 import SplashScreen from './pages/splashScreen'
+import Flutterwave from './pages/lawyer/flutterwave'
 
 import { refresh } from './data/controller'
 
@@ -50,7 +51,7 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/resetPassword/:token' element={<ResetPassword />} />
-
+        <Route path='/payments/flutterwave' element={<Flutterwave />} />        
         {
           user?.role === "client" &&
           <>
