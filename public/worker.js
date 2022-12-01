@@ -5,10 +5,10 @@ importScripts(
   'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
 );
 
-const LATEST_VERSION = 'v1.0.1';
+const LATEST_VERSION = 'v1.0.2';
 const NAME = 'legal-pwa';
 
-workbox.setConfig({ debug: false });
+workbox.setConfig({ debug: true });
 
 workbox.core.setCacheNameDetails({
     prefix: NAME,
@@ -48,7 +48,7 @@ self.addEventListener('activate', (_event) => {
     }
 });
 
-workbox.core.skipWaiting();
+self.skipWaiting();
 workbox.core.clientsClaim();
 
 // runtime cache
@@ -133,8 +133,11 @@ workbox.routing.registerRoute(
 // generate a response.
 
 self._precacheManifest = [].concat(self._precacheManifest || []);
+workbox.precaching.precacheAndRoute([{url: '/index.html', revision: '383676'}])
 // workbox.precaching.suppressWarnings();
-workbox.routing.registerRoute('/index.html');
+const handler = workbox.precaching.createHandlerBoundToURL('/index.html');
+const navigationRoute = new workbox.routing.NavigationRoute(handler);
+workbox.routing.registerRoute(navigationRoute);
 
 // install new service worker when ok, then reload page.
 self.addEventListener('message', (msg) => {
