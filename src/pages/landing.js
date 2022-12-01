@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import woman from "../assets/images/woman.svg";
 import gavel from "../assets/images/gavel.svg";
@@ -6,15 +7,15 @@ import stairs from "../assets/images/stairs.svg";
 import Footer from "../components/Footer";
 import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
-import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui";
 
 const Homepage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden font-euclid">
       <NavBar />
-      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[950px] h-[800px] overflow-hidden">
-        <div className="md:flex w-screen md:w-1/2 flex-col text-white mr-4">
+      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden">
+        <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
           </p>
@@ -50,7 +51,7 @@ const Homepage = () => {
           {/* desktop satisfied  clients background: #FFFFFF1A;
            */}
           <div
-            className=" hidden md:grid w-[660px] bg-[#FFFFFF1A] h-44 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-32
+            className=" hidden md:grid w-[660px] bg-[#FFFFFF1A] h-44 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-36
 "
           >
             <div className="">
@@ -122,13 +123,14 @@ const Homepage = () => {
       {/* section 2 */}
       <div className="pt-20 md:flex">
         <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
-          <div className="lg:w-[450px] w-screen md:w-full lg:h-[600px]">
+          <div className="lg:w-[450px] w-screen md:w-full">
+            <div className="bg-[#C6A85C70] h-80 w-[600px] relative -right-[1px] mt-56" />
+
             <img
               src={stairs}
               alt="man"
-              className="lg:scale:100 flex flex-grow h-[512px] w-[455px]"
+              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[622px]"
             />
-            <div className="bg-[#C6A85C70] h-56 w-[600px] relative -top-56 -right-[1px] "></div>
           </div>
         </div>
 
@@ -136,19 +138,18 @@ const Homepage = () => {
         <div className="md:hidden h-80 pt-24 px-4">
           <div className="relative bg-[#C6A85C70] h-36">
             <div className="absolute -leftx-[2px] -top-[124px]">
-              <img src={stairs} alt="stairs" className="h-[270px] w-[200px]" />
+              <img src={stairs} alt="stairs" className="h-[300px] w-[200px]" />
             </div>
           </div>
         </div>
-        <div className="w-screen md:w-1/2 mr-64">
-          <div className="flex flex-row">
-            <div className="md:hidden w-1/2"></div>
-            <p className="md:text-6xl text-2xl md:text-start text-end w-1/2 md:w-full font-semibold text-dark leading-normal md:tracking-wide md:px-0 px-4">
+        <div className="w-screen md:w-1/2 mr-64 space-y-4">
+          <div className="">
+            <p className="text-6xl font-semibold text-dark md:px-0 px-4">
               Get a lawyer in minutes!
             </p>
           </div>
           <div>
-            <p className="text-legalLightGray text-sm md:text-lg justify-center md:px-0 px-4">
+            <p className="justify-center md:px-0 px-4 md:text-lg font-normal text-[#697472]">
               t vero eos et accusamus et iusto odio dignissimos ducimus qui
               blanditiis praesentium voluptatum deleniti atque corrupti quos
               dolores et quas molestias excepturi sint occ t
@@ -165,7 +166,12 @@ const Homepage = () => {
             </p>
           </div>
           <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
-            <button className="bg-legalYellow text-white h-12 md:w-44 w-44" onClick={()=>{navigate('/client-signup')}}>
+            <button
+              className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
+              onClick={() => {
+                navigate("/client-signup");
+              }}
+            >
               Free Consultation
             </button>
           </div>
@@ -174,18 +180,29 @@ const Homepage = () => {
 
       {/* section 3 */}
       <div className="lg:pl-64 md:ml-4">
-        <div className="md:flex flex-row mt-24 d:h-40 h-auto">
-          <div className="md:w-1/2">
+        <div className="md:flex flex-row mt-32 pd:h-40 h-auto">
+          <div className="w-1/2">
             <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
-              Meet our <span className="text-legalYellow">TOP</span> expert
-              legal team
+              Meet our <span className="text-legalYellow">TOP</span> <br />{" "}
+              expert legal team
             </p>
           </div>
-          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4">
-            <p className="text-base align-baseline text-legalLightGray">
+          <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4 space-y-4">
+            <p className="lg:text-xl align-baseline text-[#697472]">
               Legal space top expert legal team covering any field. They have
               more than 10 years experience in they specialization
             </p>
+            <p className="lg:text-xl align-baseline text-[#697472]">
+              Sign Up to join be part of the top lawyers team
+            </p>
+            <button
+              className="bg-dark rounded-md text-white h-12 md:w-44 w-44 text-xs font-semibold"
+              onClick={() => {
+                navigate("/lawyer-signup");
+              }}
+            >
+              Signup as Lawyer
+            </button>
           </div>
         </div>
       </div>
