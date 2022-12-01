@@ -16,6 +16,14 @@ workbox.core.setCacheNameDetails({
     runtime: 'runtime',
 });
 
+const urlsToCache = ["/"];
+self.addEventListener("install", (event) => {
+   event.waitUntil(async () => {
+      const cache = await caches.open(NAME + LATEST_VERSION);
+      return cache.addAll(urlsToCache);
+   });
+});
+
 // eslint-disable-next-line no-unused-vars
 self.addEventListener('activate', (_event) => {
     // console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff');
@@ -58,6 +66,22 @@ workbox.routing.registerRoute(
         ],
     }),
 );
+
+// 1. js
+workbox.routing.registerRoute(
+    new RegExp('\.js$'),
+    new workbox.strategies.CacheFirst({
+        cacheName: `${NAME}-js`,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
+                maxEntries: 20, // only cache 20 request
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+
 // 2. images
 workbox.routing.registerRoute(
     new RegExp('\.(png|svg|jpg|jpeg)$'),
@@ -75,7 +99,7 @@ workbox.routing.registerRoute(
 
 // 3. fonts
 workbox.routing.registerRoute(
-    new RegExp('\.(ttf|woff2|woff|eot)$'),
+    new RegExp('\.(ttf|woff2|woff|eot|json)$'),
     new workbox.strategies.CacheFirst({
         cacheName: `${NAME}-cache-Fonts`,
         plugins: [
