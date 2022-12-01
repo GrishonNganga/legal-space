@@ -108,10 +108,49 @@ const CustomArrowRight = ({ className, onClick }) => {
 };
 
 const Team = () => {
+  const [sliderRef, setSliderRef] = useState(null);
+  const settings = {
+    // dots: true,
+    infinite: true,
+    autoplay: true,
+    cssEase: "linear",
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    lazyLoad: true,
+    // initialSlide: 1,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
   const [buttonClicked, setButtonClicked] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setButtonClicked(""), 3000);
+    setTimeout(() => setButtonClicked(""), 4000);
   }, [buttonClicked]);
 
   return (

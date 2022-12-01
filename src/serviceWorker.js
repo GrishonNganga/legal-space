@@ -41,7 +41,6 @@ const isLocalhost = Boolean(
           navigator.serviceWorker.ready.then(() => {
           });
         } else {
-          // Is not localhost. Just register service worker
           registerValidSW(swUrl, config);
         }
       });

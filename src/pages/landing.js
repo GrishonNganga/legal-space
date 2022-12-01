@@ -141,13 +141,14 @@ const Homepage = () => {
           </div>
         </div>
         <div className="w-screen md:w-1/2 mr-64">
-          <div>
-            <p className="text-6xl font-semibold text-dark leading-normal tracking-wide md:px-0 px-4">
+          <div className="flex flex-row">
+            <div className="md:hidden w-1/2"></div>
+            <p className="md:text-6xl text-2xl md:text-start text-end w-1/2 md:w-full font-semibold text-dark leading-normal md:tracking-wide md:px-0 px-4">
               Get a lawyer in minutes!
             </p>
           </div>
           <div>
-            <p className="text-legalLightGray justify-center md:px-0 px-4">
+            <p className="text-legalLightGray text-sm md:text-lg justify-center md:px-0 px-4">
               t vero eos et accusamus et iusto odio dignissimos ducimus qui
               blanditiis praesentium voluptatum deleniti atque corrupti quos
               dolores et quas molestias excepturi sint occ t
@@ -173,11 +174,11 @@ const Homepage = () => {
 
       {/* section 3 */}
       <div className="lg:pl-64 md:ml-4">
-        <div className="md:flex flex-row mt-24 pd:h-40 h-auto">
-          <div className="w-1/2">
+        <div className="md:flex flex-row mt-24 d:h-40 h-auto">
+          <div className="md:w-1/2">
             <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
-              Meet our <span className="text-legalYellow">TOP</span> <br />{" "}
-              expert legal team
+              Meet our <span className="text-legalYellow">TOP</span> expert
+              legal team
             </p>
           </div>
           <div className="md:ml-14 md:mr-96 md:w-1/2 w-screen h-40 md:px-0 px-4">
