@@ -1,43 +1,121 @@
-/* eslint-disable array-callback-return */
+/* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
-var CACHE_NAME = 'pwa-task-manager';
-var urlsToCache = ['/', '/completed'];
+// Change this value every time before you build
+importScripts(
+  'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
+);
 
-// Install a service worker
-self.addEventListener('install', (event) => {
-  // Perform install steps
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(urlsToCache);
-    })
-  );
+const LATEST_VERSION = 'v1.0.1';
+const NAME = 'legal-pwa';
+
+workbox.setConfig({ debug: false });
+
+workbox.core.setCacheNameDetails({
+    prefix: NAME,
+    precache: 'precache',
+    runtime: 'runtime',
 });
 
-// Cache and return requests
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then(function (response) {
-      // Cache hit - return response
-      if (response) {
-        return response;
-      }
-      return fetch(event.request);
-    })
-  );
+// eslint-disable-next-line no-unused-vars
+self.addEventListener('activate', (_event) => {
+    // console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff');
+    if (caches) {
+        caches.keys().then((arr) => {
+            arr.forEach((key) => {
+                if (key.indexOf(`${NAME}-precache`) < -1) {
+                    caches.delete(key).then(() => console.log(`%c Cleared ${key}`, 'background: #333; color: #ff0000'));
+                } else {
+                    caches.open(key).then((cache) => {
+                        cache.match('version').then((res) => {
+                            if (!res) {
+                                cache.put('version', new Response(LATEST_VERSION, { status: 200, statusText: LATEST_VERSION }));
+                            } else if (res.statusText !== LATEST_VERSION) {
+                                caches.delete(key).then(() => console.log(`%c Cleared Cache ${LATEST_VERSION}`, 'background: #333; color: #ff0000'));
+                            } else console.log(`%c Great you have the latest version ${LATEST_VERSION}`, 'background: #333; color: #00ff00');
+                        });
+                    });
+                }
+            });
+        });
+    }
 });
 
-// Update a service worker
-self.addEventListener('activate', (event) => {
-  var cacheWhitelist = ['pwa-task-manager'];
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
+
+// runtime cache
+// 1. stylesheet
+workbox.routing.registerRoute(
+    new RegExp('\.css$'),
+    new workbox.strategies.CacheFirst({
+        cacheName: `${NAME}-cache-Stylesheets`,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
+                maxEntries: 20, // only cache 20 request
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+// 2. images
+workbox.routing.registerRoute(
+    new RegExp('\.(png|svg|jpg|jpeg)$'),
+    new workbox.strategies.CacheFirst({
+        cacheName: `${NAME}-cache-Images`,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+                maxEntries: 50,
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+
+// 3. fonts
+workbox.routing.registerRoute(
+    new RegExp('\.(ttf|woff2|woff|eot)$'),
+    new workbox.strategies.CacheFirst({
+        cacheName: `${NAME}-cache-Fonts`,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+                maxEntries: 10,
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+
+// 4. API
+workbox.routing.registerRoute(
+    new RegExp('/^https://api.legalspace.app/*/i'),
+    new workbox.strategies.NetworkFirst({
+    // new workbox.strategies.StaleWhileRevalidate({
+        cacheName: `${NAME}-api-data`,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+                maxEntries: 10,
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+
+
+// This "catch" handler is triggered when any of the other routes fail to
+// generate a response.
+
+self._precacheManifest = [].concat(self._precacheManifest || []);
+// workbox.precaching.suppressWarnings();
+workbox.routing.registerRoute('/index.html');
+
+// install new service worker when ok, then reload page.
+self.addEventListener('message', (msg) => {
+    // eslint-disable-next-line eqeqeq
+    if (msg.data.action == 'skipWaiting') {
+        self.skipWaiting();
+    }
 });
