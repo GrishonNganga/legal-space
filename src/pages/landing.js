@@ -7,7 +7,6 @@ import stairs from "../assets/images/stairs.svg";
 import Footer from "../components/Footer";
 import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
-import { Button } from "../components/ui";
 
 const Homepage = () => {
   const navigate = useNavigate();
