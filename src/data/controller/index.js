@@ -24,7 +24,9 @@ import {
     passwordResetRequest,
     validateResetTokenRequest,
     changePasswordRequest,
-    triggerFlutterwaveCheckoutRequest
+    triggerFlutterwaveCheckoutRequest,
+    getNotificationsRequest,
+    clearNotificationRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -163,8 +165,18 @@ export const triggerFlutterwaveCheckout = async (subscriptionId) => {
     return _returnResponse(response)
 }
 
+export const getNotifications = async (subscriptionId) => {
+    const response = await getNotificationsRequest()
+    return _returnResponse(response)
+}
+
 export const editFirm = async (firmDetails) => {
     const response = await editFirmRequest(firmDetails)
+    return _returnResponse(response)
+}
+
+export const clearNotification = async (notificationId) => {
+    const response = await clearNotificationRequest(notificationId)
     return _returnResponse(response)
 }
 
