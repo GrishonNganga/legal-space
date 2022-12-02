@@ -228,7 +228,16 @@ export const clientRateAppointmentRequest = async (appointmentId, data) => {
 
 export const clientCreateAppointmentRequest = async (data) => {
     return await api
-        .post("appointment/create", data)
+        .post("/appointment/create", data)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const triggerFlutterwaveCheckoutRequest = async (data) => {
+    return await api
+        .post("/payments/flwPay", data)
         .then((response) => response)
         .catch((error) => {
             return error.response;

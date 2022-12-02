@@ -23,7 +23,8 @@ import {
     getLawyerBookedDatesRequest,
     passwordResetRequest,
     validateResetTokenRequest,
-    changePasswordRequest
+    changePasswordRequest,
+    triggerFlutterwaveCheckoutRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -154,6 +155,11 @@ export const clientEditAppointment = async (appointmentId, appointmentDetails) =
 
 export const clientRateAppointment = async (appointmentId, ratingDetails) => {
     const response = await clientRateAppointmentRequest(appointmentId, ratingDetails)
+    return _returnResponse(response)
+}
+
+export const triggerFlutterwaveCheckout = async (subscriptionId) => {
+    const response = await triggerFlutterwaveCheckoutRequest(subscriptionId)
     return _returnResponse(response)
 }
 

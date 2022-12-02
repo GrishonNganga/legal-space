@@ -64,7 +64,7 @@ const SplashScreen = ({ step, updateStep }) => {
                                 </div>
                                 <div className='w-full flex justify-center'>
                                     <div className='w-3/4'>
-                                        <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
+                                        <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ const SplashScreen = ({ step, updateStep }) => {
                     </div>
                     <div className='w-full flex justify-center mt-10'>
                         <div className='w-11/12'>
-                            <Button text={"Get Started"} onClick={goToNextStep} active={true}/>
+                            <Button text={"Get Started"} onClick={goToNextStep} active={true} />
                         </div>
                     </div>
 
@@ -98,6 +98,8 @@ const SplashScreen = ({ step, updateStep }) => {
 
 const SignupStep1 = () => {
     const navigate = useNavigate()
+    const user = userStore(state => state.user)
+
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
@@ -108,6 +110,12 @@ const SignupStep1 = () => {
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const storeUser = userStore(state => state.storeUser)
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard')
+        }
+    }, [user])
 
     const handleSubmit = async () => {
         const validationResult = await validateSignupData(userDetails)
@@ -227,7 +235,7 @@ const SignupStep1 = () => {
                                 </div>
 
                                 <div>
-                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true}/>
+                                    <Button text="Sign up" type="secondary" onClick={handleSubmit} loading={loading} active={true} />
                                 </div>
                                 <div className="mt-6">
                                     <div className="relative">

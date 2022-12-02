@@ -98,6 +98,8 @@ const SplashScreen = ({ step, updateStep }) => {
 
 const SignupStep1 = () => {
     const navigate = useNavigate()
+    const user = userStore(state => state.user)
+    
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
@@ -108,6 +110,12 @@ const SignupStep1 = () => {
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
     const storeUser = userStore(state => state.storeUser)
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard')
+        }
+    }, [user])
 
     const handleSubmit = async () => {
         setInfo({ message: "", type: "" })

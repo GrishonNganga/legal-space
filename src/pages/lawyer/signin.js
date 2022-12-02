@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Input, Button, SplashCircles, Notification } from "../../components/ui"
 
@@ -8,6 +8,7 @@ import { validateSigninData } from '../../validator'
 import { signin } from "../../data/controller"
 
 const Signin = () => {
+    const user = userStore(state => state.user)
     const navigate = useNavigate()
     const storeUser = userStore(state => state.storeUser)
 
@@ -17,6 +18,12 @@ const Signin = () => {
     })
     const [loading, setLoading] = useState(false)
     const [info, setInfo] = useState({ message: "", type: "" })
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard')
+        }
+    }, [user])
 
     const handleSubmit = async () => {
         setInfo({ message: "", type: "" })
