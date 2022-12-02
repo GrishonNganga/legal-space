@@ -8,6 +8,8 @@ import mpesa from '../../../assets/mpesa.png'
 
 import { Input, Modal, Button } from '../../../components/ui'
 
+import { triggerFlutterwaveCheckout } from '../../../data/controller'
+
 import { userStore } from '../../../stores'
 
 const Payment = () => {
@@ -256,7 +258,11 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
     )
 }
 
-const CompletePayment = ({ finishPayment, user, plan, selectedPackage, discount }) => {
+const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
+    const navigate = useNavigate()
+    const [info, setInfo] = useState({ message: "", type: "" })
+    const [loading, setLoading] = useState(false)
+
     const paymentMethods = [
         {
             name: "M-PESA",
@@ -272,7 +278,21 @@ const CompletePayment = ({ finishPayment, user, plan, selectedPackage, discount 
             type: "card"
         }
     ]
-    const [method, setMethod] = useState("card")
+
+    const checkoutWithFlutterwave = () => {
+        const subscriptionId = plan.packages[selectedPackage]?.id
+        setLoading(true)
+        triggerFlutterwaveCheckout(subscriptionId).then(response => {
+            setLoading(false)
+            setInfo({ type: response?.status, message: response.message })
+            if (response?.status === "success") {
+                setTimeout(() => {
+                    window.location.href = response?.data?.data?.link
+                }, 1000)
+            }
+        })
+    }
+
     return (
         <div className="py-4 px-4">
             <div className="max-w-7xl mx-auto px-4">
@@ -414,7 +434,7 @@ const CompletePayment = ({ finishPayment, user, plan, selectedPackage, discount 
                     </div>
                 </div>
                 <div className='mt-5'>
-                    <Button text="Complete payment" type="secondary" onClick={() => { finishPayment(true) }} active={true} />
+                    <Button text="Complete payment" type="secondary" loading={loading} onClick={checkoutPayment} active={true} />
                 </div>
                 {/* /End replace */}
             </div>
