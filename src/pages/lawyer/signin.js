@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Input, Button, SplashCircles, Notification } from "../../components/ui"
 
@@ -20,11 +20,10 @@ const Signin = () => {
     const [info, setInfo] = useState({ message: "", type: "" })
 
     useEffect(() => {
-        if (user) {
+        if(user){
             navigate('/dashboard')
         }
     }, [user])
-
     const handleSubmit = async () => {
         setInfo({ message: "", type: "" })
         const validationResult = await validateSigninData(userDetails)

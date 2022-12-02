@@ -243,4 +243,3 @@ export const triggerFlutterwaveCheckoutRequest = async (data) => {
             return error.response;
         });
 };
-

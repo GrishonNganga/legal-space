@@ -6,13 +6,6 @@ import { Button } from "../../components/ui"
 
 const Flutterwave = () => {
     const navigate = useNavigate()
-    const location = useLocation()
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const transactionStatus = params.get("status")
-        
-    }, [location])
     return (
         <div className='w-full h-screen flex flex-col items-center justify-center bg-gray-100 p-2'>
 
@@ -27,7 +20,7 @@ const Flutterwave = () => {
                 </div>
                 <div className="flex justify-center">
                     <div>
-                        <CheckCircleIcon className="w-20 h-20 text-green-500" />
+                        <CheckCircleIcon className="w-20 h-20 text-green-500"/>
                     </div>
                 </div>
                 <div className=' text-gray-500 mt-8 text-center'>
