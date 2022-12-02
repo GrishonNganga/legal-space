@@ -27,7 +27,7 @@ const Flutterwave = () => {
                 </div>
                 <div className="flex justify-center">
                     <div>
-                        <CheckCircleIcon className="w-20 h-20 text-green-500" />
+                        <CheckCircleIcon className="w-20 h-20 text-green-500"/>
                     </div>
                 </div>
                 <div className=' text-gray-500 mt-8 text-center'>

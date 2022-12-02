@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { CheckIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
-import mpesa from '../../../assets/mpesa.png'
+import flutterwave from '../../../assets/flutterwave.svg'
 
-import { Input, Modal, Button } from '../../../components/ui'
+import { Input, Modal, Button, Notification } from '../../../components/ui'
+
+import { triggerFlutterwaveCheckout } from '../../../data/controller'
 
 import { triggerFlutterwaveCheckout } from '../../../data/controller'
 
@@ -15,7 +17,7 @@ import { userStore } from '../../../stores'
 const Payment = () => {
     const plans = [
         {
-            name: "Basic",
+            name: "counsel",
             benefits: [
                 "Individual plan",
                 "Access to up to 5 clients per month",
@@ -24,21 +26,23 @@ const Payment = () => {
             ],
             packages: [
                 {
+                    id: "6387bfd5515c13dedb7c26dd",
                     name: "Monthly",
                     text: "Cancel Anytime",
-                    amount: 2,
+                    amount: 10000,
                     frequency: "m"
                 },
                 {
+                    id: "6387bff0515c13dedb7c26df",
                     name: "Annual",
-                    text: "Save up to 30%",
-                    amount: 17,
+                    text: "Cancel Anytime",
+                    amount: 50000,
                     frequency: "y"
-                }
+                },
             ]
         },
         {
-            name: "Advance",
+            name: "senior_counsel",
             benefits: [
                 "Law firm plan",
                 "Access unlimited clients per month",
@@ -49,17 +53,46 @@ const Payment = () => {
             ],
             packages: [
                 {
+                    id: "6387bb39421b14b574184323",
                     name: "Monthly",
                     text: "Cancel Anytime",
-                    amount: 4,
+                    amount: 20000,
                     frequency: "m"
                 },
                 {
+                    id: "6387bf72515c13dedb7c26db",
                     name: "Annual",
-                    text: "Save up to 30%",
-                    amount: 25,
+                    text: "Cancel Anytime",
+                    amount: 100000,
                     frequency: "y"
-                }
+                },
+            ]
+        },
+        {
+            name: "legal_firm",
+            benefits: [
+                "Law firm plan",
+                "Access unlimited clients per month",
+                "High rank recommendation",
+                "Keep track of analytics",
+                "Onboard all  firm lawyers",
+                "This is advanced"
+            ],
+            packages: [
+                {
+                    id: "6387c039515c13dedb7c26e1",
+                    name: "Monthly",
+                    text: "Cancel Anytime",
+                    amount: 50000,
+                    frequency: "m"
+                },
+                {
+                    id: "6387c059515c13dedb7c26e3",
+                    name: "Annual",
+                    text: "Cancel Anytime",
+                    amount: 150000,
+                    frequency: "y"
+                },
             ]
         }
     ]
@@ -116,8 +149,8 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                         <div className={`text-3xl font-bold ${plan?.name === "Advance" ? "text-legalYellow" : ""}`}>
                             {
                                 !editPlan &&
-                                <span>
-                                    {plan.name}  Plan
+                                <span className='capitalize'>
+                                    {plan.name?.split("_").join(" ")}  Plan
                                 </span>
                             }
                         </div>
@@ -132,7 +165,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                 plans.map((currPlan, index) => {
                                     if (currPlan?.name === plan?.name) {
                                         return (
-                                            <div className='border rounded-xl flex justify-between p-4 items-center hover:bg-gray-50 cursor-pointer'>
+                                            <div className='border rounded-xl flex justify-between p-4 items-center hover:bg-gray-50 cursor-pointer' onClick={() => { setEditPlan(false) }}>
                                                 <div className='flex gap-x-3 items-center'>
                                                     <div>
                                                         <input type="checkbox" checked={true}
@@ -140,8 +173,8 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                         />
                                                     </div>
                                                     <div className='flex flex-col'>
-                                                        <div className='font-bold text-xl'>
-                                                            {currPlan?.name} Plan
+                                                        <div className='font-bold text-xl capitalize'>
+                                                            {currPlan?.name?.split("_").join(" ")} Plan
                                                         </div>
                                                     </div>
                                                 </div>
@@ -157,9 +190,8 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                         />
                                                     </div>
                                                     <div className='flex flex-col'>
-                                                        <div className='font-bold text-xl'>
-                                                            {currPlan?.name} Plan
-                                                        </div>
+                                                        <div className='font-bold text-xl capitalize'>
+                                                            {currPlan?.name?.split("_").join(" ")} Plan                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,8 +231,8 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                     />
                                                 </div>
                                                 <div className='flex flex-col'>
-                                                    <div className='font-bold text-3xl'>
-                                                        {pack?.name}
+                                                    <div className='font-bold text-3xl capitalize'>
+                                                        {pack?.name?.split("_").join(" ")}
                                                     </div>
                                                     <div
                                                         className='text-gray-300 text-sm font-semibold'>
@@ -212,7 +244,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold'>${pack?.amount}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>KES {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
@@ -226,8 +258,8 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                     />
                                                 </div>
                                                 <div className='flex flex-col'>
-                                                    <div className='font-bold text-3xl'>
-                                                        {pack?.name}
+                                                    <div className='font-bold text-3xl capitalize'>
+                                                        {pack?.name?.split("_").join(" ")}
                                                     </div>
                                                     <div
                                                         className='text-gray-300 text-sm font-semibold'>
@@ -239,7 +271,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold'>${pack?.amount}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>KES {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
@@ -265,18 +297,11 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
 
     const paymentMethods = [
         {
-            name: "M-PESA",
-            img: mpesa,
-            type: "mpesa"
+            name: "Flutterwave",
+            img: flutterwave,
+            type: "flutterwave"
         },
-        {
-            name: "Paypal",
-            type: "paypal"
-        },
-        {
-            name: "Debit or Credit Card",
-            type: "card"
-        }
+
     ]
 
     const checkoutWithFlutterwave = () => {
@@ -295,6 +320,9 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
 
     return (
         <div className="py-4 px-4">
+            <div>
+                <Notification type={info.type} message={info.message} />
+            </div>
             <div className="max-w-7xl mx-auto px-4">
                 <h1 className="text-gray-900">Hello {user?.firstName}</h1>
                 <h1 className="mt-2 font-semibold text-[#183A33] text-lg">Please select a payment method</h1>
@@ -310,7 +338,8 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                     <div className='flex gap-x-2 items-center'>
                                         <div className=''>
                                             <input type="radio"
-                                                className={`appearance-none block w-full p-3 border-8 border-gray-300 rounded-full shadow-sm focus:outline-none sm:text-sm checked:bg-legalGreen`}
+                                                checked={paymentMethod.type === method}
+                                                className={`appearance-none block w-5 p-2 border-4 border-gray-300 rounded-full shadow-sm focus:outline-none sm:text-sm checked:bg-legalGreen`}
                                             />
                                         </div>
                                         <div className='text-legalBlue'>
@@ -319,8 +348,8 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                     </div>
                                     {
                                         paymentMethod?.img &&
-                                        <div className='shrink-0'>
-                                            <img src={paymentMethod?.img} alt="Mpesa logo" className='w-full h-full' />
+                                        <div className='shrink-0 w-1/3'>
+                                            <img src={paymentMethod?.img} alt={`${paymentMethod?.name} payment method`} className='w-full h-full' />
                                         </div>
                                     }
                                 </div>
@@ -393,11 +422,11 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                     </div>
                     <div className='flex flex-col gap-y-5'>
                         <div className='flex justify-between'>
-                            <div>
-                                {plan?.name} {plan?.packages[selectedPackage]?.name} Plan
+                            <div className='capitalize text-sm'>
+                                {plan?.name?.split("_").join(" ")} {plan?.packages[selectedPackage]?.name} Plan
                             </div>
-                            <div>
-                                USD {plan?.packages[selectedPackage]?.amount}
+                            <div className='text-sm'>
+                                KES {plan?.packages[selectedPackage]?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         {
@@ -407,16 +436,16 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                     Discount
                                 </div>
                                 <div>
-                                    USD {discount}
+                                    KES {discount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                 </div>
                             </div>
                         }
                         <div className='flex justify-between'>
-                            <div>
+                            <div className='text-sm'>
                                 VAT
                             </div>
-                            <div>
-                                USD {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2)}
+                            <div className='text-sm'>
+                                KES {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         <div className='border-b border-gray-900 w-full h-2 '>
@@ -426,9 +455,9 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                             <div>
                                 Total
                             </div>
-                            <div>
-                                USD {
-                                    ((plan?.packages[selectedPackage]?.amount + plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2)) - discount}
+                            <div className='font-semibold'>
+                                KES {
+                                    (((plan?.packages[selectedPackage]?.amount + plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2)) - discount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                     </div>

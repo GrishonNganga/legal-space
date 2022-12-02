@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import "./App.css";
 
+<<<<<<< HEAD
 import Landing from "./pages/landing";
 import LawyerSignup from "./pages/lawyer/signup";
 import ClientSignup from "./pages/client/signup";
@@ -15,6 +16,20 @@ import ClientDashboard from "./pages/client/dashboard";
 import LawyerDashboard from "./pages/lawyer/dashboard";
 import Onboarding from "./pages/lawyer/onboarding";
 import SplashScreen from "./pages/splashScreen";
+=======
+import Landing from './pages/landing';
+import LawyerSignup from './pages/lawyer/signup'
+import ClientSignup from './pages/client/signup'
+import Signin from './pages/lawyer/signin'
+import ForgotPassword from './pages/forgotPassword'
+import ResetPassword from './pages/resetPassword'
+import FourOhFour from './pages/404';
+import ClientDashboard from './pages/client/dashboard'
+import LawyerDashboard from './pages/lawyer/dashboard'
+import Onboarding from './pages/lawyer/onboarding'
+import SplashScreen from './pages/splashScreen'
+import Flutterwave from './pages/lawyer/flutterwave'
+>>>>>>> efa9060 (Add flutterwave payment integration)
 
 import { refresh } from "./data/controller";
 
