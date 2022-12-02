@@ -244,3 +244,20 @@ export const triggerFlutterwaveCheckoutRequest = async (data) => {
         });
 };
 
+export const getNotificationsRequest = async () => {
+    return await api
+        .get("/notification/notifications")
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};
+
+export const clearNotificationRequest = async (notificationId) => {
+    return await api
+        .patch(`/notification/update/${notificationId}`)
+        .then((response) => response)
+        .catch((error) => {
+            return error.response;
+        });
+};

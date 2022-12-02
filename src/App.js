@@ -4,19 +4,6 @@ import { toast } from "react-toastify";
 
 import "./App.css";
 
-<<<<<<< HEAD
-import Landing from "./pages/landing";
-import LawyerSignup from "./pages/lawyer/signup";
-import ClientSignup from "./pages/client/signup";
-import Signin from "./pages/lawyer/signin";
-import ForgotPassword from "./pages/forgotPassword";
-import ResetPassword from "./pages/resetPassword";
-import FourOhFour from "./pages/404";
-import ClientDashboard from "./pages/client/dashboard";
-import LawyerDashboard from "./pages/lawyer/dashboard";
-import Onboarding from "./pages/lawyer/onboarding";
-import SplashScreen from "./pages/splashScreen";
-=======
 import Landing from './pages/landing';
 import LawyerSignup from './pages/lawyer/signup'
 import ClientSignup from './pages/client/signup'
@@ -29,7 +16,6 @@ import LawyerDashboard from './pages/lawyer/dashboard'
 import Onboarding from './pages/lawyer/onboarding'
 import SplashScreen from './pages/splashScreen'
 import Flutterwave from './pages/lawyer/flutterwave'
->>>>>>> efa9060 (Add flutterwave payment integration)
 
 import { refresh } from "./data/controller";
 
@@ -70,13 +56,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/lawyer-signup" element={<LawyerSignup />} />
-        <Route path="/client-signup" element={<ClientSignup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/resetPassword/:token" element={<ResetPassword />} />
-
-        {user?.role === "client" && (
+        <Route path='/lawyer-signup' element={<LawyerSignup />} />
+        <Route path='/client-signup' element={<ClientSignup />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/resetPassword/:token' element={<ResetPassword />} />
+        <Route path='/payments/flutterwave' element={<Flutterwave />} />        
+        {
+          user?.role === "client" &&(
           <>
             <Route path="/dashboard/*" element={<ClientDashboard />} />
           </>

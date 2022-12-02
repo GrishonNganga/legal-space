@@ -10,8 +10,6 @@ import { Input, Modal, Button, Notification } from '../../../components/ui'
 
 import { triggerFlutterwaveCheckout } from '../../../data/controller'
 
-import { triggerFlutterwaveCheckout } from '../../../data/controller'
-
 import { userStore } from '../../../stores'
 
 const Payment = () => {
@@ -291,7 +289,6 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
 }
 
 const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
-    const navigate = useNavigate()
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
 
@@ -303,11 +300,18 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
         },
 
     ]
+    const [method, setMethod] = useState("flutterwave")
+
+    const checkoutPayment = () => {
+        if (method === "flutterwave") {
+            checkoutWithFlutterwave()
+        }
+    }
 
     const checkoutWithFlutterwave = () => {
         const subscriptionId = plan.packages[selectedPackage]?.id
         setLoading(true)
-        triggerFlutterwaveCheckout(subscriptionId).then(response => {
+        triggerFlutterwaveCheckout({ subscriptionId }).then(response => {
             setLoading(false)
             setInfo({ type: response?.status, message: response.message })
             if (response?.status === "success") {
