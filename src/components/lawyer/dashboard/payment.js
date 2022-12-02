@@ -289,7 +289,6 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
 }
 
 const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
-    const navigate = useNavigate()
     const [info, setInfo] = useState({ message: "", type: "" })
     const [loading, setLoading] = useState(false)
 
@@ -311,12 +310,13 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
 
     const checkoutWithFlutterwave = () => {
         const subscriptionId = plan.packages[selectedPackage]?.id
-        console.log("SELECTED PACKAGE", subscriptionId)
-        triggerFlutterwaveCheckout(subscriptionId).then(response => {
+        setLoading(true)
+        triggerFlutterwaveCheckout({ subscriptionId }).then(response => {
+            setLoading(false)
             setInfo({ type: response?.status, message: response.message })
             if (response?.status === "success") {
                 setTimeout(() => {
-                    window.location.href = response?.data?.link
+                    window.location.href = response?.data?.data?.link
                 }, 1000)
             }
         })
