@@ -404,7 +404,7 @@ const Step1Individual = ({ onboardingDetails, setOnboardingDetails, step, setSte
                                         </div>
                                         <div className="flex flex-col items-center gap-y-2">
                                             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                                Individual
+                                                Lawyer
                                             </label>
                                             <input
                                                 id="individual"
