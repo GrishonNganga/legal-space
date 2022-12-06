@@ -126,7 +126,7 @@ const Main = ({ setMiddleTopNavText }) => {
                         {
                             !loading && lawyers?.map(lawyer => {
                                 return (
-                                    <div key={lawyer?._id} className='flex justify-between items-center bg-white p-4 rounded-md' onClick={() => { setLawyer(lawyer); navigate(`lawyer/${lawyer?._id}`) }}>
+                                    <div key={lawyer?._id} className='flex justify-between items-center bg-white p-4 rounded-md cursor-pointer' onClick={() => { setLawyer(lawyer); navigate(`lawyer/${lawyer?._id}`) }}>
                                         <div className='flex gap-x-2 items-center'>
                                             <div className='shrink-0 w-10 h-10'>
                                                 <img src={lawyer?.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT43w5sOU4JiJkoPKcLHGWIa51_5RlYgLDMuxkFMbasuLuVWjAhO3rgF2Q3nn8ZfBwmVwQ&usqp=CAU"} className="w-full h-full rounded-full object-cover" />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -32,7 +33,7 @@ const NavBar = () => {
       </div>
       <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
-          <div className="flex items-center justify-between py-3 md:py-5 md:block">
+          <div className="flex items-center justify-between py-1 md:py-5 md:block">
             <a href="/">
               <h2 className="text-2xl font-bold text-dark dark:text-white">
                 legalSPACE
@@ -46,7 +47,7 @@ const NavBar = () => {
                 {navbar ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-white"
+                    className="w-6 h-6 text-white items-center"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -84,21 +85,20 @@ const NavBar = () => {
           >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 px-4">
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Home</a>
+                <AnchorLink href="#home">Home</AnchorLink>
               </li>
               <li className="text-legalLightGray md:hover:text-white focus:bg-legalBlue">
-                <a href="/">About Us</a>
+                <AnchorLink href="#about" offset={100}>About Us</AnchorLink>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Services</a>
+                <AnchorLink href="#service" offset={150}>Services</AnchorLink>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Testimonials</a>
+                <AnchorLink href="#testimonials">Testimonials</AnchorLink>
               </li>
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Contact</a>
+                <AnchorLink href="#contact">Contact</AnchorLink>
               </li>
-              
             </ul>
 
             <div
@@ -115,7 +115,10 @@ const NavBar = () => {
           </div>
         </div>
         <div className="hidden space-x-2 lg:inline-block h-11 pt-3 ml=8">
-          <a href="/client-signup" className="px-4 py-3 text-white bg-legalYellow">
+          <a
+            href="/client-signup"
+            className="px-4 py-3 text-white bg-legalYellow"
+          >
             Free Consultation
           </a>
         </div>

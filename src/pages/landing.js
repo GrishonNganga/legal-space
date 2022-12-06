@@ -13,7 +13,7 @@ const Homepage = () => {
   return (
     <div className="overflow-hidden font-euclid">
       <NavBar />
-      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden">
+      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden" id="home">
         <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
@@ -120,7 +120,7 @@ const Homepage = () => {
       </div>
 
       {/* section 2 */}
-      <div className="pt-20 md:flex">
+      <div className="pt-20 md:flex" id="about">
         <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
           <div className="lg:w-[450px] w-screen md:w-full">
             <div className="bg-[#C6A85C70] h-80 w-[600px] relative -right-[1px] mt-56" />
@@ -178,7 +178,7 @@ const Homepage = () => {
       </div>
 
       {/* section 3 */}
-      <div className="lg:pl-64 md:ml-4">
+      <div className="lg:pl-64 md:ml-4" id="service">
         <div className="md:flex flex-row mt-32 pd:h-40 h-auto">
           <div className="w-1/2">
             <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
@@ -208,7 +208,9 @@ const Homepage = () => {
       <div className="lg:pl-64 md:pl:4 -px-4">
         <Team />
       </div>
+      <div id="contact">
       <Footer />
+      </div>
     </div>
   );
 };
