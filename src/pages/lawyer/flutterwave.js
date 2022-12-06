@@ -43,7 +43,7 @@ const Flutterwave = () => {
                             You LegalSpace payment was successful
                         </div>
                         <div className='mt-5'>
-                            <Button text={"Visit dashboard"} active={true} onClick={() => { navigate('/forgot-password') }} />
+                            <Button text={"Visit dashboard"} active={true} onClick={() => { navigate('/dashboard') }} />
                         </div>
                     </div>
                 }

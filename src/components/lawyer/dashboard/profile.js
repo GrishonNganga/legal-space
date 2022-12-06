@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
+import { StarIcon } from "@heroicons/react/24/solid"
 
 import { Toggle, Button, Input, Notification } from "../../ui"
 
@@ -69,7 +70,41 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                                 {user?.email}
                             </span>
                         </div>
+                        {
+                            user?.paid &&
+                            <div className="flex flex-col w-full text-center border border-legalGray rounded">
+                                <div className="w-full flex justify-center items-center bg-legalGreen py-1 space-x-2">
+                                    <div>
+                                        <StarIcon className="w-4 h-4 text-white" />
+                                    </div>
+                                    <div className="text-white text-sm">
+                                        {
+                                            user?.subscriptionId?.name?.split("_").join(" ")
+                                        }
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 py-2">
+                                    Expires on {
+                                        new Date().setDate(new Date(user?.subscriptionId?.createdAt).getMonth() + (user?.subscriptionId?.duration === "monthly" ? 1 : 12))
+                                    }
+                                </div>
+                            </div>
+                            ||
+                            <div className="flex flex-col w-full text-center border border-legalGray rounded">
+                                <div className="w-full flex justify-center items-center bg-legalGreen py-1 space-x-2">
+                                    <div>
+                                        <StarIcon className="w-4 h-4 text-white" />
+                                    </div>
+                                    <div className="text-white text-sm">
+                                        Freemium plan
+                                    </div>
 
+                                </div>
+                                <div className="bg-gray-50 py-2 text-blue-400 underline" onClick={() => { navigate("/dashboard/settings/payment") }}>
+                                    Upgrade to premium
+                                </div>
+                            </div>
+                        }
                         <div className="w-full flex flex-col p-3 px-5 divide-y">
                             <div className="flex justify-between p-4">
                                 <div className="text-gray-400">
@@ -95,14 +130,17 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                                     ************
                                 </div>
                             </div>
-                            <div className="flex justify-between p-4">
-                                <div className="text-gray-400">
-                                    Availability
+                            {
+                                user?.paid &&
+                                <div className="flex justify-between p-4">
+                                    <div className="text-gray-400">
+                                        Availability
+                                    </div>
+                                    <div>
+                                        <Toggle enabled={user?.available} setEnabled={() => { updateUser({ available: !user?.available }) }} />
+                                    </div>
                                 </div>
-                                <div>
-                                    <Toggle enabled={user?.available} setEnabled={() => { updateUser({ available: !user?.available }) }} />
-                                </div>
-                            </div>
+                            }
                             <div className="flex justify-between p-4">
                                 <div className="text-gray-400" onClick={() => { navigate('previous-engagements') }}>
                                     Previous engagements
