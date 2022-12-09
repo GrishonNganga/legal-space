@@ -7,13 +7,18 @@ import stairs from "../assets/images/stairs.svg";
 import Footer from "../components/Footer";
 import Team from "../components/landing/Team";
 import squigly from "../assets/images/squigly.png";
+import { userStore } from "../stores";
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const user = userStore((state) => state.user);
   return (
     <div className="overflow-hidden font-euclid">
       <NavBar />
-      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden">
+      <div
+        className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden"
+        id="home"
+      >
         <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
           <p className="text-lg font-normal text-legalLightGray">
             EXPERIENCE COMFORT
@@ -165,14 +170,33 @@ const Homepage = () => {
             </p>
           </div>
           <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
-            <button
-              className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
-              onClick={() => {
-                navigate("/client-signup");
-              }}
-            >
-              Free Consultation
-            </button>
+            {/* {!user && (
+              <button
+                className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
+                onClick={() => {
+                  navigate("/client-signup");
+                }}
+              >
+                Free Consultation
+              </button>
+            )} */}
+            {user ? (
+              <button
+                className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
+                onClick={() => navigate("/dashboard")}
+              >
+                View Dashboard
+              </button>
+            ) : (
+              <button
+                className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
+                onClick={() => {
+                  navigate("/client-signup");
+                }}
+              >
+                Free Consultation
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -208,7 +232,9 @@ const Homepage = () => {
       <div className="lg:pl-64 md:pl:4 -px-4">
         <Team />
       </div>
-      <Footer />
+      <div id="contact">
+        <Footer />
+      </div>
     </div>
   );
 };
