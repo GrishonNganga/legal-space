@@ -10,6 +10,7 @@ import squigly from "../assets/images/squigly.png";
 
 const Homepage = () => {
   const navigate = useNavigate();
+  
   return (
     <div className="overflow-hidden font-euclid">
       <NavBar />

@@ -7,7 +7,8 @@ import {
     HomeIcon,
     XMarkIcon,
     UserGroupIcon,
-    CogIcon
+    CogIcon,
+    ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline'
 import { CheckCircleIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
 import { userStore } from '../../stores'
@@ -45,9 +46,15 @@ const routes = [
         children: [
             { name: 'Profile', href: '/settings/profile', current: false },
             { name: 'Payment', href: '/settings/payment', current: true },
-            { name: 'Logout', href: '/settings/logout', current: false },
-        ],
+         ],
     },
+    {
+        name: 'Logout',
+        icon: ArrowRightOnRectangleIcon,
+        current: false,
+        href: "/settings/logout",
+        enableNavigation: true,
+    }
 ]
 
 export const Sidebar = ({ sidebarOpen, setSidebarOpen, collapsedMenu, currentRoute, routePrefix }) => {
