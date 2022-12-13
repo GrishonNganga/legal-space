@@ -5,7 +5,7 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js"
 );
 
-const LATEST_VERSION = "v1.0.3";
+const LATEST_VERSION = "v1.1.1";
 const NAME = "legal-pwa";
 
 workbox.setConfig({ debug: true });
@@ -18,7 +18,7 @@ workbox.core.setCacheNameDetails({
 
 // eslint-disable-next-line no-unused-vars
 self.addEventListener("activate", (_event) => {
-  // console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff');
+  console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff');
   if (caches) {
     caches.keys().then((arr) => {
       arr.forEach((key) => {

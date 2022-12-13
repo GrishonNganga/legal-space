@@ -26,7 +26,6 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavTex
     }, [])
 
     useEffect(() => {
-        console.log("notifssss", notifications)
         const notViewedNotification = notifications?.find(notification => !notification.id)
         setUnviewedNotification(notViewedNotification)
 
@@ -69,7 +68,7 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavTex
                     }
                     {
                         user?.role === "client" &&
-                        <SlideOver open={showNotification} setOpen={setShowNotification} title={"Notifications"} ui={<ClientNotificationsUI notifications={notifications} closeNotifications={setShowNotification(false)} />} />
+                        <SlideOver open={showNotification} setOpen={setShowNotification} title={"Notifications"} ui={<ClientNotificationsUI notifications={notifications} closeNotifications={() => { setShowNotification(false) }} />} />
                     }
 
                     {
