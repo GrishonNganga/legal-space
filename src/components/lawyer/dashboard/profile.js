@@ -84,8 +84,12 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 py-2">
+
                                     Expires on {
-                                        new Date().setDate(new Date(user?.subscriptionId?.createdAt).getMonth() + (user?.subscriptionId?.duration === "monthly" ? 1 : 12))
+                                        user?.subscriptionId.duration === "monthly" &&
+                                        new Date(new Date(user?.subscriptionId.createdAt).setMonth(new Date(user?.subscriptionId.createdAt).getMonth() + 1)).toLocaleDateString() ||
+                                        new Date(new Date(user?.subscriptionId.createdAt).setFullYear(new Date(user?.subscriptionId.createdAt).getFullYear() + 1)).toLocaleDateString() 
+
                                     }
                                 </div>
                             </div>

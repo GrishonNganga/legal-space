@@ -5,8 +5,10 @@ const Engagements = ({ setMiddleTopNavText }) => {
         setMiddleTopNavText("Engagements")
     }, [])
     return (
-        <div>
-
+        <div className="w-full h-full flex justify-center items-center">
+            <div className="mt-24">
+                No Engagements yet
+            </div>
         </div>
     )
 }
