@@ -279,7 +279,7 @@ const SignupStep1 = () => {
                                         </div>
                                     </div>
 
-                                    <div className="mt-6">
+                                    <div className="py-6">
                                         <span className="text-sm text-legalBlue">
                                             Already a member?
                                         </span>

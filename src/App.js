@@ -63,13 +63,13 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/resetPassword/:token' element={<ResetPassword />} />
-        <Route path='/payments/flutterwave' element={<Flutterwave />} />        
+        <Route path='/payments/flutterwave' element={<Flutterwave />} />
         {
-          user?.role === "client" &&(
-          <>
-            <Route path="/dashboard/*" element={<ClientDashboard />} />
-          </>
-        )}
+          user?.role === "client" && (
+            <>
+              <Route path="/dashboard/*" element={<ClientDashboard />} />
+            </>
+          )}
         {user?.role === "lawyer" && (
           <>
             <Route path="/onboarding" element={<Onboarding />} />

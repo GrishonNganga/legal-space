@@ -26,7 +26,7 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavTex
     }, [])
 
     useEffect(() => {
-        const notViewedNotification = notifications?.find(notification => !notification.id)
+        const notViewedNotification = notifications?.find(notification => !notification.seen)
         setUnviewedNotification(notViewedNotification)
 
     }, [notifications])
@@ -133,6 +133,7 @@ const ClientNotificationsUI = ({ notifications }) => {
 }
 
 const LawyerNotificationsUI = ({ notifications, closeNotifications }) => {
+    console.log("Notifications za lawyer", notifications)
     const navigate = useNavigate()
 
     useEffect(() => {

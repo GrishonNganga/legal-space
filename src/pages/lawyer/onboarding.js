@@ -613,7 +613,7 @@ const Step2Individual = ({ onboardingDetails, setOnboardingDetails, navigate }) 
                 const updatedUser = { ...user, ...response?.data?.user }
                 storeUser(updatedUser)
                 setTimeout(() => {
-                    window.location.href = "/settings/payment"
+                    window.location.href = "/dashboard/settings/payment"
                 }, 1000)
             } else {
                 setInfo({ type: "error", message: response.message })
@@ -1331,7 +1331,7 @@ const Step2Firm = ({ onboardingDetails, setOnboardingDetails, navigate, companyO
                 const updatedUser = { ...user, ...response?.data?.user }
                 storeUser(updatedUser)
                 setTimeout(() => {
-                    window.location.href = "/settings/payment"
+                    window.location.href = "/dashboard/settings/payment"
                 }, 1000)
             } else {
                 setInfo({ type: "error", message: response.message })

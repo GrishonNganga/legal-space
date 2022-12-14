@@ -242,7 +242,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold text-sm'>KES {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>ZK {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
@@ -269,7 +269,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold text-sm'>KES {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>ZK {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
@@ -430,7 +430,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 {plan?.name?.split("_").join(" ")} {plan?.packages[selectedPackage]?.name} Plan
                             </div>
                             <div className='text-sm'>
-                                KES {plan?.packages[selectedPackage]?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                ZK {plan?.packages[selectedPackage]?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         {
@@ -440,7 +440,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                     Discount
                                 </div>
                                 <div>
-                                    KES {discount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    ZK {discount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                 </div>
                             </div>
                         }
@@ -449,7 +449,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 VAT
                             </div>
                             <div className='text-sm'>
-                                KES {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                ZK {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         <div className='border-b border-gray-900 w-full h-2 '>
@@ -460,7 +460,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 Total
                             </div>
                             <div className='font-semibold'>
-                                KES {
+                                ZK {
                                     (((plan?.packages[selectedPackage]?.amount + plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2)) - discount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
