@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { CheckIcon, PencilIcon } from '@heroicons/react/24/outline'
@@ -13,6 +13,13 @@ import { triggerFlutterwaveCheckout } from '../../../data/controller'
 import { userStore } from '../../../stores'
 
 const Payment = () => {
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard')
+        }
+    }, [user])
+    
     const plans = [
         {
             name: "counsel",
