@@ -71,16 +71,27 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                             </span>
                         </div>
                         {
-                            user?.paid &&
+                            user?.paid && user?.subscriptionId &&
                             <div className="flex flex-col w-full text-center border border-legalGray rounded">
                                 <div className="w-full flex justify-center items-center bg-legalGreen py-1 space-x-2">
                                     <div>
                                         <StarIcon className="w-4 h-4 text-white" />
                                     </div>
-                                    <div className="text-white text-sm">
-                                        {
-                                            user?.subscriptionId?.name?.split("_").join(" ")
-                                        }
+                                    <div className="text-white text-sm capitalize flex gap-x-1">
+                                        <div>
+                                            {
+                                                user?.subscriptionId?.name?.split("_").join(" ")
+                                            }
+                                        </div>
+                                        <div>
+                                            {
+                                                user?.subscriptionId.duration
+                                            }
+                                        </div>
+                                        <div>
+                                            plan
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 py-2">
@@ -88,7 +99,7 @@ const ProfileHome = ({ setMiddleTopNavText }) => {
                                     Expires on {
                                         user?.subscriptionId.duration === "monthly" &&
                                         new Date(new Date(user?.subscriptionId.createdAt).setMonth(new Date(user?.subscriptionId.createdAt).getMonth() + 1)).toLocaleDateString() ||
-                                        new Date(new Date(user?.subscriptionId.createdAt).setFullYear(new Date(user?.subscriptionId.createdAt).getFullYear() + 1)).toLocaleDateString() 
+                                        new Date(new Date(user?.subscriptionId.createdAt).setFullYear(new Date(user?.subscriptionId.createdAt).getFullYear() + 1)).toLocaleDateString()
 
                                     }
                                 </div>

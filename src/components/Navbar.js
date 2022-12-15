@@ -114,7 +114,8 @@ const NavBar = () => {
                   className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
                 >
                   Visit Dashboard
-                </a> ||
+                </a> 
+                ||
                 <a
                   href="/client-signup"
                   className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
@@ -124,11 +125,6 @@ const NavBar = () => {
               }
             </div>
           </div>
-        </div>
-        <div className="hidden space-x-2 lg:inline-block h-11 pt-3 ml=8">
-          <a href="/client-signup" className="px-4 py-3 text-white bg-legalYellow">
-            Free Consultation
-          </a>
         </div>
       </div>
     </nav>

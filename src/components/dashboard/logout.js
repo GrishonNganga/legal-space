@@ -18,7 +18,7 @@ const Logout = ({ setMiddleTopNavText }) => {
             setLoading(false)
             if (response?.status === "success") {
                 setTimeout(() => {
-                    navigate("/")
+                    window.location.href = "/"
                 }, 300)
             }
         })
