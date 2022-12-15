@@ -133,7 +133,6 @@ const ClientNotificationsUI = ({ notifications }) => {
 }
 
 const LawyerNotificationsUI = ({ notifications, closeNotifications }) => {
-    console.log("Notifications za lawyer", notifications)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -149,8 +148,22 @@ const LawyerNotificationsUI = ({ notifications, closeNotifications }) => {
                     if (!notification?.seen) {
                         return (
                             <div className='text-sm hover:bg-gray-50 p-2'>
-                                You have a new appointment request. from {notification?.appointmentId?.clientId?.firstName} <span className='underline text-blue-400 hover:cursor-pointer' onClick={() => { closeNotifications(); navigate(`/dashboard/appointments/${notification?.appointmentId?._id}`) }}>View</span>
+                                {
+                                    notification?.appointmentId &&
+                                    <span>
+                                        You have a new appointment request. from {notification?.appointmentId?.clientId?.firstName} <span className='underline text-blue-400 hover:cursor-pointer' onClick={() => { closeNotifications(); navigate(`/dashboard/appointments/${notification?.appointmentId?._id}`) }}>View</span>
+
+                                    </span>
+                                }
+                                {
+                                    notification?.subscriptionId &&
+                                    <span>
+                                        You have a successfully paid for. from {notification?.subscriptionId?.name?.split("_").join(" ")} {notification.subscriptionId?.duration} plan<span className='underline text-blue-400 hover:cursor-pointer' onClick={() => { closeNotifications(); navigate(`/dashboard/appointments/${notification?.appointmentId?._id}`) }}>View</span>
+
+                                    </span>
+                                }
                             </div>
+
                         )
                     }
                 })

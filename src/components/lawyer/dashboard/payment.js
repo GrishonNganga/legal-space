@@ -13,13 +13,13 @@ import { triggerFlutterwaveCheckout } from '../../../data/controller'
 import { userStore } from '../../../stores'
 
 const Payment = () => {
-
+    const user = userStore(state => state.user)
     useEffect(() => {
-        if (user) {
+        if (user?.paid && user?.subscriptionId) {
             navigate('/dashboard')
         }
     }, [user])
-    
+
     const plans = [
         {
             name: "counsel",
@@ -103,7 +103,6 @@ const Payment = () => {
     ]
 
     const navigate = useNavigate()
-    const user = userStore(state => state.user)
 
     const [step, setStep] = useState(1)
     const [paymentSuccess, setPaymentSuccess] = useState(false)
