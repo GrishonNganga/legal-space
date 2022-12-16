@@ -13,26 +13,8 @@ const NavBar = () => {
   }, [clicked]);
 
   return (
-    <nav className="w-full fixed top-0 z-50 bg-dark h-auto">
-      <div
-        className={`h-14 ${clicked ? "hidden" : "flex"
-          } items-center flex-row justify-center bg-black top-0`}
-      >
-        <div className="flex flex-row items-center">
-          <p className="text-sm text-white px-10">
-            Ready to take your firm to the next level? Join over 200+ Legal
-            space clients
-          </p>
-          <button
-            className="hidden sm:flex flex-row items-center py-3 outline-white border cursor-pointer text-white px-8 space-x-2"
-            type="button"
-            onClick={() => setClicked(true)}
-          >
-            <PlayIcon height={20} width={20} />
-            <p className="text-xs">See Video</p>
-          </button>
-        </div>
-      </div>
+    <nav className="w-full sticky top-0 z-50 bg-dark h-auto">
+      
       <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
