@@ -79,7 +79,7 @@ function App() {
         {!user && isLoadingUser && (
           <Route path="*" element={<SplashScreen />} />
         )}
-        {!user && !isLoadingUser && <Route path="*" element={<FourOhFour />} />}
+        {!user && !isLoadingUser && <Route path="*" element={<Signin />} />}
         <Route path="*" element={<FourOhFour />} />
       </Routes>
     </Router>

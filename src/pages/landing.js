@@ -10,180 +10,170 @@ import squigly from "../assets/images/squigly.png";
 
 const Homepage = () => {
   const navigate = useNavigate();
-  
+
   return (
-    <div className="overflow-hidden font-euclid">
-      <NavBar />
-      <div className="lg:px-auto md:px-4 md:pt-72 pt-44 pl-4 md:flex flex-row bg-dark md:h-[965px] h-[800px] overflow-hidden">
-        <div className="md:flex lg:ml-64 w-screen md:w-1/2 flex-col text-white mr-4">
-          <p className="text-lg font-normal text-legalLightGray">
-            EXPERIENCE COMFORT
-          </p>
-          <div className="md:block mb-10 font-semibold">
-            <p className="md:text-6xl text-4xl">
+    <div className="font-euclid">
+      <div className="bg-dark w-full h-screen flex justify-center">
+        <div className="relative w-11/12 md:w-10/12 lg:w-3/4 h-full">
+          <NavBar />
+          <div className="absolute top-0 w-full h-full flex flex-col justify-center md:justify-end">
+            <div className="text-lg font-normal text-legalLightGray tracking-wider mb-2">
+              EXPERIENCE COMFORT
+            </div>
+            <div className="md:text-6xl text-4xl text-white">
               Advocating for <span className="text-legalYellow">YOU</span>,
-            </p>
-            <p className="md:text-7xl text-4xl">
+            </div>
+            <div className="md:text-7xl text-4xl text-white">
               we are for the{" "}
               <span className="text-legalYellow">
                 <br />
                 PEOPLE
               </span>
-            </p>
-            <img
-              src={squigly}
-              alt="squigly thing"
-              className="hidden md:block"
-            />
-            <img src={squigly} alt="squigly thing" className="md:hidden w-40" />
-          </div>
-          {/* <div className="md:hidden w-screen">
-            <p className="text-2xl text-dark dark:text-white font-semibold">
-              Advocating for YOU, <br /> we are for the <br /> PEOPLE background: #C6A85C70;
-
-            </p>
-          </div> */}
-          <p className="md:text-lg text-[10px] text-legalLightGray">
-            We are ready to help whatever legal problem you are experiencing. We
-            will help with our best lawyers. Hesitant? You can consult for free!
-          </p>
-
-          {/* desktop satisfied  clients background: #FFFFFF1A;
-           */}
-          <div
-            className=" hidden md:grid w-[660px] bg-[#FFFFFF1A] h-44 py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-36
-"
-          >
-            <div className="">
-              <p className="dark:text-white text-dark font-semibold text-4xl">
-                100+
-              </p>
-              <p className="dark:text-legalLightGray text-primary text-base font-normal">
-                Qualified Lawyers
-              </p>
             </div>
-            <div>
-              <p className="dark:text-white text-dark font-semibold text-4xl">
-                350+
-              </p>
-              <p className="dark:text-legalLightGray text-primary text-base font-normal">
-                Successfull Cases
-              </p>
+            <div className="-mt-2">
+              <img
+                src={squigly}
+                alt="squigly thing"
+                className="hidden md:block"
+              />
             </div>
-            <div>
-              <p className="dark:text-white text-dark font-semibold text-4xl">
-                200+
-              </p>
-              <p className="dark:text-legalLightGray text-primary text-base font-normal">
-                Trusted Clients
-              </p>
+            <div className="w-full md:w-1/2 md:text-lg text-[10px] text-legalLightGray my-5">
+              We are ready to help whatever legal problem you are experiencing. We
+              will help with our best lawyers. Hesitant? You can consult for free!
+            </div>
+            <div className="w-full h-1/2 md:h-1/3 flex flex-col justify-end">
+              <div className=" hidden md:grid w-1/2 bg-[#FFFFFF1A] h-44 py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-36"          >
+                <div className="">
+                  <p className="dark:text-white text-dark font-semibold text-4xl">
+                    100+
+                  </p>
+                  <p className="dark:text-legalLightGray text-primary text-base font-normal">
+                    Qualified Lawyers
+                  </p>
+                </div>
+                <div>
+                  <p className="dark:text-white text-dark font-semibold text-4xl">
+                    350+
+                  </p>
+                  <p className="dark:text-legalLightGray text-primary text-base font-normal">
+                    Successfull Cases
+                  </p>
+                </div>
+                <div>
+                  <p className="dark:text-white text-dark font-semibold text-4xl">
+                    200+
+                  </p>
+                  <p className="dark:text-legalLightGray text-primary text-base font-normal">
+                    Trusted Clients
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* conjoined images mobile */}
-          <div className=" flex justify-end md:hidden pr-8 mt-8">
-            <div className="h-[275px] w-[205px] relative">
-              <img src={woman} alt="woman" />
-              <div className="w-[159px] h-[240px] absolute -left-24 -bottom-36">
-                <img src={gavel} alt="gavel" />
+          <div className="absolute right-0 w-3/4 md:w-1/2 h-full hidden md:flex justify-center items-center">
+            <div className="w-full md:h-3/5">
+              <img src={woman} className="w-full h-full" alt="gavel" />
+            </div>
+          </div>
+          <div className="absolute right-0 bottom-0 w-full md:w-1/2 h-1/3 hidden md:flex items-end">
+            <div className="w-1/2 h-full md:pl-8">
+              <img src={gavel} className="w-full h-full" alt="gavel" />
+            </div>
+          </div>
+          <div className="flex md:hidden w-full h-full">
+            <div className="absolute right-0 w-3/4 md:w-1/2 h-full flex justify-center items-center">
+              <div className="w-full md:h-3/5">
+                <img src={woman} className="w-full h-full" alt="gavel" />
+              </div>
+            </div>
+            <div className="absolute right-0 bottom-0 w-full md:w-1/2 h-1/3 flex items-end">
+              <div className="w-1/2 h-full md:pl-8">
+                <img src={gavel} className="w-full h-full" alt="gavel" />
               </div>
             </div>
           </div>
         </div>
-        <div className="hidden md:block w-screen md:w-1/2 lg:ml-60">
-          <div className="h-[570px] w-2/3 lg:w-[430px] relative">
-            <img src={woman} alt="woman" className="scale-100" />
-            <div className="absolute lg:-left-36 lg:-bottom-32 md:-left-20 md:-bottom-20 lg:w-[300px] lg:h=[440px]">
-              <img
-                src={gavel}
-                alt="gavel"
-                className="scale-100 lg:w-72 lg:h-96 md:w-52 md:h-80"
-              />
-            </div>
-          </div>
-        </div>
       </div>
-
-      {/* clients satisfied mobile */}
-      <div className="h-[105px] bg-[#C5CAC9] md:hidden flex items-center justify-between space-x-4 px-4 text-white">
-        <div>
-          <p className="text-3xl font-semibold">100+</p>
-          <p className="text-dark text-sm">Qualified Lawyers</p>
-        </div>
-        <div>
-          <p className="text-3xl font-semibold">350+</p>
-          <p className="text-dark text-sm">Successful Cases</p>
-        </div>
-        <div>
-          <p className="text-3xl font-semibold">200+</p>
-          <p className="text-dark text-sm">Trusted Clients</p>
-        </div>
-      </div>
-
-      {/* section 2 */}
-      <div className="pt-20 md:flex">
-        <div className="hidden md:block w-screen lg:ml-64 md:ml-4 md:w-1/2">
-          <div className="lg:w-[450px] w-screen md:w-full">
-            <div className="bg-[#C6A85C70] h-80 w-[600px] relative -right-[1px] mt-56" />
-
-            <img
-              src={stairs}
-              alt="man"
-              className="lg:scale:100 flex flex-grow h-[512px] w-[455px] absolute -bottom-[622px]"
-            />
-          </div>
-        </div>
-
-        {/* stairs mobile */}
-        <div className="md:hidden h-80 pt-24 px-4">
-          <div className="relative bg-[#C6A85C70] h-36">
-            <div className="absolute -leftx-[2px] -top-[124px]">
-              <img src={stairs} alt="stairs" className="h-[300px] w-[200px]" />
-            </div>
-          </div>
-        </div>
-        <div className="w-screen md:w-1/2 mr-64 space-y-4">
+      <div className="bg-[#C5CAC9]">
+        <div className="flex justify-between md:hidden w-full bg-[#FFFFFF1A] py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center">
           <div className="">
-            <p className="text-6xl font-semibold text-dark md:px-0 px-4">
-              Get a lawyer in minutes!
+            <p className="dark:text-white text-dark font-semibold text-4xl">
+              100+
+            </p>
+            <p className=" text-dark text-sm font-normal">
+              Qualified Lawyers
             </p>
           </div>
           <div>
-            <p className="justify-center md:px-0 px-4 md:text-lg font-normal text-[#697472]">
-              t vero eos et accusamus et iusto odio dignissimos ducimus qui
-              blanditiis praesentium voluptatum deleniti atque corrupti quos
-              dolores et quas molestias excepturi sint occ t
-              <br />
-              <br />
-              vero eos et accusamus et iusto odio dignissimos ducimus qui
-              blanditiis praesentium voluptatum deleniti atque corrupti quos
-              dolores et quas molestias excepturi sint occ t
-              <br />
-              <br />
-              vero eos et accusamus et iusto odio dignissimos ducimus qui
-              blanditiis praesentium voluptatum deleniti atque corrupti quos
-              dolores et quas molestias excepturi sint occ
+            <p className=" dark:text-white text-dark font-semibold text-4xl">
+              350+
+            </p>
+            <p className="text-dark text-sm font-normal">
+              Successfull Cases
             </p>
           </div>
-          <div className="flex justify-center md:justify-start pt-8 text-xs font-semibold">
-            <button
-              className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
-              onClick={() => {
-                navigate("/client-signup");
-              }}
-            >
-              Free Consultation
-            </button>
+          <div>
+            <p className="dark:text-white text-dark font-semibold text-4xl">
+              200+
+            </p>
+            <p className="text-dark text-sm font-normal">
+              Trusted Clients
+            </p>
           </div>
         </div>
       </div>
+      <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-11/12 md:w-10/12 lg:w-3/4 h-full md:h-3/4">
+          <div className="w-full h-full flex flex-col md:flex-row items-center md:justify-center gap-x-4">
+            <div className="w-full md:w-3/5 h-1/3 md:h-full relative mt-5 md:mt-0">
+              <div className="absolute bottom-0 w-full h-1/2 bg-[#C6A85C70]">
 
+              </div>
+              <div className="absolute w-full h-full z-10">
+                <img src={stairs} alt="stairs" className="w-3/4 h-full" />
+              </div>
+            </div>
+            <div className="md:w-2/5 flex flex-col justify-between">
+              <div className="text-2xl md:text-6xl font-semibold text-dark py-3 md:py-0">
+                Get a lawyer in minutes!
+              </div>
+              <div>
+                <div>
+                  t vero eos et accusamus et iusto odio dignissimos ducimus qui
+                  blanditiis praesentium voluptatum deleniti atque corrupti quos
+                  dolores et quas molestias excepturi sint occ t
+                  <br />
+                  <br />
+                  vero eos et accusamus et iusto odio dignissimos ducimus qui
+                  blanditiis praesentium voluptatum deleniti atque corrupti quos
+                  dolores et quas molestias excepturi sint occ t
+                  <br />
+                  <br />
+                  vero eos et accusamus et iusto odio dignissimos ducimus qui
+                  blanditiis praesentium voluptatum deleniti atque corrupti quos
+                  dolores et quas molestias excepturi sint occ
+                </div>
+              </div>
+              <div>
+                <button
+                  className="bg-legalYellow text-white h-12 md:w-44 w-44 rounded-md"
+                  onClick={() => {
+                    navigate("/client-signup");
+                  }}
+                >
+                  Free Consultation
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* section 3 */}
       <div className="lg:pl-64 md:ml-4">
-        <div className="md:flex flex-row mt-32 pd:h-40 h-auto">
-          <div className="w-1/2">
+        <div className="md:flex flex-row pd:h-40 h-auto">
+          <div className="md:w-1/2">
             <p className="md:text-6xl text-2xl font-bold text-dark md:px-0 px-4">
-              Meet our <span className="text-legalYellow">TOP</span> <br />{" "}
+              Meet our <span className="text-legalYellow">TOP</span>{" "}
               expert legal team
             </p>
           </div>
