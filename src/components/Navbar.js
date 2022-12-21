@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import white from "../assets/FINALWhite.svg";
 
 import { userStore } from "../stores";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const user = userStore(state => state.user)
+  const user = userStore((state) => state.user);
 
   useEffect(() => {
     localStorage.setItem("clicked", JSON.parse(clicked));
@@ -14,14 +15,15 @@ const NavBar = () => {
 
   return (
     <nav className="w-full sticky top-0 z-50 bg-dark h-auto">
-      
       <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <a href="/">
-              <h2 className="text-2xl font-bold text-dark dark:text-white">
-                legalSPACE
-              </h2>
+              <img
+                src={white}
+                alt="white logo"
+                className="text-white h-10 flex justify-center"
+              />
             </a>
             <div className="md:hidden">
               <button
@@ -63,8 +65,9 @@ const NavBar = () => {
         </div>
         <div>
           <div
-            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block bg-white h-4/5 w-screen" : "hidden"
-              }`}
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              navbar ? "block bg-white h-4/5 w-screen" : "hidden"
+            }`}
           >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 px-4">
               <li className="text-legalLightGray md:hover:text-white">
@@ -82,29 +85,35 @@ const NavBar = () => {
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/">Contact</a>
               </li>
-
             </ul>
 
             <div
               className="mt-3 space-y-2 lg:hidden md:inline-block w-3/5"
               aria-hidden={true}
             >
-              {
-                user &&
+              {(user && (
                 <a
                   href="/dashboard"
                   className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
                 >
                   Visit Dashboard
-                </a> 
-                ||
-                <a
-                  href="/client-signup"
-                  className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
-                >
-                  Free Consultation
                 </a>
-              }
+              )) || (
+                <>
+                  <a
+                    href="/client-signup"
+                    className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
+                  >
+                    Client Signup
+                  </a>
+                  <a
+                    href="/lawyer-signup"
+                    className="inline-block w-full px-4 py-2 text-center text-white bg-dark ml-12"
+                  >
+                    Lawyer Signup
+                  </a>
+                </>
+              )}
             </div>
           </div>
         </div>
