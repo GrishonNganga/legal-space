@@ -45,14 +45,14 @@ function App() {
     // eslint-disable-next-line
   }, [user]);
 
-  useEffect(() => {
-    // window.addEventListener("offline", () => {
-    //   toast.error("it seems you're offline");
-    // });
-    // window.addEventListener("online", () => {
-    //   toast.success("you're back online!");
-    // });
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("offline", () => {
+  //     toast.error("it seems you're offline");
+  //   });
+  //   window.addEventListener("online", () => {
+  //     toast.success("you're back online!");
+  //   });
+  // }, []);
 
   return (
     <Router>

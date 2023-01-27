@@ -13,6 +13,8 @@ import {
 import { CheckCircleIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
 import { userStore } from '../../stores'
 
+import green from '../../assets/Green.png'
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -147,7 +149,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                 </Transition.Child>
                                 <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                                     <div className="flex-shrink-0 flex items-center px-4">
-                                        LegalSpace
+                                    <img src={green} alt='LegalSpace' className='h-10 text-legalGreen justify-center flex' />
                                     </div>
                                     <div className="mt-5 flex-grow flex flex-col">
                                         <nav className="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
@@ -251,7 +253,7 @@ const DestopSidebar = ({ collapsedMenu, navigate, currentRoute, routePrefix, nav
                         <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
                             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                                 <div className="flex justify-center flex-shrink-0">
-                                    LegalSpace
+                                <img src={green} alt='LegalSpace' className='h-10 text-legalGreen justify-center flex' />
                                 </div>
                                 <div className="mt-5 flex-grow flex flex-col">
                                     <nav className="flex-1 px-2 space-y-1 bg-white" aria-label="Sidebar">
