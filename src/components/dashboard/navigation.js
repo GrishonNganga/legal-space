@@ -17,11 +17,17 @@ export const MiddleTopNav = ({ setSidebarOpen, setCollapsedMenu, middleTopNavTex
     const [unviewedNotification, setUnviewedNotification] = useState(false)
 
     useEffect(() => {
-        getNotifications().then(response => {
+        let interval = setInterval(()=>{
+           getNotifications().then(response => {
             if (response?.status === "success") {
                 setNotifications(response?.data)
             }
-        })
+        }) 
+        },30000);
+        return() =>{
+            clearInterval(interval)
+        }
+        
 
     }, [])
 

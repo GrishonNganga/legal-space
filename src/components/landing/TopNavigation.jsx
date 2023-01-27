@@ -18,7 +18,7 @@ function TopNavigation() {
       <div className="flex flex-row min-w-full">
         <p className="text-sm text-white px-10">
           Ready to take your firm to the next level? Join over 200+ Legal space
-          clients
+          clients  
         </p>
         <button
           className="hidden sm:block outline border-white cursor-pointer text-white"
