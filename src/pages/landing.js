@@ -14,9 +14,9 @@ const Homepage = () => {
   return (
     <div className="font-euclid">
       <div className="bg-dark w-full h-screen flex justify-center">
-        <div className="relative w-11/12 md:w-10/12 lg:w-3/4 h-full">
+        <div className="relative w-full md:w-10/12 lg:w-3/4 h-full">
           <NavBar />
-          <div className="absolute top-0 w-full h-full flex flex-col justify-center md:justify-end">
+          <div className="absolute top-0 w-full h-full hidden md:flex flex-col justify-center md:justify-end">
             <div className="text-lg font-normal text-legalLightGray tracking-wider mb-2">
               EXPERIENCE COMFORT
             </div>
@@ -71,6 +71,36 @@ const Homepage = () => {
               </div>
             </div>
           </div>
+          <div className=" max-w-2xl h-full flex flext-col items-center justify-center md:hidden bg-landing-mobile bg-cover">
+            <div className="flex sm:justify-center"></div>
+            <div className="text-center flex flex-col justify-center items-center">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                Advocating for <span className="text-legalYellow">YOU,</span>
+                <br />
+                We are for the <br />
+                <span className="text-legalYellow">PEOPLE</span>
+              </h1>
+              <p className="mt-6 md:text-lg text-[12px] leading-8 text-gray-300 px-8">
+                We are ready to help whatever legal problem you are
+                experiencing. We will help with our best lawyers. Hesitant? You
+                can consult for free!
+              </p>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <a
+                  href="/lawyer-signup"
+                  className="rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-legalGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
+                >
+                  Lawyer Signup
+                </a>
+                <a
+                  href="/client-signup"
+                  className="text-base font-semibold leading-7 text-white border rounded-md border-legalYellow px-3.5 py-1.5"
+                >
+                  Client Signup
+                </a>
+              </div>
+            </div>
+          </div>
           <div className="absolute right-0 w-3/4 md:w-1/2 h-full hidden md:flex justify-center items-center">
             <div className="w-full md:h-3/5">
               <img src={woman} className="w-full h-full" alt="gavel" />
@@ -81,21 +111,9 @@ const Homepage = () => {
               <img src={gavel} className="w-full h-full" alt="gavel" />
             </div>
           </div>
-          <div className="flex md:hidden w-full h-full">
-            <div className="absolute right-0 w-3/4 md:w-1/2 h-full flex justify-center items-center">
-              <div className="w-full md:h-3/5">
-                <img src={woman} className="w-full h-2/3" alt="gavel" />
-              </div>
-            </div>
-            <div className="absolute right-0 bottom-0 w-full md:w-1/2 h-1/3 flex items-end">
-              <div className="w-1/2 h-full md:pl-8">
-                <img src={gavel} className="w-full h-full" alt="gavel" />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-      <div className="bg-[#C5CAC9]">
+      <div className="bg-[#C5CAC9] mt-12">
         <div className="flex justify-between md:hidden w-full bg-[#FFFFFF1A] py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center">
           <div className="">
             <p className="dark:text-white text-dark font-semibold text-4xl">

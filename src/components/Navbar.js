@@ -74,14 +74,9 @@ const NavBar = () => {
                 <a href="/">Home</a>
               </li>
               <li className="text-legalLightGray md:hover:text-white focus:bg-legalBlue">
-                <a href="/">About Us</a>
+                <a href="/pricing">Pricing</a>
               </li>
-              <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Services</a>
-              </li>
-              <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Testimonials</a>
-              </li>
+              
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/">Contact</a>
               </li>

@@ -15,6 +15,9 @@ module.exports = {
     fontFamily: {
       euclid: ["euclid"],
     },
+    backgroundImage: {
+      "landing-mobile": "url('/src/assets/images/image.png')"
+    }
   },
   plugins: [],
 };

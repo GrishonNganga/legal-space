@@ -20,6 +20,8 @@ import Flutterwave from './pages/lawyer/flutterwave'
 import { refresh } from "./data/controller";
 
 import { userStore } from "./stores";
+import Pricing from "./components/landing/Pricing";
+import Example from "./components/landing/Example";
 
 function App() {
   const user = userStore((state) => state.user);
@@ -58,6 +60,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/example" element={<Example />} />
         <Route path='/lawyer-signup' element={<LawyerSignup />} />
         <Route path='/client-signup' element={<ClientSignup />} />
         <Route path='/signin' element={<Signin />} />
