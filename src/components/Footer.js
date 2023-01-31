@@ -1,23 +1,30 @@
 import React from "react";
 import { Input } from "./ui";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import logo from "../assets/White2.svg";
 
 const Footer = () => {
   return (
     <div className="mt-8 bottom-0 lg:px-72 md:px-20 sm:pt-8 sm:pb-14 text-white md:h-[400px] h-auto w-screen bg-dark pt-8 pl-8 pb-8 overflow-hidden">
       <div className="mb-8 space-y-3">
-        <p>LEGAL SPACE.IO</p>
-        <p className="text-legalLightGray text-sm">For the people</p>
+        <img src={logo} alt="logo" className="h-10" />
+        <p className="text-legalLightGray text-sm">For the people.</p>
       </div>
       <div className="sm:grid grid-flow-row grid-cols-4">
         <div className="mb-8">
           <p className="md:py-8 py-2">Address</p>
+          <p className="text-legalLightGray">
+            Suite 11 Side Offices Whitehouse
+            <br />
+            MandaHill Lusaka, Zambia
+          </p>
         </div>
         <div className="mb-8">
           <p className="md:py-8 py-2">Contact</p>
           <p className="text-legalLightGray">
-            +141 1234 5678 9100 <br />
-            legalspace@legal.io
+            Zambia: +260 764834476 <br />
+            Kenya: +254 700125555 <br />
+            care@twafwane.com
           </p>
         </div>
         <div className="mb-8">
@@ -47,7 +54,7 @@ const Footer = () => {
               className="h-10 w-10 bg-legalYellow flex items-center justify-center"
               aria-hidden={true}
             >
-              <a href="mailto:email@example.com" rel="noreferrer">
+              <a href="mailto:care@twafwane.com" rel="noreferrer">
                 <ArrowRightIcon className="h-6 w-6" />
               </a>
             </div>
