@@ -78,7 +78,7 @@ const NavBar = () => {
               </li>
               
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Contact</a>
+                <a href="/contact">Contact</a>
               </li>
             </ul>
 
