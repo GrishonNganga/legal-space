@@ -61,11 +61,13 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="pt-20 flex flex-row items-center space-x-4">
+      <div className="pt-20 md:pt-6 grid grid-cols-2 md:flex flex-row items-center md:space-x-4">
         <p className="text-[10px] md:text-sm text-[#98A6A4]">
-          2022 copyright by LegalSPACE. All rights reserved
+          2022 copyright by LegalSPACE.
+          <br className="md:hidden" /> All rights reserved <br /> Powered by
+          Twafwane Innovations
         </p>
-        <div className="h-[1px] md:w-3/5 w-16 bg-[#98A6A4]" />
+        <div className="h-[1px] md:w-3/5 w-32 bg-[#98A6A4]" />
       </div>
     </div>
   );
