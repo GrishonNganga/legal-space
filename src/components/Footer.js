@@ -50,7 +50,7 @@ const Footer = () => {
         <div className="py-8 flex flex-col md:items-center items-start justify-center space-y-4">
           <p>Subscribe to our newsletter</p>
 
-          <div className="text-white flex flex-row space-x-2">
+          <div className="text-white flex flex-row space-y-2">
             <form>
               <Input
                 id="newsletter"
@@ -65,16 +65,17 @@ const Footer = () => {
               />
 
               <div
-                className="h-10 w-10 bg-legalYellow flex items-center justify-center"
-                aria-hidden={true}
+                className=" bg-legalYellow rounded-md flex items-center justify-center mt-2"
+                // aria-hidden={true}
               >
                 <button
+                  className="py-2 "
                   type="submit"
                   onSubmit={() => {
                     handleSubmit();
                   }}
                 >
-                  <ArrowRightIcon className="h-6 w-6" />
+                  SUBSCRIBE
                 </button>
               </div>
             </form>

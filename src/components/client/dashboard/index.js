@@ -20,7 +20,7 @@ const Main = ({ setMiddleTopNavText }) => {
     const [selectedCategory, setSelectedCategory] = useState("all")
 
     useEffect(() => {
-        setMiddleTopNavText("Lawyerspace.io")
+        setMiddleTopNavText("Legalspace.app")
 
         setLoadingCategories(true)
         getAllAreasOfPractice().then(response => {
