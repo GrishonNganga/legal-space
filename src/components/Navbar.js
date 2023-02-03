@@ -78,12 +78,12 @@ const NavBar = () => {
               </li>
               
               <li className="text-legalLightGray md:hover:text-white">
-                <a href="/">Contact</a>
+                <a href="/contact">Contact</a>
               </li>
             </ul>
 
             <div
-              className="mt-3 space-y-2 lg:hidden md:inline-block w-3/5"
+              className="mt-3 space-y-2 md:hidden md:inline-block w-3/5"
               aria-hidden={true}
             >
               {(user && (

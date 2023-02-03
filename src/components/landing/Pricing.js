@@ -49,7 +49,7 @@ const plans = [
 ];
 const features = [
   {
-    title: "Tax Savings",
+    title: "Keep track of analytics",
     tiers: [
       { title: "starter", value: true },
       { title: "popular", featured: true, value: true },
@@ -57,7 +57,7 @@ const features = [
     ],
   },
   {
-    title: "Easy to use accounting",
+    title: "High ranking recommendation",
     tiers: [
       { title: "starter", value: true },
       { title: "popular", featured: true, value: true },
@@ -65,39 +65,23 @@ const features = [
     ],
   },
   {
-    title: "Multi-accounts",
+    title: "Plan type",
     tiers: [
-      { title: "starter", value: "3 accounts" },
-      { title: "popular", featured: true, value: "Unlimited accounts" },
-      { title: "intermediate", value: "7 accounts" },
+      { title: "starter", value: "Indivudual plan" },
+      { title: "popular", featured: true, value: "Law Firm" },
+      { title: "intermediate", value: "Law firm" },
     ],
   },
   {
-    title: "Invoicing",
+    title: "Clients per month",
     tiers: [
-      { title: "starter", value: "3 invoices" },
-      { title: "popular", featured: true, value: "Unlimited invoices" },
-      { title: "intermediate", value: "10 invoices" },
+      { title: "starter", value: "Upto 5 clients" },
+      { title: "popular", featured: true, value: "Unlimited clients" },
+      { title: "intermediate", value: "Unlimited clients" },
     ],
   },
   {
-    title: "Exclusive offers",
-    tiers: [
-      { title: "starter", value: false },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "6 months free advisor",
-    tiers: [
-      { title: "starter", value: false },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Mobile and web access",
+    title: "Onboarding firm lawyers",
     tiers: [
       { title: "starter", value: false },
       { title: "popular", featured: true, value: true },
@@ -105,64 +89,7 @@ const features = [
     ],
   },
 ];
-const perks = [
-  {
-    title: "24/7 customer support",
-    tiers: [
-      { title: "starter", value: true },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Instant notifications",
-    tiers: [
-      { title: "starter", value: true },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Budgeting tools",
-    tiers: [
-      { title: "starter", value: true },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Digital receipts",
-    tiers: [
-      { title: "starter", value: true },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Pots to separate money",
-    tiers: [
-      { title: "starter", value: false },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: true },
-    ],
-  },
-  {
-    title: "Free bank transfers",
-    tiers: [
-      { title: "starter", value: false },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: false },
-    ],
-  },
-  {
-    title: "Business debit card",
-    tiers: [
-      { title: "starter", value: false },
-      { title: "popular", featured: true, value: true },
-      { title: "intermediate", value: false },
-    ],
-  },
-];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -316,7 +243,7 @@ export default function Pricing() {
                 </div>
                 <h4 className="sr-only">Features</h4>
                 <ul
-                  role="list"
+                  
                   className={classNames(
                     plan.featured
                       ? "border-gray-200 divide-gray-200"
@@ -349,12 +276,9 @@ export default function Pricing() {
           </div>
         </div>
       </div>
-      <div>
-        <Footer /> 
-      </div>
 
       {/* Feature comparison (up to lg) */}
-      {/* <section
+      <section
         aria-labelledby="mobile-comparison-heading"
         className="lg:hidden"
       >
@@ -469,86 +393,12 @@ export default function Pricing() {
                   />
                 </div>
               </div>
-
-              <h4 className="mt-10 text-sm font-bold text-gray-900">
-                Other perks
-              </h4>
-
-              <div className="relative mt-6">
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 hidden sm:block"
-                >
-                  <div
-                    className={classNames(
-                      plan.featured ? "shadow-md" : "shadow",
-                      "absolute right-0 w-1/2 h-full bg-white rounded-lg"
-                    )}
-                  />
-                </div>
-
-                <div
-                  className={classNames(
-                    plan.featured
-                      ? "ring-2 ring-indigo-600 shadow-md"
-                      : "ring-1 ring-black ring-opacity-5 shadow",
-                    "relative py-3 px-4 bg-white rounded-lg sm:p-0 sm:bg-transparent sm:rounded-none sm:ring-0 sm:shadow-none"
-                  )}
-                >
-                  <dl className="divide-y divide-gray-200">
-                    {perks.map((perk) => (
-                      <div
-                        key={perk.title}
-                        className="flex justify-between py-3 sm:grid sm:grid-cols-2"
-                      >
-                        <dt className="text-sm font-medium text-gray-600 sm:pr-4">
-                          {perk.title}
-                        </dt>
-                        <dd className="text-center sm:px-4">
-                          {perk.tiers[mobilePlanIndex].value === true ? (
-                            <CheckIcon
-                              className="mx-auto h-5 w-5 text-legalYellow"
-                              aria-hidden="true"
-                            />
-                          ) : (
-                            <XMarkIcon
-                              className="mx-auto h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          )}
-
-                          <span className="sr-only">
-                            {perk.tiers[mobilePlanIndex].value === true
-                              ? "Yes"
-                              : "No"}
-                          </span>
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 hidden sm:block"
-                >
-                  <div
-                    className={classNames(
-                      plan.featured
-                        ? "ring-2 ring-indigo-600"
-                        : "ring-1 ring-black ring-opacity-5",
-                      "absolute right-0 w-1/2 h-full rounded-lg"
-                    )}
-                  />
-                </div>
-              </div>
             </div>
           ))}
         </div>
-      </section> */}
-
+      </section>
       {/* Feature comparison (lg+) */}
-      {/* <section aria-labelledby="comparison-heading" className="hidden lg:block">
+      <section aria-labelledby="comparison-heading" className="hidden lg:block">
         <h2 id="comparison-heading" className="sr-only">
           Feature comparison
         </h2>
@@ -571,13 +421,13 @@ export default function Pricing() {
               >
                 <div
                   className={classNames(
-                    plan.featured ? "border-indigo-600" : "border-transparent",
+                    plan.featured ? "border-dark" : "border-transparent",
                     "py-6 border-t-2"
                   )}
                 >
                   <p
                     className={classNames(
-                      plan.featured ? "text-indigo-600" : "text-gray-900",
+                      plan.featured ? "text-dark" : "text-legalYellow",
                       "text-sm font-bold"
                     )}
                   >
@@ -645,9 +495,7 @@ export default function Pricing() {
                           {typeof tier.value === "string" ? (
                             <span
                               className={classNames(
-                                tier.featured
-                                  ? "text-indigo-600"
-                                  : "text-gray-900",
+                                tier.featured ? "text-black" : "text-gray-600",
                                 "text-sm font-medium"
                               )}
                             >
@@ -689,98 +537,7 @@ export default function Pricing() {
                 <div className="h-full w-full rounded-lg ring-1 ring-black ring-opacity-5" />
               </div>
               <div className="w-1/4 px-4">
-                <div className="h-full w-full rounded-lg ring-2 ring-indigo-600 ring-opacity-100" />
-              </div>
-              <div className="w-1/4 pl-4">
-                <div className="h-full w-full rounded-lg ring-1 ring-black ring-opacity-5" />
-              </div>
-            </div>
-          </div>
-
-          <h3 className="mt-10 text-sm font-bold text-gray-900">Other perks</h3>
-
-          <div className="relative mt-6">
-            <div
-              className="pointer-events-none absolute inset-0 flex items-stretch"
-              aria-hidden="true"
-            >
-              <div className="w-1/4 pr-4" />
-              <div className="w-1/4 px-4">
-                <div className="h-full w-full rounded-lg bg-white shadow" />
-              </div>
-              <div className="w-1/4 px-4">
-                <div className="h-full w-full rounded-lg bg-white shadow-md" />
-              </div>
-              <div className="w-1/4 pl-4">
-                <div className="h-full w-full rounded-lg bg-white shadow" />
-              </div>
-            </div>
-
-            <table className="relative w-full">
-              <caption className="sr-only">Perk comparison</caption>
-              <thead>
-                <tr className="text-left">
-                  <th scope="col">
-                    <span className="sr-only">Perk</span>
-                  </th>
-                  {plans.map((plan) => (
-                    <th key={plan.title} scope="col">
-                      <span className="sr-only">{plan.title} plan</span>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {perks.map((perk) => (
-                  <tr key={perk.title}>
-                    <th
-                      scope="row"
-                      className="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600"
-                    >
-                      {perk.title}
-                    </th>
-                    {perk.tiers.map((tier, tierIdx) => (
-                      <td
-                        key={tier.title}
-                        className={classNames(
-                          tierIdx === perk.tiers.length - 1 ? "pl-4" : "px-4",
-                          "relative w-1/4 py-0 text-center"
-                        )}
-                      >
-                        <span className="relative h-full w-full py-3">
-                          {tier.value === true ? (
-                            <CheckIcon
-                              className="mx-auto h-5 w-5 text-legalYellow"
-                              aria-hidden="true"
-                            />
-                          ) : (
-                            <XMarkIcon
-                              className="mx-auto h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          )}
-
-                          <span className="sr-only">
-                            {tier.value === true ? "Yes" : "No"}
-                          </span>
-                        </span>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div
-              className="pointer-events-none absolute inset-0 flex items-stretch"
-              aria-hidden="true"
-            >
-              <div className="w-1/4 pr-4" />
-              <div className="w-1/4 px-4">
-                <div className="h-full w-full rounded-lg ring-1 ring-black ring-opacity-5" />
-              </div>
-              <div className="w-1/4 px-4">
-                <div className="h-full w-full rounded-lg ring-2 ring-indigo-600 ring-opacity-100" />
+                <div className="h-full w-full rounded-lg ring-2 ring-legalGreen ring-opacity-100" />
               </div>
               <div className="w-1/4 pl-4">
                 <div className="h-full w-full rounded-lg ring-1 ring-black ring-opacity-5" />
@@ -788,7 +545,10 @@ export default function Pricing() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }

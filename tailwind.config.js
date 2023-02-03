@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
@@ -10,14 +12,18 @@ module.exports = {
         legalBlue: "#6F8BA4",
         dark: "#052A24",
         legalLightGray: "#98A6A4",
+        "warm-gray": colors.warmGray,
+        teal: colors.teal,
       },
     },
     fontFamily: {
       euclid: ["euclid"],
     },
     backgroundImage: {
-      "landing-mobile": "url('/src/assets/images/image.png')"
-    }
+      "landing-mobile": "url('/src/assets/images/image.png')",
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };
