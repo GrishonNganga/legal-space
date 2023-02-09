@@ -25,6 +25,12 @@ const NavBar = () => {
                 className="text-white h-10 flex justify-center"
               />
             </a>
+            <a
+            href="/login"
+            className="rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
+          >
+            Login
+          </a>
             <div className="md:hidden">
               <button
                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -63,6 +69,14 @@ const NavBar = () => {
             </div>
           </div>
         </div>
+        <div className="hidden md:block">
+          <a
+            href="/login"
+            className="rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
+          >
+            Login
+          </a>
+        </div>
         <div>
           <div
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
@@ -76,13 +90,13 @@ const NavBar = () => {
               <li className="text-legalLightGray md:hover:text-white focus:bg-legalBlue">
                 <a href="/pricing">Pricing</a>
               </li>
-              
+
               <li className="text-legalLightGray md:hover:text-white">
                 <a href="/contact">Contact</a>
               </li>
             </ul>
 
-            <div
+            {/* <div
               className="mt-3 space-y-2 md:hidden md:inline-block w-3/5"
               aria-hidden={true}
             >
@@ -109,7 +123,7 @@ const NavBar = () => {
                   </a>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
