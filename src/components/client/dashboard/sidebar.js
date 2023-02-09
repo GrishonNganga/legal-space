@@ -30,6 +30,13 @@ const routes = [
         enableNavigation: true,
     },
     {
+        name: 'Profile',
+        icon: UserGroupIcon,
+        current: false,
+        href: "/profile",
+        enableNavigation: true,
+    },
+    {
         name: 'Logout',
         icon: ArrowRightOnRectangleIcon,
         current: false,
