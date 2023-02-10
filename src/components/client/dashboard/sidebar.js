@@ -152,7 +152,7 @@ const MobileSidebar = ({ sidebarOpen, setSidebarOpen, navigate, currentRoute, ro
                                                         >
                                                             <item.icon
                                                                 className={classNames(
-                                                                    item.current ? 'text-gray-500 text-legalYellow' : `text-gray-400 group-hover:text-gray-500`,
+                                                                    item.current ? ' text-legalYellow' : `text-gray-400 group-hover:text-gray-500`,
                                                                     'mr-3 flex-shrink-0 h-6 w-6'
                                                                 )}
                                                                 aria-hidden="true"
