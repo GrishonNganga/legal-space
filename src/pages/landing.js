@@ -42,7 +42,7 @@ const Homepage = () => {
               We will help with our best lawyers. Hesitant? You can consult for
               free!
             </div>
-            <div className="mt-10 flex items-center justify-start gap-x-6">
+            <div className="flex items-center justify-start gap-x-6">
               <a
                 href="/lawyer-signup"
                 className="rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-legalGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
@@ -57,7 +57,7 @@ const Homepage = () => {
               </a>
             </div>
             <div className="w-full h-1/2 md:h-1/3 flex flex-col justify-end">
-              <div className=" hidden md:grid w-1/2 bg-[#FFFFFF1A] h-44 py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-36">
+              <div className=" hidden md:grid w-1/2 bg-[#FFFFFF1A] h-44 py-8 px-6 bg-accent-3-dark grid-flow-row grid-cols-3 items-center justify-center md:mt-28">
                 <div className="">
                   <p className="dark:text-white text-white font-semibold text-4xl">
                     100+
