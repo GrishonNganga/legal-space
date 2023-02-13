@@ -248,7 +248,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold text-sm'>ZK {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>USD {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
@@ -275,7 +275,7 @@ const SelectPlan = ({ step, setStep, user, plans, plan, setPlan, selectedPackage
                                                 </div>
                                             </div>
                                             <div>
-                                                <span className='font-bold text-sm'>ZK {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
+                                                <span className='font-bold text-sm'>USD {pack?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> <span className='text-gray-400 font-semibold'>/{pack?.frequency}</span>
                                             </div>
                                         </div>
                                     )
