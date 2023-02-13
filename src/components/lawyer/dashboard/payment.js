@@ -34,14 +34,14 @@ const Payment = () => {
                     id: "6387bfd5515c13dedb7c26dd",
                     name: "Monthly",
                     text: "Cancel Anytime",
-                    amount: 10000,
+                    amount: 6.99,
                     frequency: "m"
                 },
                 {
                     id: "6387bff0515c13dedb7c26df",
                     name: "Annual",
                     text: "Cancel Anytime",
-                    amount: 50000,
+                    amount: 60,
                     frequency: "y"
                 },
             ]
@@ -61,14 +61,14 @@ const Payment = () => {
                     id: "6387bb39421b14b574184323",
                     name: "Monthly",
                     text: "Cancel Anytime",
-                    amount: 20000,
+                    amount: 8.99,
                     frequency: "m"
                 },
                 {
                     id: "6387bf72515c13dedb7c26db",
                     name: "Annual",
                     text: "Cancel Anytime",
-                    amount: 100000,
+                    amount: 80,
                     frequency: "y"
                 },
             ]
@@ -88,14 +88,14 @@ const Payment = () => {
                     id: "6387c039515c13dedb7c26e1",
                     name: "Monthly",
                     text: "Cancel Anytime",
-                    amount: 50000,
+                    amount: 7.99,
                     frequency: "m"
                 },
                 {
                     id: "6387c059515c13dedb7c26e3",
                     name: "Annual",
                     text: "Cancel Anytime",
-                    amount: 150000,
+                    amount: 70,
                     frequency: "y"
                 },
             ]
@@ -436,7 +436,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 {plan?.name?.split("_").join(" ")} {plan?.packages[selectedPackage]?.name} Plan
                             </div>
                             <div className='text-sm'>
-                                ZK {plan?.packages[selectedPackage]?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                USD {plan?.packages[selectedPackage]?.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         {
@@ -446,7 +446,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                     Discount
                                 </div>
                                 <div>
-                                    ZK {discount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    USD {discount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                 </div>
                             </div>
                         }
@@ -455,7 +455,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 VAT
                             </div>
                             <div className='text-sm'>
-                                ZK {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                USD {(plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
                         <div className='border-b border-gray-900 w-full h-2 '>
@@ -466,7 +466,7 @@ const CompletePayment = ({ user, plan, selectedPackage, discount }) => {
                                 Total
                             </div>
                             <div className='font-semibold'>
-                                ZK {
+                                USD {
                                     (((plan?.packages[selectedPackage]?.amount + plan?.packages[selectedPackage]?.amount * 0.16).toFixed(2)) - discount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </div>
                         </div>
