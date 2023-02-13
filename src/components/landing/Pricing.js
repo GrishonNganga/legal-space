@@ -8,8 +8,8 @@ const plans = [
     title: "Counsel",
     featured: false,
     description: "All your essential business finances, taken care of.",
-    priceMonthly: 10000,
-    priceYearly: 50000,
+    priceMonthly: 6.99,
+    priceYearly: 60,
     mainFeatures: [
       { id: 1, value: "Individual plan" },
       { id: 2, value: "Access to up to 5 clients per month" },
@@ -21,8 +21,8 @@ const plans = [
     title: "Senior Counsel",
     featured: true,
     description: "The best financial services for your thriving business.",
-    priceMonthly: 20000,
-    priceYearly: 100000,
+    priceMonthly: 8.99,
+    priceYearly: 80,
     mainFeatures: [
       { id: 1, value: "Law firm plan" },
       { id: 2, value: "Access unlimited clients per month" },
@@ -36,8 +36,8 @@ const plans = [
     title: "Legal Firm",
     featured: false,
     description: "Convenient features to take your business to the next level.",
-    priceMonthly: 50000,
-    priceYearly: 150000,
+    priceMonthly: 7.99,
+    priceYearly: 70,
     mainFeatures: [
       { id: 1, value: "Law firm plan" },
       { id: 2, value: "Access unlimited clients per month" },
@@ -181,7 +181,7 @@ export default function Pricing() {
                             "text-4xl font-bold tracking-tight"
                           )}
                         >
-                          zk.{plan.priceMonthly}
+                          USD.{plan.priceMonthly}
                         </p>
                       )}
                       {selected === "Yearly" && (
@@ -191,7 +191,7 @@ export default function Pricing() {
                             "text-4xl font-bold tracking-tight"
                           )}
                         >
-                          zk.{plan.priceYearly}
+                          USD.{plan.priceYearly}
                         </p>
                       )}
 
@@ -210,7 +210,7 @@ export default function Pricing() {
                                 "text-sm"
                               )}
                             >
-                              ZK / mo
+                              USD / mo
                             </p>
                           </div>
                         )}
@@ -222,7 +222,7 @@ export default function Pricing() {
                                 "text-sm"
                               )}
                             >
-                              ZK / yr
+                              USD / yr
                             </p>
                           </div>
                         )}

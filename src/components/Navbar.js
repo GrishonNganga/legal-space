@@ -15,9 +15,15 @@ const NavBar = () => {
 
   return (
     <nav className="w-full sticky top-0 z-50 bg-dark h-auto">
-      <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+      <div className="justify-between mx-auto lg:max-w-7xl md:items-center md:flex md:px-8 px-2">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <a
+              href="/signin"
+              className="block md:hidden border rounded-md border-white px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
+            >
+              Login
+            </a>
             <a href="/">
               <img
                 src={white}
@@ -25,12 +31,7 @@ const NavBar = () => {
                 className="text-white h-10 flex justify-center"
               />
             </a>
-            <a
-            href="/signin"
-            className="block md:hidden rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
-          >
-            Login
-          </a>
+
             <div className="md:hidden">
               <button
                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -72,7 +73,7 @@ const NavBar = () => {
         <div className="hidden md:block">
           <a
             href="/signin"
-            className="rounded-md bg-legalYellow px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
+            className="rounded-md border border-white px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-legalGreen"
           >
             Login
           </a>
