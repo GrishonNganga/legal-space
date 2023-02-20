@@ -22,7 +22,7 @@ const Main = ({ setMiddleTopNavText, updateOnboardingPercentage }) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        setMiddleTopNavText("Legalspace.app")
+        setMiddleTopNavText("Legalspace.App")
     }, [])
 
     useEffect(() => {

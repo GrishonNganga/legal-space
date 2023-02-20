@@ -17,7 +17,7 @@ const Dashboard = () => {
     const [collapsedMenu, setCollapsedMenu] = useState(false)
     const [refreshPage, setRefreshPage] = useState(true)
     const [currentRoute, setCurrentRoute] = useState()
-    const [middleTopNavText, setMiddleTopNavText] = useState("Legalspace.app")
+    const [middleTopNavText, setMiddleTopNavText] = useState("Legalspace.App")
 
     const location = useLocation()
     const routePrefix = "/dashboard"
