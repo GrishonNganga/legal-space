@@ -96,35 +96,6 @@ const NavBar = () => {
                 <a href="/contact">Contact</a>
               </li>
             </ul>
-
-            {/* <div
-              className="mt-3 space-y-2 md:hidden md:inline-block w-3/5"
-              aria-hidden={true}
-            >
-              {(user && (
-                <a
-                  href="/dashboard"
-                  className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
-                >
-                  Visit Dashboard
-                </a>
-              )) || (
-                <>
-                  <a
-                    href="/client-signup"
-                    className="inline-block w-full px-4 py-2 text-center text-white bg-legalYellow ml-12"
-                  >
-                    Client Signup
-                  </a>
-                  <a
-                    href="/lawyer-signup"
-                    className="inline-block w-full px-4 py-2 text-center text-white bg-dark ml-12"
-                  >
-                    Lawyer Signup
-                  </a>
-                </>
-              )}
-            </div> */}
           </div>
         </div>
       </div>

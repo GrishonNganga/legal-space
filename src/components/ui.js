@@ -100,7 +100,7 @@ export const SplashCircles = ({ shimmer }) => {
         <>
             <div className="hidden md:flex w-full h-full bg-legalGreen flex-col justify-between">
                 <div className="w-full h-full flex justify-center items-center relative overflow-hidden pb-72">
-                    <div className={`absolute w-[343px] h-[343px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
+                    <div className={`absolute w-[343px] h-[300px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
 
                     </div>
                     <div className={`absolute w-[515px] h-[515px] border border-gray-500 rounded-full ${shimmer && "animate-pulse"}`}>
