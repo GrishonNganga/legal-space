@@ -22,14 +22,16 @@ const SplashScreen = () => {
         <SplashCircles shimmer={true} />
       </div>
       <div className="w-full min-h-screen flex lg:hidden flex-col justify-between bg-legalGreen transition-opacity delay-150 pb-12">
-        <SplashCircles shimmer={true} />
-        <div className="flex flex-col items-center pb-8">
-          <h2 className="text-2xl font-bold tracking-tight text-legalYellow">
-            Find the Best Lawyers
-          </h2>
-          <div className="text-sm font-normal text-gray-500 mt-2 text-center">
-            <div> Now you can find a lawyer </div>
-            <div>near your location for your case </div>
+        <div style={{ height: "80vh" }} className="h-[80vh]">
+          <SplashCircles shimmer={true} />
+          <div className="flex flex-col items-center pb-8">
+            <h2 className="text-2xl font-bold tracking-tight text-legalYellow">
+              Find the Best Lawyers
+            </h2>
+            <div className="text-sm font-normal text-gray-500 mt-2 text-center">
+              <div> Now you can find a lawyer </div>
+              <div>near your location for your case </div>
+            </div>
           </div>
         </div>
       </div>

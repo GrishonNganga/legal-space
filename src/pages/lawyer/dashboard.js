@@ -18,7 +18,7 @@ const Dashboard = () => {
     const [refreshPage, setRefreshPage] = useState(true)
     const [currentRoute, setCurrentRoute] = useState()
     const [profileComplete, setProfileComplete] = useState(true)
-    const [middleTopNavText, setMiddleTopNavText] = useState("Legalspace.app")
+    const [middleTopNavText, setMiddleTopNavText] = useState("Legalspace.App")
     const [onboardingPercentage, setOnboardingPercentage] = useState(0)
 
     const location = useLocation()
