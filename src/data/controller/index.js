@@ -26,7 +26,8 @@ import {
     changePasswordRequest,
     triggerFlutterwaveCheckoutRequest,
     getNotificationsRequest,
-    clearNotificationRequest
+    clearNotificationRequest,
+    getSubscriptionsRequest
 } from '../api/authenticatedRequests'
 
 export const signin = async (userDetails) => {
@@ -177,6 +178,11 @@ export const editFirm = async (firmDetails) => {
 
 export const clearNotification = async (notificationId) => {
     const response = await clearNotificationRequest(notificationId)
+    return _returnResponse(response)
+}
+
+export const getSubscription = async () => {
+    const response = await getSubscriptionsRequest()
     return _returnResponse(response)
 }
 
