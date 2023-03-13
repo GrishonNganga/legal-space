@@ -46,7 +46,7 @@ const teamData = [
   {
     // image: six,
     name: "Chipo Sam",
-    role: "SHead of Tech",
+    role: "Head of Tech",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
   },
