@@ -278,9 +278,9 @@ const SelectPlan = ({
                 <div
                   key={index}
                   className={`${
-                    isSelected
-                      ? "border-legalGreen checked:bg-legalGreen checked:text-white rounded-full border-transparent checked:accent-legalGreen"
-                      : "border hover:bg-gray-50 cursor-pointer"
+                    selectedPackage === pack
+                      ? "border-legalGreen checked:bg-legalGreen checked:text-white rounded-full border-transparent checked:accent-legalGreen bg-legalGreen text-white"
+                      : "border hover:bg-gray-50 cursor-pointer bg-white text-legalGreen"
                   } border rounded-xl flex justify-between p-4 items-center`}
                   onClick={() => {
                     setSelectedPackage(pack);
@@ -288,14 +288,14 @@ const SelectPlan = ({
                 >
                   <div className="flex gap-x-3 items-center">
                     <div>
-                      <input
+                      {/* <input
                         type="radio"
                         checked={isSelected}
                         className={`appearance-none styledRadio block w-full p-3 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:border-legalYellow sm:text-sm checked:bg-legalGreen checked:chec  checked:text-white checked:rounded-full checked:border-transparent checked:accent-legalGreen`}
                         onChange={() => {
                           setSelectedPackage(pack);
                         }}
-                      />
+                      /> */}
                     </div>
                     <div className="flex flex-col">
                       <div className="font-bold text-3xl capitalize">

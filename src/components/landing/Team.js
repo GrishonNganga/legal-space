@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import six from "../../assets/images/Frame6.svg";
-import three from "../../assets/images/Frame3.svg";
-import four from "../../assets/images/Frame4.svg";
+import three from "../../assets/lawyer.jpeg";
+import avatar from "../../assets/avatar.png";
 import five from "../../assets/images/Frame6.svg";
 // import Slider from "react-slick";
 import "./team.css";
@@ -24,60 +24,60 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 const teamData = [
   {
     image: three,
-    name: "Emille Buendia",
-    role: "Sports Legal",
+    name: "Rezin M'gode",
+    role: "Head of Operations",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    image: four,
-    name: "Andrev Schurle",
-    role: "Business Legal",
+    // image: four,
+    name: "Mary Kalumbu",
+    role: "Head Sales and Marketing",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    image: five,
-    name: "Brenda  Brody",
-    role: "Sales Legal",
+    // image: five,
+    name: "Kelvin Zimba",
+    role: "Lead Counsel and Head of Legal",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    image: six,
-    name: "Marcus Wayne ",
-    role: "Sales Legal",
+    // image: six,
+    name: "Chipo Sam",
+    role: "SHead of Tech",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
   },
-  {
-    image: five,
-    name: "Brenda  Brody",
-    role: "Sales Legal",
-    facebook: "https://www.facebook.com",
-    linkedin: "https://www.linkedin.com/in/",
-  },
-  {
-    image: six,
-    name: "Marcus Wayne ",
-    role: "Sales Legal",
-    facebook: "https://www.facebook.com",
-    linkedin: "https://www.linkedin.com/in/",
-  },
-  {
-    image: three,
-    name: "Emille Buendia",
-    role: "Sports Legal",
-    facebook: "https://www.facebook.com",
-    linkedin: "https://www.linkedin.com/in/",
-  },
-  {
-    image: six,
-    name: "Marcus Wayne ",
-    role: "Sales Legal",
-    facebook: "https://www.facebook.com",
-    linkedin: "https://www.linkedin.com/in/",
-  },
+  // {
+  //   image: five,
+  //   name: "Brenda  Brody",
+  //   role: "Sales Legal",
+  //   facebook: "https://www.facebook.com",
+  //   linkedin: "https://www.linkedin.com/in/",
+  // },
+  // {
+  //   image: six,
+  //   name: "Marcus Wayne ",
+  //   role: "Sales Legal",
+  //   facebook: "https://www.facebook.com",
+  //   linkedin: "https://www.linkedin.com/in/",
+  // },
+  // {
+  //   image: three,
+  //   name: "Emille Buendia",
+  //   role: "Sports Legal",
+  //   facebook: "https://www.facebook.com",
+  //   linkedin: "https://www.linkedin.com/in/",
+  // },
+  // {
+  //   image: six,
+  //   name: "Marcus Wayne ",
+  //   role: "Sales Legal",
+  //   facebook: "https://www.facebook.com",
+  //   linkedin: "https://www.linkedin.com/in/",
+  // },
 ];
 
 const CustomArrowLeft = ({ className, onClick }) => {
@@ -209,8 +209,20 @@ const Team = () => {
                     key={index}
                     className="team-card drop-shadow-sm text-white"
                   >
-                    <div>
-                      <img src={team.image} alt="" className="w-full" />
+                    <div className="h-2/3">
+                      {team.image ? (
+                        <img
+                          src={team.image}
+                          alt=""
+                          className="w-full object-fit"
+                        />
+                      ) : (
+                        <img
+                          src={avatar}
+                          alt=""
+                          className="w-full object-fit bg-white"
+                        />
+                      )}
                     </div>
                     <div className=" pl-3">
                       <div className="module mb-3 flex flex-row justify-between px-4 items-start">
