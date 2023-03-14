@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import six from "../../assets/images/Frame6.svg";
+import six from "../../assets/wig.jpg";
 import three from "../../assets/lawyer.jpeg";
 import avatar from "../../assets/avatar.png";
 import five from "../../assets/images/Frame6.svg";
@@ -37,7 +37,7 @@ const teamData = [
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    // image: five,
+    image: six,
     name: "Kelvin Zimba",
     role: "Lead Counsel and Head of Legal",
     facebook: "https://www.facebook.com",
