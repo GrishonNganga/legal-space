@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import six from "../../assets/wig.jpg";
 import three from "../../assets/lawyer.jpeg";
 import avatar from "../../assets/avatar.png";
-import five from "../../assets/images/Frame6.svg";
+import five from "../../assets/woman.jpeg";
 // import Slider from "react-slick";
 import "./team.css";
 import {
@@ -30,8 +30,8 @@ const teamData = [
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    // image: four,
-    name: "Mary Kalumbu",
+    image: five,
+    name: "Precious Mulenga",
     role: "Head Sales and Marketing",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
