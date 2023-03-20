@@ -3,6 +3,7 @@ import six from "../../assets/wig.jpg";
 import three from "../../assets/lawyer.jpeg";
 import avatar from "../../assets/avatar.png";
 import five from "../../assets/woman.jpeg";
+import bendon from "../../assets/bendon.jpeg";
 // import Slider from "react-slick";
 import "./team.css";
 import {
@@ -44,8 +45,8 @@ const teamData = [
     linkedin: "https://www.linkedin.com/in/",
   },
   {
-    // image: six,
-    name: "Chipo Sam",
+    image: bendon,
+    name: "Bendon Murgor",
     role: "Head of Tech",
     facebook: "https://www.facebook.com",
     linkedin: "https://www.linkedin.com/in/",
