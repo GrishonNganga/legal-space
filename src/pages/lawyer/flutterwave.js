@@ -54,7 +54,7 @@ const Flutterwave = () => {
                             You Legalspace payment did not go through
                         </div>
                         <div className='mt-5'>
-                            <Button text={"Try again"} active={true} onClick={() => { navigate('/settings/payment') }} />
+                            <Button text={"Try again"} active={true} onClick={() => { navigate('/dashboard/settings/payment') }} />
                         </div>
                     </div>
                 }
